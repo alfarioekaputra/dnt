@@ -1,0 +1,8 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/07-Databases
+
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+     dsn:      oracle://simkari:bandung@192.168.1.104/(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.104)(PORT=1521)))(CONNECT_DATA=(SID=ORCL)))

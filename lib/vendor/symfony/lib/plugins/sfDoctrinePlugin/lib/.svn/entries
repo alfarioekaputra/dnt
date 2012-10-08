@@ -1,0 +1,104 @@
+10
+
+dir
+484
+svn://10.1.4.53/home/nsp-dev/repo/kejagung/simkari/app_symfony/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib
+svn://10.1.4.53/home/nsp-dev/repo/kejagung
+
+
+
+2012-06-11T03:42:59.291523Z
+1
+nsp-dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2c082a0c-55b3-4df9-8fba-9b0cd7d611c2
+
+test
+dir
+
+widget
+dir
+
+validator
+dir
+
+generator
+dir
+
+debug
+dir
+
+routing
+dir
+
+vendor
+dir
+
+pager
+dir
+
+task
+dir
+
+form
+dir
+
+database
+dir
+
+cli
+dir
+
+sfDoctrineException.class.php
+file
+
+
+
+
+2012-08-30T02:00:46.597449Z
+29381328202ea19cc35c83378f73cca1
+2012-06-11T03:42:59.291523Z
+1
+nsp-dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+656
+
+mailer
+dir
+
+record
+dir
+

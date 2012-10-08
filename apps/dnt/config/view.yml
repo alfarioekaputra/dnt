@@ -1,0 +1,20 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Pidum Denda Non Tilang
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [dnt/dnt.css, dnt/bootstrap.css, dnt/ui-lightness/jquery-ui-1.8.24.custom.css, dnt/ui.jqgrid.css]
+
+  javascripts:    [dnt/bootstrap.js, dnt/jquery.js, dnt/i18n/grid.locale-en.js, dnt/jquery.jqGrid.min.js]
+
+  has_layout:     true
+  layout:         layout

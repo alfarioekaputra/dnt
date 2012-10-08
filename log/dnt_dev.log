@@ -1,0 +1,351 @@
+Oct 07 20:14:04 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:14:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:14:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:14:04 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:14:04 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:14:04 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:14:04 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k"
+Oct 07 20:14:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:14:04 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:14:04 symfony [info] {sfWebDebugLogger} Configuration 71.74 ms (8)
+Oct 07 20:14:04 symfony [info] {sfWebDebugLogger} Factories 52.39 ms (1)
+Oct 07 20:14:04 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 161.29 ms (1)
+Oct 07 20:14:04 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (1)
+Oct 07 20:15:33 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:15:33 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:15:33 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:15:33 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:15:33 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:15:33 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:15:33 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:15:33 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:15:33 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:15:33 symfony [info] {sfWebDebugLogger} Configuration 0.77 ms (8)
+Oct 07 20:15:33 symfony [info] {sfWebDebugLogger} Factories 15.31 ms (1)
+Oct 07 20:15:33 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 171.75 ms (1)
+Oct 07 20:15:33 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:15:56 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:15:56 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:15:56 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:15:56 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:15:56 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:15:57 symfony [info] {Doctrine_Connection_Oracle} query : SELECT p.id AS p__id, p.nomor_perkara AS p__nomor_perkara, p.posisi_kasus AS p__posisi_kasus, p.id_pk_ting AS p__id_pk_ting, p.penyidik AS p__penyidik, p.no_spdp AS p__no_spdp, p.tgl_spdp AS p__tgl_spdp, p.penerima AS p__penerima, p.tgl_diterima AS p__tgl_diterima, p.no_p16 AS p__no_p16, p.tgl_p16 AS p__tgl_p16, p.tgl_konsultasi AS p__tgl_konsultasi, p.isi_konsultasi AS p__isi_konsultasi, p.no_p17 AS p__no_p17, p.tgl_p17 AS p__tgl_p17, p.no_kirim_berkas AS p__no_kirim_berkas, p.tgl_kirim_berkas AS p__tgl_kirim_berkas, p.no_p21 AS p__no_p21, p.tgl_p21 AS p__tgl_p21, p.no_p21a AS p__no_p21a, p.tgl_p21a AS p__tgl_p21a, p.no_kembali_berkas AS p__no_kembali_berkas, p.tgl_kembali_berkas AS p__tgl_kembali_berkas, p.kd_penyelesaian AS p__kd_penyelesaian, p.id_instansi AS p__id_instansi, p.no_p16a AS p__no_p16a, p.tgl_p16a AS p__tgl_p16a, p.tgl_terima_tsk AS p__tgl_terima_tsk, p.no_henti_tut AS p__no_henti_tut, p.tgl_henti_tut AS p__tgl_henti_tut, p.pertimbangan_henti AS p__pertimbangan_henti, p.no_limpah_pk AS p__no_limpah_pk, p.tgl_diterima_pn AS p__tgl_diterima_pn, p.tgl_tap_sidang AS p__tgl_tap_sidang, p.tgl_baca_dakwaan AS p__tgl_baca_dakwaan, p.isi_dakwaan AS p__isi_dakwaan, p.tgl_awal_bukti AS p__tgl_awal_bukti, p.tgl_akhir_bukti AS p__tgl_akhir_bukti, p.tgl_juk_kajari AS p__tgl_juk_kajari, p.isi_juk_kajari AS p__isi_juk_kajari, p.no_usul_kajari AS p__no_usul_kajari, p.tgl_usul_kajari AS p__tgl_usul_kajari, p.tgl_juk_kajati AS p__tgl_juk_kajati, p.isi_juk_kajati AS p__isi_juk_kajati, p.no_usul_kajati AS p__no_usul_kajati, p.tgl_usul_kajati AS p__tgl_usul_kajati, p.tgl_juk_ja AS p__tgl_juk_ja, p.isi_juk_ja AS p__isi_juk_ja, p.no_usul_ja AS p__no_usul_ja, p.tgl_usul_ja AS p__tgl_usul_ja, p.tgl_baca_tut AS p__tgl_baca_tut, p.isi_tuntutan AS p__isi_tuntutan, p.tgl_putusan_pn AS p__tgl_putusan_pn, p.tgl_terima_putusan AS p__tgl_terima_putusan, p.kd_putusan_hukum AS p__kd_putusan_hukum, p.tgl_putusan_hukum AS p__tgl_putusan_hukum, p.no_barbuk AS p__no_barbuk, p.tgl_barbuk AS p__tgl_barbuk, p.no_konsultasi AS p__no_konsultasi, p.no_p20 AS p__no_p20, p.tgl_p20 AS p__tgl_p20, p.no_optimal AS p__no_optimal, p.tgl_optimal AS p__tgl_optimal, p.isi_pemeriksaan AS p__isi_pemeriksaan, p.tgl_limpah_pk AS p__tgl_limpah_pk, p.created_by AS p__created_by, p.created_time AS p__created_time, p.created_ip AS p__created_ip, p.lastupdate_by AS p__lastupdate_by, p.lastupdate_time AS p__lastupdate_time, p.lastupdate_ip AS p__lastupdate_ip, p.inst_satkerkd AS p__inst_satkerkd, p.terdakwa AS p__terdakwa, p.jaksa_penuntut_umum AS p__jaksa_penuntut_umum, p.id_perkara AS p__id_perkara, p.pasal_yg_ddkwkn AS p__pasal_yg_ddkwkn, p.pasal_yg_dilanggar AS p__pasal_yg_dilanggar, p.p16_tim AS p__p16_tim, p.dtl_dakwaan AS p__dtl_dakwaan, p.tuntutan AS p__tuntutan, p.amar_tuntutan AS p__amar_tuntutan, p.status AS p__status, p.p16a_tim AS p__p16a_tim, p.ditahan_jpu_awal AS p__ditahan_jpu_awal, p.ditahan_jpu_akhir AS p__ditahan_jpu_akhir, p.ditahan_jpu_tmpt AS p__ditahan_jpu_tmpt, p.dprjng_hkm_kt_pn_awal AS p__dprjng_hkm_kt_pn_awal, p.dprjng_hkm_kt_pn_akhir AS p__dprjng_hkm_kt_pn_akhir, p.dprjng_hkm_kt_pn_tmpt AS p__dprjng_hkm_kt_pn_tmpt, p.pengalihan_tahan_awal AS p__pengalihan_tahan_awal, p.pengalihan_tahan_akh AS p__pengalihan_tahan_akh, p.pengalihan_tahan_tmpt AS p__pengalihan_tahan_tmpt, p.pmbtr_sjk_awal AS p__pmbtr_sjk_awal, p.pmbtr_sjk_akhir AS p__pmbtr_sjk_akhir, p.pmbtr_dtl AS p__pmbtr_dtl, p.tgl_putusan_hkm_tetap AS p__tgl_putusan_hkm_tetap, p.tgl_grasi AS p__tgl_grasi, p.tgl_pk AS p__tgl_pk, p.tgl_akta_kasasi AS p__tgl_akta_kasasi, p.tgl_akta_banding AS p__tgl_akta_banding, p.p16a_tgl AS p__p16a_tgl, p.p16_tgl AS p__p16_tgl, p.idoff AS p__idoff, p.tgl_tuntut_jpu AS p__tgl_tuntut_jpu, p.isi_rentut_jpu AS p__isi_rentut_jpu, p.isi_pendapat_kasi AS p__isi_pendapat_kasi, p.tgl_pendapat_kasi AS p__tgl_pendapat_kasi, p.nama_berkas_dakwaan AS p__nama_berkas_dakwaan, p.idasalperkara AS p__idasalperkara, p.idpenyelesaian AS p__idpenyelesaian, p.no_lanjut_pratut AS p__no_lanjut_pratut, p.tgl_lanjut_pratut AS p__tgl_lanjut_pratut, p.no_henti_pratut AS p__no_henti_pratut, p.tgl_henti_pratut AS p__tgl_henti_pratut, p.no_optimal_pratut AS p__no_optimal_pratut, p.tgl_optimal_pratut AS p__tgl_optimal_pratut FROM PDM_PERKARA p - ()
+Oct 07 20:15:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:15:57 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:15:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:15:57 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:15:57 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:15:57 symfony [info] {sfWebDebugLogger} Configuration 8.64 ms (10)
+Oct 07 20:15:57 symfony [info] {sfWebDebugLogger} Factories 16.48 ms (1)
+Oct 07 20:15:57 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 187.79 ms (1)
+Oct 07 20:15:57 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:15:57 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 15.67 ms (1)
+Oct 07 20:15:57 symfony [info] {sfWebResponse} Send content (49494 o)
+Oct 07 20:16:07 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:16:07 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:16:07 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:16:07 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:16:07 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:16:07 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:16:07 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:16:07 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:16:07 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:16:07 symfony [info] {sfWebDebugLogger} Configuration 0.85 ms (8)
+Oct 07 20:16:07 symfony [info] {sfWebDebugLogger} Factories 17.54 ms (1)
+Oct 07 20:16:07 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 204.31 ms (1)
+Oct 07 20:16:07 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:17:34 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:17:34 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:17:34 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:17:34 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:17:34 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:17:34 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:17:34 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:17:34 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:17:34 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:17:34 symfony [info] {sfWebDebugLogger} Configuration 0.81 ms (8)
+Oct 07 20:17:34 symfony [info] {sfWebDebugLogger} Factories 17.53 ms (1)
+Oct 07 20:17:34 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 191.82 ms (1)
+Oct 07 20:17:34 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:19:14 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:19:14 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:19:14 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:19:14 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:19:14 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:19:14 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:19:14 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:19:14 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:19:14 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:19:14 symfony [info] {sfWebDebugLogger} Configuration 72.12 ms (8)
+Oct 07 20:19:14 symfony [info] {sfWebDebugLogger} Factories 53.06 ms (1)
+Oct 07 20:19:14 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 167.41 ms (1)
+Oct 07 20:19:14 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (1)
+Oct 07 20:22:12 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:22:12 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:22:12 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:22:12 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:22:12 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:22:12 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:22:12 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:22:13 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:22:13 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:22:13 symfony [info] {sfWebDebugLogger} Configuration 48.57 ms (9)
+Oct 07 20:22:13 symfony [info] {sfWebDebugLogger} Factories 57.95 ms (1)
+Oct 07 20:22:13 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 174.85 ms (1)
+Oct 07 20:22:13 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:22:38 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:22:38 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:22:38 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:22:38 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:22:38 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:22:38 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k - ()
+Oct 07 20:22:38 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama, k.inst_kepala AS k__inst_kepala, k.inst_akronim AS k__inst_akronim, k.inst_alamat AS k__inst_alamat, k.inst_telepon AS k__inst_telepon, k.inst_fax AS k__inst_fax, k.inst_jenis AS k__inst_jenis, k.inst_level AS k__inst_level, k.inst_indukpkpn AS k__inst_indukpkpn, k.inst_indukbkn AS k__inst_indukbkn, k.inst_wilayahbayar AS k__inst_wilayahbayar, k.inst_lokinst AS k__inst_lokinst, k.inst_jnslokasi AS k__inst_jnslokasi, k.inst_lokkec AS k__inst_lokkec, k.inst_lokkab AS k__inst_lokkab, k.inst_lokprov AS k__inst_lokprov, k.inst_kepala_nip AS k__inst_kepala_nip, k.id_cabang AS k__id_cabang, k.created_by AS k__created_by, k.created_time AS k__created_time, k.created_ip AS k__created_ip, k.lastupdate_by AS k__lastupdate_by, k.lastupdate_time AS k__lastupdate_time, k.lastupdate_ip AS k__lastupdate_ip, k.inst_intern AS k__inst_intern, k.inst_satkerinduk_temp AS k__inst_satkerinduk_temp, k.inst_satkerkd_temp AS k__inst_satkerkd_temp, k.is_active AS k__is_active, k.thn_kepja AS k__thn_kepja FROM KP_INST_SATKER k"
+Oct 07 20:22:38 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:22:38 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:22:38 symfony [info] {sfWebDebugLogger} Configuration 0.75 ms (8)
+Oct 07 20:22:38 symfony [info] {sfWebDebugLogger} Factories 15.10 ms (1)
+Oct 07 20:22:38 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 180.81 ms (1)
+Oct 07 20:22:38 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:23:03 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:23:03 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:23:03 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:23:03 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:23:03 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:23:03 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:23:03 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00904: "K"."ID": invalid identifier : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k. Failing Query: "SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k"
+Oct 07 20:23:03 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:23:03 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:23:03 symfony [info] {sfWebDebugLogger} Configuration 0.78 ms (8)
+Oct 07 20:23:03 symfony [info] {sfWebDebugLogger} Factories 15.45 ms (1)
+Oct 07 20:23:03 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 175.24 ms (1)
+Oct 07 20:23:03 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 07 20:25:06 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:25:06 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:25:06 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:25:06 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:25:06 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:25:06 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:25:06 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:25:06 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:25:06 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:25:06 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:25:06 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:25:06 symfony [info] {sfWebDebugLogger} Configuration 8.51 ms (10)
+Oct 07 20:25:06 symfony [info] {sfWebDebugLogger} Factories 16.18 ms (1)
+Oct 07 20:25:06 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 389.60 ms (1)
+Oct 07 20:25:06 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:25:06 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 15.74 ms (1)
+Oct 07 20:25:06 symfony [info] {sfWebResponse} Send content (32553 o)
+Oct 07 20:26:57 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:26:57 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:26:57 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:26:57 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:26:57 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:26:57 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:26:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:26:57 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:26:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:26:57 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:26:57 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:26:57 symfony [info] {sfWebDebugLogger} Configuration 0.93 ms (9)
+Oct 07 20:26:57 symfony [info] {sfWebDebugLogger} Factories 15.22 ms (1)
+Oct 07 20:26:57 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 263.89 ms (1)
+Oct 07 20:26:57 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:26:57 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.70 ms (1)
+Oct 07 20:26:57 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:27:55 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:27:55 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:27:55 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:27:55 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:27:55 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:27:55 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:27:56 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:27:56 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:27:56 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:27:56 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:27:56 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:27:56 symfony [info] {sfWebDebugLogger} Configuration 0.92 ms (9)
+Oct 07 20:27:56 symfony [info] {sfWebDebugLogger} Factories 17.12 ms (1)
+Oct 07 20:27:56 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 297.04 ms (1)
+Oct 07 20:27:56 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:27:56 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.60 ms (1)
+Oct 07 20:27:56 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:28:46 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:28:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:28:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:28:46 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:28:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:28:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:32:20 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:32:21 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:32:21 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:32:21 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:32:28 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:32:28 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:32:28 symfony [err] {Doctrine_Record_UnknownPropertyException} Unknown record property / related component "getInstSatkerKd" on "KP_INST_SATKER"
+Oct 07 20:32:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:32:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:32:28 symfony [info] {sfWebDebugLogger} Configuration 17.41 ms (8)
+Oct 07 20:32:28 symfony [info] {sfWebDebugLogger} Factories 756.74 ms (1)
+Oct 07 20:32:28 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 7078.05 ms (1)
+Oct 07 20:32:28 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:33:30 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:33:30 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:33:30 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:33:30 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:33:30 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:33:30 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:33:30 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:33:30 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:33:30 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:33:30 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:33:30 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:33:30 symfony [info] {sfWebDebugLogger} Configuration 0.90 ms (9)
+Oct 07 20:33:30 symfony [info] {sfWebDebugLogger} Factories 15.93 ms (1)
+Oct 07 20:33:30 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 310.82 ms (1)
+Oct 07 20:33:30 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:33:30 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 91.11 ms (1)
+Oct 07 20:33:30 symfony [info] {sfWebResponse} Send content (32359 o)
+Oct 07 20:33:54 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:33:54 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:33:54 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:33:54 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:33:54 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:33:54 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:33:54 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:33:54 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:33:54 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:33:54 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:33:54 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:33:54 symfony [info] {sfWebDebugLogger} Configuration 0.89 ms (9)
+Oct 07 20:33:54 symfony [info] {sfWebDebugLogger} Factories 16.75 ms (1)
+Oct 07 20:33:54 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 327.36 ms (1)
+Oct 07 20:33:54 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:33:54 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.79 ms (1)
+Oct 07 20:33:54 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:34:15 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:34:15 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:34:15 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:34:15 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:34:15 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:34:15 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:34:15 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:34:15 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:34:15 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:34:15 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:34:15 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:34:15 symfony [info] {sfWebDebugLogger} Configuration 0.86 ms (9)
+Oct 07 20:34:15 symfony [info] {sfWebDebugLogger} Factories 14.98 ms (1)
+Oct 07 20:34:15 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 288.37 ms (1)
+Oct 07 20:34:15 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:34:15 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.29 ms (1)
+Oct 07 20:34:15 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:34:30 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:34:30 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:34:30 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:34:30 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:34:30 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:34:30 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:34:30 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:34:30 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:34:30 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:34:30 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:34:30 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:34:30 symfony [info] {sfWebDebugLogger} Configuration 0.92 ms (9)
+Oct 07 20:34:30 symfony [info] {sfWebDebugLogger} Factories 16.99 ms (1)
+Oct 07 20:34:30 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 329.71 ms (1)
+Oct 07 20:34:30 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:34:30 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.35 ms (1)
+Oct 07 20:34:30 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:34:52 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:34:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:34:52 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:34:52 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:34:52 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:34:52 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:34:52 symfony [err] {Doctrine_Record_UnknownPropertyException} Unknown record property / related component "inst_satker_induk" on "KP_INST_SATKER"
+Oct 07 20:34:52 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:34:52 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:34:52 symfony [info] {sfWebDebugLogger} Configuration 0.74 ms (8)
+Oct 07 20:34:52 symfony [info] {sfWebDebugLogger} Factories 15.38 ms (1)
+Oct 07 20:34:52 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 310.46 ms (1)
+Oct 07 20:34:52 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:35:07 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:35:07 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:35:07 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:35:07 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:35:07 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:35:07 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:35:08 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:35:08 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:35:08 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:35:08 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:35:08 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:35:08 symfony [info] {sfWebDebugLogger} Configuration 0.90 ms (9)
+Oct 07 20:35:08 symfony [info] {sfWebDebugLogger} Factories 15.05 ms (1)
+Oct 07 20:35:08 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 332.30 ms (1)
+Oct 07 20:35:08 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:35:08 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 6.97 ms (1)
+Oct 07 20:35:08 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:35:28 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:35:28 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:35:28 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:35:28 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:35:28 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:35:28 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:35:29 symfony [err] {Doctrine_Record_UnknownPropertyException} Unknown record property / related component "ins_nama" on "KP_INST_SATKER"
+Oct 07 20:35:29 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 07 20:35:29 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:35:29 symfony [info] {sfWebDebugLogger} Configuration 0.79 ms (8)
+Oct 07 20:35:29 symfony [info] {sfWebDebugLogger} Factories 17.66 ms (1)
+Oct 07 20:35:29 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 407.82 ms (1)
+Oct 07 20:35:29 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:35:35 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:35:35 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:35:35 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:35:35 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:35:35 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:35:35 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:35:35 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:35:35 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:35:35 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:35:35 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:35:35 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:35:35 symfony [info] {sfWebDebugLogger} Configuration 1.95 ms (9)
+Oct 07 20:35:35 symfony [info] {sfWebDebugLogger} Factories 19.83 ms (1)
+Oct 07 20:35:35 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 347.27 ms (1)
+Oct 07 20:35:35 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:35:35 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.11 ms (1)
+Oct 07 20:35:35 symfony [info] {sfWebResponse} Send content (32357 o)
+Oct 07 20:37:44 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:37:44 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:37:44 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:37:44 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:37:44 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:37:44 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:37:44 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:37:44 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:37:44 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 07 20:37:44 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:37:44 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:37:44 symfony [info] {sfWebDebugLogger} Configuration 0.92 ms (9)
+Oct 07 20:37:44 symfony [info] {sfWebDebugLogger} Factories 21.01 ms (1)
+Oct 07 20:37:44 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 343.01 ms (1)
+Oct 07 20:37:44 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:37:44 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 7.02 ms (1)
+Oct 07 20:37:44 symfony [info] {sfWebResponse} Send content (32354 o)
+Oct 07 20:37:45 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 07 20:37:45 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 07 20:37:45 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 07 20:37:45 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 07 20:37:45 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 07 20:37:45 symfony [info] {Doctrine_Connection_Oracle} query : SELECT k.id AS k__id, k.inst_satkerkd AS k__inst_satkerkd, k.inst_satkerinduk AS k__inst_satkerinduk, k.inst_nama AS k__inst_nama FROM KP_INST_SATKER k - ()
+Oct 07 20:37:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 07 20:37:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 07 20:37:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 07 20:37:46 symfony [info] {sfWebDebugLogger} Configuration 0.96 ms (9)
+Oct 07 20:37:46 symfony [info] {sfWebDebugLogger} Factories 19.29 ms (1)
+Oct 07 20:37:46 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 436.18 ms (1)
+Oct 07 20:37:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 07 20:37:46 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 6.56 ms (1)
+Oct 07 20:37:46 symfony [info] {sfWebResponse} Send content (1210 o)
