@@ -12,17 +12,10 @@ class dntpidumActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->pdm_perkar_as = Doctrine::getTable('KP_INST_SATKER')
+    $this->pdm_perkar_as = Doctrine::getTable('PDM_PERKARA')
       ->createQuery('a')
-      ->select('a.inst_satkerkd, a.inst_satkerinduk, a.inst_nama')
       ->execute();
       
-      foreach($this->pdm_perkar_as as $abc){
-		 $response['inst_satkerkd'] = $abc->getInstSatkerkd();  
-		 $response['inst_satkerinduk'] = $abc->getInstSatkerinduk();  
-		 $response['inst_nama'] = $abc->getInstNama();  
-	  }
-	  echo json_encode($response);
   }
 
   public function executeShow(sfWebRequest $request)

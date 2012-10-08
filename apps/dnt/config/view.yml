@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [dnt/dnt.css, dnt/bootstrap.css, dnt/ui-lightness/jquery-ui-1.8.24.custom.css, dnt/ui.jqgrid.css]
+  stylesheets:    [dnt/dnt.css, dnt/bootstrap.css, dnt/ui-lightness/jquery-ui-1.8.24.custom.css, global/demo_table.css]
 
-  javascripts:    [dnt/bootstrap.js, dnt/jquery.js, dnt/i18n/grid.locale-en.js, dnt/jquery.jqGrid.min.js]
+  javascripts:    [dnt/bootstrap.js, dnt/jquery.js, global/jquery.dataTables.js]
 
   has_layout:     true
   layout:         layout
