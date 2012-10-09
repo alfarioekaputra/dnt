@@ -7414,3 +7414,107 @@ Oct 09 21:15:53 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 59.80 ms
 Oct 09 21:15:53 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 12.05 ms (1)
 Oct 09 21:15:53 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.83 ms (1)
 Oct 09 21:15:53 symfony [info] {sfWebResponse} Send content (130585 o)
+Oct 09 21:21:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/new with parameters array (  'module' => 'dntpidum',  'action' => 'new',)
+Oct 09 21:21:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:21:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:21:20 symfony [info] {dntpidumActions} Call "dntpidumActions->executeNew()"
+Oct 09 21:21:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/newSuccess.php"
+Oct 09 21:21:21 symfony [info] {sfPartialView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/_form.php"
+Oct 09 21:21:21 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:21 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:21:21 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:21:21 symfony [info] {sfWebDebugLogger} Configuration 76.72 ms (9)
+Oct 09 21:21:21 symfony [info] {sfWebDebugLogger} Factories 53.23 ms (1)
+Oct 09 21:21:21 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 55.51 ms (1)
+Oct 09 21:21:21 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 13.26 ms (1)
+Oct 09 21:21:21 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.56 ms (1)
+Oct 09 21:21:21 symfony [info] {sfWebResponse} Send content (130654 o)
+Oct 09 21:21:31 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/new with parameters array (  'module' => 'dntpidum',  'action' => 'new',)
+Oct 09 21:21:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:21:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:21:31 symfony [info] {dntpidumActions} Call "dntpidumActions->executeNew()"
+Oct 09 21:21:31 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/newSuccess.php"
+Oct 09 21:21:31 symfony [info] {sfPartialView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/_form.php"
+Oct 09 21:21:31 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:31 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:31 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:21:31 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:21:31 symfony [info] {sfWebDebugLogger} Configuration 0.87 ms (9)
+Oct 09 21:21:31 symfony [info] {sfWebDebugLogger} Factories 16.72 ms (1)
+Oct 09 21:21:31 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 57.11 ms (1)
+Oct 09 21:21:31 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 11.29 ms (1)
+Oct 09 21:21:31 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.56 ms (1)
+Oct 09 21:21:31 symfony [info] {sfWebResponse} Send content (130653 o)
+Oct 09 21:21:47 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/new with parameters array (  'module' => 'dntpidum',  'action' => 'new',)
+Oct 09 21:21:47 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:21:47 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:21:47 symfony [info] {dntpidumActions} Call "dntpidumActions->executeNew()"
+Oct 09 21:21:47 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/newSuccess.php"
+Oct 09 21:21:47 symfony [info] {sfPartialView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/_form.php"
+Oct 09 21:21:47 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:47 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:21:47 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:21:47 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:21:47 symfony [info] {sfWebDebugLogger} Configuration 0.88 ms (9)
+Oct 09 21:21:47 symfony [info] {sfWebDebugLogger} Factories 15.25 ms (1)
+Oct 09 21:21:47 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 53.01 ms (1)
+Oct 09 21:21:47 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 11.72 ms (1)
+Oct 09 21:21:47 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.50 ms (1)
+Oct 09 21:21:47 symfony [info] {sfWebResponse} Send content (130638 o)
+Oct 09 21:22:02 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/new with parameters array (  'module' => 'dntpidum',  'action' => 'new',)
+Oct 09 21:22:02 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:22:02 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:22:02 symfony [info] {dntpidumActions} Call "dntpidumActions->executeNew()"
+Oct 09 21:22:02 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/newSuccess.php"
+Oct 09 21:22:02 symfony [info] {sfPartialView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/_form.php"
+Oct 09 21:22:02 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:22:02 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:22:02 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:22:02 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:22:02 symfony [info] {sfWebDebugLogger} Configuration 0.87 ms (9)
+Oct 09 21:22:02 symfony [info] {sfWebDebugLogger} Factories 16.36 ms (1)
+Oct 09 21:22:02 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 56.58 ms (1)
+Oct 09 21:22:02 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 11.08 ms (1)
+Oct 09 21:22:02 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.45 ms (1)
+Oct 09 21:22:02 symfony [info] {sfWebResponse} Send content (130645 o)
+Oct 09 21:25:23 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 09 21:25:23 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:25:23 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:25:23 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 09 21:25:23 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 09 21:25:23 symfony [err] {sfConfigurationException} Unable to find a matching route to generate url for params "array (  'action' => 'getdataindexpidum',  'module' => 'dntpidum',)".
+Oct 09 21:25:23 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 09 21:25:23 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:25:23 symfony [info] {sfWebDebugLogger} Configuration 74.77 ms (9)
+Oct 09 21:25:23 symfony [info] {sfWebDebugLogger} Factories 52.95 ms (1)
+Oct 09 21:25:23 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 0.08 ms (1)
+Oct 09 21:25:23 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 43.25 ms (1)
+Oct 09 21:25:38 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Oct 09 21:25:38 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:25:38 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:25:38 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Oct 09 21:25:38 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Oct 09 21:25:38 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:25:38 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 09 21:25:38 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:25:38 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 09 21:25:38 symfony [info] {sfWebDebugLogger} Configuration 75.15 ms (9)
+Oct 09 21:25:38 symfony [info] {sfWebDebugLogger} Factories 52.86 ms (1)
+Oct 09 21:25:38 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 0.08 ms (1)
+Oct 09 21:25:38 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 8.83 ms (1)
+Oct 09 21:25:38 symfony [info] {sfWebResponse} Send content (32527 o)
+Oct 09 21:25:39 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 09 21:25:39 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 09 21:25:39 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 09 21:25:39 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 09 21:25:39 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 09 21:25:39 symfony [info] {Doctrine_Connection_Oracle} query : select * from pdm_perkara - ()
+Oct 09 21:25:40 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 09 21:25:40 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 09 21:25:40 symfony [info] {sfWebDebugLogger} Configuration 0.82 ms (8)
+Oct 09 21:25:40 symfony [info] {sfWebDebugLogger} Factories 18.78 ms (1)
+Oct 09 21:25:40 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 305.96 ms (1)
+Oct 09 21:25:40 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 09 21:25:40 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 09 21:25:40 symfony [info] {sfWebResponse} Send content (216 o)
