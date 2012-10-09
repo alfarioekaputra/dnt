@@ -12,11 +12,65 @@ class dntpidumActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->pdm_perkar_as = Doctrine::getTable('PDM_PERKARA')
-      ->createQuery('a')
-      ->execute();
-      
+    //
   }
+  
+  public function executeGetdataindexpidum(sfWebRequest $request){
+    $this->getResponse()->setContentType('application/json');
+    
+    /*$query = Doctrine::getTable('PDM_PERKARA')
+              ->createQuery('a')
+              ->execute();*/
+    
+    $conn = Doctrine_Manager::connection();
+    $query = "select * from pdm_perkara";
+    
+    $item_per_page = $request->getParameter('iDisplayLength', 10);
+
+    $page = ($request->getParameter('iDisplayStart', 0) / $item_per_page) + 1;
+    $pager = $this->processDatadetil($page, $item_per_page, $query);
+    
+    $json = '{"iTotalRecords":'.count($pager).',
+              "iTotalDisplayRecords":'.count($pager).',
+              "aaData":[';
+    
+    $first = 0;
+    
+    foreach($pager->getResults() as $v){
+      if($first++)
+        $json .= ',';
+        $json .= '[
+          "'.$v['ID'].'",
+          "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['NOMOR_PERKARA'].'"
+        ]';
+        $json .= ']}';
+        return $this->renderText($json);
+    }
+  }
+  
+  public function processDatadetil($page = 1, $item_per_page = 10, $query) {
+        $connection = Doctrine_Manager::connection();
+
+
+
+        $statement = $connection->execute($query);
+        $statement->execute();
+        $this->resultsetKejati = $statement->fetchAll();
+        //  $this->datakejati=$request->getParameter("id");
+
+        $pager = (array) $this->resultsetKejati;
+
+        $this->pager = new myArrayPager(null, $item_per_page);
+        $this->pager->setResultArray($pager);
+        $this->pager->setPage($page);
+        $this->pager->init();
+        return $this->pager;
+  }
+
 
   public function executeShow(sfWebRequest $request)
   {
@@ -27,6 +81,8 @@ class dntpidumActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new PDM_PERKARAForm();
+    $this->formTersangka = new PDM_TERSANGKAForm();
+    
   }
 
   public function executeCreate(sfWebRequest $request)
