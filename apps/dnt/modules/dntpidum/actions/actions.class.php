@@ -70,6 +70,71 @@ class dntpidumActions extends sfActions
         $this->pager->init();
         return $this->pager;
   }
+  
+  public function executeDataKejati(sfWebRequest $request)
+  {
+    $this->idkejati = $request->getParameter("idkejati");
+    $this->setLayout(false);
+  }
+  
+  public function executeGetDataKejatiPidum(sfWebRequest $request) {
+        sfConfig::set('sf_web_debug', false);
+        //sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Tag'));
+        $this->getResponse()->setContentType('application/json');
+
+        $pilihanSearchKejati = $request->getParameter('pilihanSearchKejati');
+        $cariKejati = $request->getParameter('cariKejati');
+        $pilihkejatitab = $request->getParameter('pilihkejatitab');
+
+
+        if ($_COOKIE['kd_satker'] != '00') {
+            if (strlen($_COOKIE['kd_satker']) == 5) {
+				$id_kejati = $_COOKIE['kd_satker'];
+
+              #  $id_kejatiexplode = explode('.', $_COOKIE['kd_satker']);
+              #  $id_kejati = $id_kejatiexplode[0] . '.';
+            } else if (strlen($_COOKIE['kd_satker']) == 2) {
+
+                $id_kejati = $_COOKIE['kd_satker'];
+            }
+        }
+
+
+        $query = "select INST_SATKERKD,INST_NAMA,INST_AKRONIM from KP_INST_SATKER  where IS_ACTIVE=1 and inst_satkerkd like '" . $id_kejati . "%'";
+        if (!empty($cariKejati)) {
+
+            if ($pilihanSearchKejati == "1") {
+                $query .=" AND INST_SATKERKD like ('" . $cariKejati . "%')";
+            } else if ($pilihanSearchKejati == "2") {
+                $query .=" AND (upper(INST_NAMA) like upper('%" . $cariKejati . "%') OR upper(INST_AKRONIM) like upper('%" . $cariKejati . "%'))";
+            }
+        }
+        $query .= "ORDER BY INST_SATKERKD";
+        //echo $query; exit;
+        $item_per_page = $request->getParameter('iDisplayLength', 10);
+        // $item_per_page ="1";
+        $page = ($request->getParameter('iDisplayStart', 0) / $item_per_page) + 1;
+        $pager = $this->processDatadetil($page, $item_per_page, $query);
+
+        $json = '{"iTotalRecords":' . count($pager) . ',
+	     "iTotalDisplayRecords":' . count($pager) . ',
+	     "aaData":[';
+        $first = 0;
+        foreach ($pager->getResults() as $v) {
+            if ($first++)
+                $json .= ',';
+            $gabung = $v['INST_SATKERKD'] . "#" . $v['INST_NAMA'] . "#" . $v['INST_AKRONIM'] . "#";
+            $json .= '[
+		 		"' . $v['INST_SATKERKD'] . '",
+				"' . $v['INST_NAMA'] . '",
+				"<input type=\"button\" class=\"ncusbtn\" data-dismiss=\"modal\" value=\"Pilih\" name=\"pilih\" onClick=\"goPilihKejati(\'' . $gabung . ' \',\'' . $pilihkejatitab . '\')\">"]';
+
+            //$json =']';
+        }
+        $json .= ']}';
+        //echo $query;
+        return $this->renderText($json);
+    }
 
 
   public function executeShow(sfWebRequest $request)
