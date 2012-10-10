@@ -248,6 +248,10 @@ a:hover {
   width: 60px;
 }
 
+.span1-edit {
+  width: 90px;
+}
+
 .offset12 {
   margin-left: 980px;
 }
@@ -1057,10 +1061,18 @@ textarea.span3,
   width: 210px;
 }
 
+input.span3-edit{
+  width: 190px;
+}
+
 input.span2,
 textarea.span2,
 .uneditable-input.span2 {
   width: 130px;
+}
+
+input.span2-edit{
+  width: 70px;
 }
 
 input.span1,
@@ -1491,10 +1503,24 @@ legend + .control-group {
   text-align: right;
 }
 
+.form-horizontal .control-label-edit {
+  float: left;
+  width: 50px;
+  padding-top: 5px;
+  text-align: left;
+}
+
 .form-horizontal .controls {
   *display: inline-block;
   *padding-left: 20px;
   margin-left: 160px;
+  *margin-left: 0;
+}
+
+.form-horizontal .controls-edit {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 50px;
   *margin-left: 0;
 }
 

@@ -10075,3 +10075,19 @@ Oct 10 14:39:00 symfony [info] {Doctrine_Connection_Oracle} query : select INST_
 Oct 10 14:39:00 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
 Oct 10 14:39:00 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
 Oct 10 14:39:00 symfony [info] {sfWebResponse} Send content (3478 o)
+Oct 10 22:05:59 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/new with parameters array (  'module' => 'dntpidum',  'action' => 'new',)
+Oct 10 22:05:59 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 10 22:05:59 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 10 22:05:59 symfony [info] {dntpidumActions} Call "dntpidumActions->executeNew()"
+Oct 10 22:05:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/newSuccess.php"
+Oct 10 22:05:59 symfony [info] {sfPartialView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/_form.php"
+Oct 10 22:05:59 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 10 22:05:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Oct 10 22:05:59 symfony [err] {sfConfigurationException} The route "dntpidum" does not exist.
+Oct 10 22:05:59 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 10 22:05:59 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Configuration 94.81 ms (9)
+Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Factories 126.30 ms (1)
+Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 57.18 ms (1)
+Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 79.62 ms (1)
+Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.62 ms (1)

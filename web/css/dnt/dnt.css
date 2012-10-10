@@ -3,3 +3,10 @@
     width:940px;
     height:126px;
 }
+
+#box{
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #EEEEEE;
+    margin-left: 0px;
+}

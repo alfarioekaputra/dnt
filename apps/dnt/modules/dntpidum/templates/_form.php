@@ -22,19 +22,20 @@
 </ul>
 <div class="tab-content">
   <div class="tab-pane in active" id="new_tab_id1"> 
-    <div class="row"> 
+    <div class="row">
       <div class="span5"> 
         <label>Nama</label>  <?php echo $formTersangka['nama']->render(array('class' => 'span3')) ?> 
-        <label>Tempat/Tanggal Lahir</label>  <?php echo $formTersangka['tempat_lahir']->render(array('class' => 'span3')) ?>  <input type="text" id="data_tgllahir1" onChange=addtgllahir("1") class="datepicker span2" /> 
+        <label>Tempat/Tanggal Lahir</label>  <?php echo $formTersangka['tempat_lahir']->render(array('class' => 'span3-edit')) ?>  <input type="text" id="data_tgllahir1" onChange=addtgllahir("1") class="datepicker span2-edit" /> 
         <label>Usia</label>  <input type="text" id="data_umur1" class="span1" /> 
         <label>Jenis Kelamin</label>  <select name="pdm_tersangka[jkl]" class="span2" id="pdm_tersangka_jkl"> 
                                             <option value="0">--jenis kelamin--</option> 
                                             <option value="1">Laki-laki</option> 
                                             <option value="2">Perempuan</option> 
                                           </select> 
-        <label>Alamat</label>  <?php echo $formTersangka['alamat']->render(array('class' => 'span5')) ?> 
-      </div> 
-      <div class="span4"> 
+        <label>Alamat</label>  <?php echo $formTersangka['alamat']->render(array('class' => 'span4')) ?> 
+      </div>
+      
+      <div class="span3"> 
         <label>Agama</label>  <select name="pdm_tersangka[id_agama]" class="span3" id="pdm_tersangka_id_agama"> 
                                     <option value="0">--Agama--</option> 
                                     <option value="1">Islam</option> 
@@ -61,26 +62,30 @@
     </div>
     <hr />
     <legend><b>Penahanan</b></legend>
-    <div class="form-inline">
-        <label>
-          Jenis Pengadilan
-          <select class="span1" name="jns_pengadilan">
+    <div class="row">
+      <div class="span3">
+        <label>Jenis Pengadilan</label>
+        <div class="row">&nbsp;</div>
+        <label>Jenis Tahanan</label>
+        <div class="row">&nbsp;</div>
+        <label>Keterangan</label>
+        <div class="row">&nbsp;</div>
+      </div>
+      <div class="span5">
+        <select class="span1" name="jns_pengadilan">
             <option value="1">PN</option>
             <option value="2">PT</option>
             <option value="3">MA</option>
           </select>
-        </label>
-        <label>
-          Jenis Tahanan
-          <select class="span2" name="jns_tahanan">
+        <br />
+        <select class="span2" name="jns_tahanan">
             <option value="1">Rutan</option>
             <option value="2">Kota</option>
             <option value="3">Rumah</option>
           </select>
-        </label>
-        <label>
-          Keterangan <input type="text" name="keterangan_tahanan" class="span3" />
-        </label>
+        <input type="text" name="keterangan_tahanan" class="span5" />
+      </div>
+        
     </div>
     <hr />
     <legend><b>Putusan</b></legend>
@@ -212,7 +217,7 @@
             '<div class="row">' +
               '<div class="span5">' +
                 '<label>Nama</label>' + '<?php echo $formTersangka['nama']->render(array('class' => 'span3')) ?>' +
-                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $formTersangka['tempat_lahir']->render(array('class' => 'span3')) ?>' + '<input type="text" id="data_tgllahir'+tab_counter+'" onChange=addtgllahir("'+tab_counter+'") class="datepicker span2" />' +
+                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $formTersangka['tempat_lahir']->render(array('class' => 'span3-edit')) ?>' + '<input type="text" id="data_tgllahir'+tab_counter+'" onChange=addtgllahir("'+tab_counter+'") class="datepicker span2-edit" />' +
                 '<label>Usia</label>' + '<input type="text" id="data_umur'+tab_counter+'" class="span1" />' +
                 '<label>Jenis Kelamin</label>' + '<select name="pdm_tersangka[jkl]" class="span2" id="pdm_tersangka_jkl">' +
                                                     '<option value="0">--jenis kelamin--</option>' +
@@ -221,7 +226,7 @@
                                                   '</select>' +
                 '<label>Alamat</label>' + '<?php echo $formTersangka['alamat']->render(array('class' => 'span5')) ?>' +
               '</div>' +
-              '<div class="span4">' +
+              '<div class="span3">' +
                 '<label>Agama</label>' + '<select name="pdm_tersangka[id_agama]" class="span3" id="pdm_tersangka_id_agama">' +
                                             '<option value="0">--Agama--</option>' +
                                             '<option value="1">Islam</option>' +

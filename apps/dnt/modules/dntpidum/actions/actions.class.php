@@ -23,7 +23,14 @@ class dntpidumActions extends sfActions
               ->execute();*/
     
     $conn = Doctrine_Manager::connection();
-    $query = "select * from pdm_perkara";
+    $query = "SELECT * FROM (
+              SELECT ID_PERKARA, WM_CONCAT(B.NAMA||' #'|| 
+              TO_CHAR ( B.TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+              DECODE (B.JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||B.ALAMAT||' #') IDENTITAS
+               FROM PDM_TERSANGKA B
+              WHERE (PUTUSAN_TETAP IN(2,3,4,5) OR PUTUSAN_UPAYA_HUKUM IN(1))
+              GROUP BY ID_PERKARA) B
+              LEFT JOIN PDM_PERKARA A ON A.ID=B.ID_PERKARA";
     
     $item_per_page = $request->getParameter('iDisplayLength', 10);
 
@@ -40,13 +47,12 @@ class dntpidumActions extends sfActions
       if($first++)
         $json .= ',';
         $json .= '[
-          "'.$v['ID'].'",
           "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['IDENTITAS'].'",
           "'.$v['NOMOR_PERKARA'].'",
-          "'.$v['NOMOR_PERKARA'].'",
-          "'.$v['NOMOR_PERKARA'].'",
-          "'.$v['NOMOR_PERKARA'].'"
-        ]';
+          "'.$v['TGL_SPDP'].'",
+          "'.$v['NOMOR_PERKARA'].'",';
+        $json .= '"<center><a class=\"btn\" href=\"' . sfContext::getInstance()->getController()->genUrl('penerimaanSpdp/edittambah?id_perkara=' . $v['ID'] . '&kode_satker=' . $v['INST_SATKERKD'], true) . '\">Edit</a></center>"]';
         $json .= ']}';
         return $this->renderText($json);
     }

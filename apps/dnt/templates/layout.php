@@ -17,8 +17,28 @@
 		 </div>
 		 <br />
 		 <div class="row">
-			<div class="span3">menu</div>
-			  <div class="span9"><?php echo $sf_content ?></div>
+			<div class="span3">
+			  <div class="well sidebar-nav">
+				<ul class="nav nav-list">
+				  <li class="nav-header">Hasil Dinas</li>
+				  <li>
+					<a href="<?php echo url_for('dntpidum/index') ?>">Denda Non Tilang Pidum</a>
+					<ul>
+					  <li><a href="#">Lelang Barang Rampasan</a></li>
+					</ul>
+				  </li>
+				  <li>
+					<a href="#">Denda Non Tilang Pidsus</a>
+					<ul>
+					  <li><a href="#">Lelang Barang Rampasan</a></li>
+					</ul>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="span9">
+			  <div class="well"><?php echo $sf_content ?></div>
+			</div>
 		 </div>
 	 </div>
   </body>
