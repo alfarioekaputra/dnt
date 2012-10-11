@@ -23,14 +23,22 @@ class dntpidumActions extends sfActions
               ->execute();*/
     
     $conn = Doctrine_Manager::connection();
-    $query = "SELECT * FROM (
-              SELECT ID_PERKARA, WM_CONCAT(B.NAMA||' #'|| 
-              TO_CHAR ( B.TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
-              DECODE (B.JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||B.ALAMAT||' #') IDENTITAS
-               FROM PDM_TERSANGKA B
-              WHERE (PUTUSAN_TETAP IN(2,3,4,5) OR PUTUSAN_UPAYA_HUKUM IN(1))
-              GROUP BY ID_PERKARA) B
-              LEFT JOIN PDM_PERKARA A ON A.ID=B.ID_PERKARA";
+    $query = "SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID";
     
     $item_per_page = $request->getParameter('iDisplayLength', 10);
 
@@ -44,14 +52,16 @@ class dntpidumActions extends sfActions
     $first = 0;
     
     foreach($pager->getResults() as $v){
+      $no_tgl_putusan = explode("#",$v['NO#TGL_PUTUSAN']);
+      //echo $abc[0];
       if($first++)
         $json .= ',';
         $json .= '[
-          "'.$v['NOMOR_PERKARA'].'",
-          "'.$v['IDENTITAS'].'",
-          "'.$v['NOMOR_PERKARA'].'",
-          "'.$v['TGL_SPDP'].'",
-          "'.$v['NOMOR_PERKARA'].'",';
+          "<center>'.$v['NOMOR_PERKARA'].'</center>",
+          "<center>'.$v['NAMA_TERSANGKA'].'</center>",
+          "<center>'.$no_tgl_putusan[0].'</center>",
+          "<center>'.$no_tgl_putusan[1].'</center>",
+          "<center>'.$v['STATUS'].'</center>",';
         $json .= '"<center><a class=\"btn\" href=\"' . sfContext::getInstance()->getController()->genUrl('penerimaanSpdp/edittambah?id_perkara=' . $v['ID'] . '&kode_satker=' . $v['INST_SATKERKD'], true) . '\">Edit</a></center>"]';
         $json .= ']}';
         return $this->renderText($json);

@@ -970,6 +970,10 @@ input[type="checkbox"]:focus {
   width: 270px;
 }
 
+.input-xlarge-edit {
+  width: 400px;
+}
+
 .input-xxlarge {
   width: 530px;
 }

@@ -111,16 +111,17 @@ $(function() {
 });
 </script>
 <form class="form-horizontal">
-	<label>Kejaksaan <input type="text" class="input-xlarge" name="txt_kejaksaan" id="txt_kejaksaan"><a data-toggle="modal" href="#myModal" data-target="#modal" class="btn btn-warning">...</a><input type="checkbox" value="">Semua Sub</label>
+	<label>Kejaksaan <input type="text" class="input-xlarge-edit" name="txt_kejaksaan" id="txt_kejaksaan"><a data-toggle="modal" href="#myModal" data-target="#modal" class="btn btn-warning">...</a><input type="checkbox" value="1">Semua Sub</label>
 	<input type="hidden" name="txt_kejaksaan_id" id="txt_kejaksaan_id" />
 	<label>
 		Filter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select class="span2">
-			  <option>No. Register</option>
-			  <option>2</option>
-			  <option>3</option>
-			  <option>4</option>
-			  <option>5</option>
+			  <option value="1">No. Perkara</option>
+			  <option value="2">Nama Terdakwa</option>
+			  <option value="3">No. Amar putusan</option>
+			  <option value="4">Tanggal</option>
+			  <option value="5">Tahun</option>
+			  <option value="6">Status</option>
 			</select>
 			<input type="text" id="satker" name="filter" size="60" />
 			<button class="btn">Cari</button>
@@ -131,7 +132,7 @@ $(function() {
 <table cellspacing="1" width="100%" class="listing_table" id="table_index_pidum">
     <thead style="background: #b46a01 ;">
       <tr>
-          <th class="data" style="text-align: center; color: #FFFFFF;">No. Register</th>
+          <th class="data" style="text-align: center; color: #FFFFFF;">No. Perkara</th>
           <th class="data" style="text-align: center; color: #FFFFFF;">Nama Terdakwa</th>
 		  <th class="data" style="text-align: center; color: #FFFFFF;">No. Amar Putusan</th>
 		  <th class="data" style="text-align: center; color: #FFFFFF;">Tanggal</th>

@@ -16,7 +16,7 @@
   </select>
 </div>
 <div>&nbsp;</div>
-<button type="button" id="add_tersangka" >Tambah Tersangka</button>
+<button type="button" id="add_tersangka" >Tambah Terdakwa</button>
 <ul class="nav nav-tabs" id="myTab">
   <li id="tab_li1"><a href="#new_tab_id1" data-toggle="tab">Terdakwa 1</a></li>
 </ul>
@@ -379,7 +379,7 @@
             '</table>' +
           '</div>' 
         );
-        $('#myTab').append('<li id="tab_li'+tab_counter+'"><a href="#new_tab_id'+tab_counter+'" data-toggle="tab">Tersangka '+tab_counter+' <span class="" onClick=dlttabtersangka("'+tab_counter+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
+        $('#myTab').append('<li id="tab_li'+tab_counter+'"><a href="#new_tab_id'+tab_counter+'" data-toggle="tab">Terdakwa '+tab_counter+' <span class="" onClick=dlttabtersangka("'+tab_counter+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
         $('#myTab a:last').tab('show');
         
         tab_counter++;

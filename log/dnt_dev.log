@@ -10091,3 +10091,330 @@ Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Factories 126.30 ms (1)
 Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Action "dntpidum/new" 57.18 ms (1)
 Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/new" 79.62 ms (1)
 Oct 10 22:05:59 symfony [info] {sfWebDebugLogger} Partial "dntpidum/_form" 3.62 ms (1)
+Oct 11 13:53:50 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:53:50 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:53:50 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:53:50 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:53:50 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:53:50 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:53:50 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 63 (Undefined index: INST_SATKERKD)
+Oct 11 13:53:50 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 63 (Undefined index: INST_SATKERKD)
+Oct 11 13:53:50 symfony [err] {sfRenderException} The template "getdataindexpidumSuccess.php" does not exist or is unreadable in "".
+Oct 11 13:53:50 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 11 13:53:50 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 11 13:53:50 symfony [info] {sfWebDebugLogger} Configuration 558.76 ms (9)
+Oct 11 13:53:50 symfony [info] {sfWebDebugLogger} Factories 299.23 ms (1)
+Oct 11 13:53:50 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 117.23 ms (1)
+Oct 11 13:53:50 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 13:53:50 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/getdataindexpidum" 58.02 ms (1)
+Oct 11 13:54:02 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:54:02 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:54:02 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:54:02 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:54:02 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:54:02 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:54:02 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 63 (Undefined index: INST_SATKERKD)
+Oct 11 13:54:02 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 13:54:02 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 13:54:02 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (8)
+Oct 11 13:54:02 symfony [info] {sfWebDebugLogger} Factories 15.77 ms (1)
+Oct 11 13:54:02 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 109.37 ms (1)
+Oct 11 13:54:02 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 13:54:02 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 13:54:02 symfony [info] {sfWebResponse} Send content (344 o)
+Oct 11 13:54:26 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:54:26 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:54:26 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:54:26 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:54:26 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:54:26 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:54:26 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 64 (Undefined index: INST_SATKERKD)
+Oct 11 13:54:26 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 13:54:26 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 13:54:26 symfony [info] {sfWebDebugLogger} Configuration 0.84 ms (8)
+Oct 11 13:54:26 symfony [info] {sfWebDebugLogger} Factories 16.84 ms (1)
+Oct 11 13:54:26 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 132.86 ms (1)
+Oct 11 13:54:26 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 13:54:26 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 13:54:26 symfony [info] {sfWebResponse} Send content (344 o)
+Oct 11 13:55:06 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:55:06 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:55:06 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:55:06 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:55:07 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:55:07 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:55:07 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00923: FROM keyword not found where expected : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID. Failing Query: "SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID"
+Oct 11 13:55:07 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 11 13:55:07 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 11 13:55:07 symfony [info] {sfWebDebugLogger} Configuration 0.79 ms (8)
+Oct 11 13:55:07 symfony [info] {sfWebDebugLogger} Factories 15.27 ms (1)
+Oct 11 13:55:07 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 194.10 ms (1)
+Oct 11 13:55:07 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 11 13:55:27 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:55:27 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:55:27 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:55:27 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:55:27 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:55:27 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:55:28 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00923: FROM keyword not found where expected : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID. Failing Query: "SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN as NO_TGL,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID"
+Oct 11 13:55:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Oct 11 13:55:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Oct 11 13:55:28 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (8)
+Oct 11 13:55:28 symfony [info] {sfWebDebugLogger} Factories 15.35 ms (1)
+Oct 11 13:55:28 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 139.02 ms (1)
+Oct 11 13:55:28 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.00 ms (1)
+Oct 11 13:56:24 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 13:56:24 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 13:56:24 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 13:56:24 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 13:56:24 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 13:56:24 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 13:56:24 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 64 (Undefined index: INST_SATKERKD)
+Oct 11 13:56:24 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 13:56:24 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 13:56:24 symfony [info] {sfWebDebugLogger} Configuration 1.66 ms (8)
+Oct 11 13:56:24 symfony [info] {sfWebDebugLogger} Factories 16.61 ms (1)
+Oct 11 13:56:24 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 107.88 ms (1)
+Oct 11 13:56:24 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 13:56:24 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 13:56:24 symfony [info] {sfWebResponse} Send content (344 o)
+Oct 11 14:02:17 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 14:02:17 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 14:02:17 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 14:02:17 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 14:02:17 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 14:02:17 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 14:02:17 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 64 (Undefined index: INST_SATKERKD)
+Oct 11 14:02:17 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 14:02:17 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 14:02:17 symfony [info] {sfWebDebugLogger} Configuration 0.78 ms (8)
+Oct 11 14:02:17 symfony [info] {sfWebDebugLogger} Factories 15.76 ms (1)
+Oct 11 14:02:17 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 178.31 ms (1)
+Oct 11 14:02:17 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 14:02:17 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 14:02:17 symfony [info] {sfWebResponse} Send content (344 o)
+Oct 11 14:02:45 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 14:02:45 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 14:02:45 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 14:02:45 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 14:02:45 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 14:02:45 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 14:02:45 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 65 (Undefined index: INST_SATKERKD)
+Oct 11 14:02:45 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 14:02:45 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 14:02:45 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (8)
+Oct 11 14:02:45 symfony [info] {sfWebDebugLogger} Factories 16.03 ms (1)
+Oct 11 14:02:45 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 116.16 ms (1)
+Oct 11 14:02:45 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 14:02:45 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 14:02:45 symfony [info] {sfWebResponse} Send content (344 o)
+Oct 11 14:02:52 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Oct 11 14:02:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Oct 11 14:02:52 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Oct 11 14:02:52 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Oct 11 14:02:53 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Oct 11 14:02:53 symfony [info] {Doctrine_Connection_Oracle} query : SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
+              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
+              CASE 
+                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                        END NO#TGL_PUTUSAN,
+              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
+              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
+              END STATUS
+              FROM PDM_TERSANGKA 
+              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
+               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID - ()
+Oct 11 14:02:53 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 65 (Undefined index: INST_SATKERKD)
+Oct 11 14:02:53 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Oct 11 14:02:53 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Oct 11 14:02:53 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (8)
+Oct 11 14:02:53 symfony [info] {sfWebDebugLogger} Factories 15.28 ms (1)
+Oct 11 14:02:53 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 115.29 ms (1)
+Oct 11 14:02:53 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (2)
+Oct 11 14:02:53 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Oct 11 14:02:53 symfony [info] {sfWebResponse} Send content (344 o)
