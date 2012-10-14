@@ -158,7 +158,7 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 18px;
   color: #333333;
   background-color: #ffffff;
@@ -192,6 +192,16 @@ a:hover {
 [class*="span"] {
   float: left;
   margin-left: 20px;
+}
+
+[class*="span3-pasal"] {
+    float: left;
+    margin-left: 0;
+}
+
+[class*="span3-label"] {
+    float: left;
+    margin-left: 0;
 }
 
 .container,
@@ -237,6 +247,10 @@ a:hover {
 }
 
 .span3 {
+  width: 220px;
+}
+
+.span3-label {
   width: 220px;
 }
 

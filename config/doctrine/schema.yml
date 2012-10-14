@@ -2,6 +2,12 @@ KP_INST_SATKER:
   connection: doctrine
   tableName: KP_INST_SATKER
   columns:
+    id:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
     inst_satkerkd:
       notnull: true
       type: string(50)
@@ -188,6 +194,66 @@ KP_INST_SATKER:
       fixed: false
       unsigned: false
       primary: false
+MS_AGAMA:
+  connection: doctrine
+  tableName: MS_AGAMA
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    nama:
+      notnull: false
+      type: string(32)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDM_TERSANGKA:
+      local: id
+      foreign: id_agama
+      type: many
+MS_JNSKELAMIN:
+  connection: doctrine
+  tableName: MS_JNSKELAMIN
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    nama:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDM_TERSANGKA:
+      local: id
+      foreign: jkl
+      type: many
+MS_PENDIDIKAN:
+  connection: doctrine
+  tableName: MS_PENDIDIKAN
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    nama:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDM_TERSANGKA:
+      local: id
+      foreign: pendidikan
+      type: many
 PDM_BARBUK:
   connection: doctrine
   tableName: PDM_BARBUK
@@ -1825,7 +1891,7 @@ PDM_TERSANGKA:
       primary: false
     pendidikan:
       notnull: false
-      type: string(50)
+      type: integer(8)
       fixed: false
       unsigned: false
       primary: false
@@ -1926,8 +1992,20 @@ PDM_TERSANGKA:
       unsigned: false
       primary: false
   relations:
+    MS_AGAMA:
+      local: id_agama
+      foreign: id
+      type: one
     PDM_PERKARA:
       local: id_perkara
+      foreign: id
+      type: one
+    MS_PENDIDIKAN:
+      local: pendidikan
+      foreign: id
+      type: one
+    MS_JNSKELAMIN:
+      local: jkl
       foreign: id
       type: one
     PDM_PASAL:

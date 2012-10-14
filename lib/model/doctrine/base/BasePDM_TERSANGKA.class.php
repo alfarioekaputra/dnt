@@ -60,7 +60,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @property string $ph_pn_lokasi
  * @property integer $umur
  * @property integer $id_agama
- * @property string $pendidikan
+ * @property integer $pendidikan
  * @property integer $putusan_tetap
  * @property timestamp $tgl_eksekusi
  * @property integer $putusan_upaya_hukum
@@ -77,7 +77,10 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @property integer $rentut_kejati
  * @property integer $rentut_kejagung
  * @property integer $pdn_pengawasan
+ * @property MS_AGAMA $MS_AGAMA
  * @property PDM_PERKARA $PDM_PERKARA
+ * @property MS_PENDIDIKAN $MS_PENDIDIKAN
+ * @property MS_JNSKELAMIN $MS_JNSKELAMIN
  * @property Doctrine_Collection $PDM_PASAL
  * @property Doctrine_Collection $PDM_UPAYA_BANDING
  * @property Doctrine_Collection $PDM_UPAYA_GRASI
@@ -137,7 +140,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @method string              getPhPnLokasi()             Returns the current record's "ph_pn_lokasi" value
  * @method integer             getUmur()                   Returns the current record's "umur" value
  * @method integer             getIdAgama()                Returns the current record's "id_agama" value
- * @method string              getPendidikan()             Returns the current record's "pendidikan" value
+ * @method integer             getPendidikan()             Returns the current record's "pendidikan" value
  * @method integer             getPutusanTetap()           Returns the current record's "putusan_tetap" value
  * @method timestamp           getTglEksekusi()            Returns the current record's "tgl_eksekusi" value
  * @method integer             getPutusanUpayaHukum()      Returns the current record's "putusan_upaya_hukum" value
@@ -154,7 +157,10 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @method integer             getRentutKejati()           Returns the current record's "rentut_kejati" value
  * @method integer             getRentutKejagung()         Returns the current record's "rentut_kejagung" value
  * @method integer             getPdnPengawasan()          Returns the current record's "pdn_pengawasan" value
+ * @method MS_AGAMA            getMSAGAMA()                Returns the current record's "MS_AGAMA" value
  * @method PDM_PERKARA         getPDMPERKARA()             Returns the current record's "PDM_PERKARA" value
+ * @method MS_PENDIDIKAN       getMSPENDIDIKAN()           Returns the current record's "MS_PENDIDIKAN" value
+ * @method MS_JNSKELAMIN       getMSJNSKELAMIN()           Returns the current record's "MS_JNSKELAMIN" value
  * @method Doctrine_Collection getPDMPASAL()               Returns the current record's "PDM_PASAL" collection
  * @method Doctrine_Collection getPDMUPAYABANDING()        Returns the current record's "PDM_UPAYA_BANDING" collection
  * @method Doctrine_Collection getPDMUPAYAGRASI()          Returns the current record's "PDM_UPAYA_GRASI" collection
@@ -230,7 +236,10 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @method PDM_TERSANGKA       setRentutKejati()           Sets the current record's "rentut_kejati" value
  * @method PDM_TERSANGKA       setRentutKejagung()         Sets the current record's "rentut_kejagung" value
  * @method PDM_TERSANGKA       setPdnPengawasan()          Sets the current record's "pdn_pengawasan" value
+ * @method PDM_TERSANGKA       setMSAGAMA()                Sets the current record's "MS_AGAMA" value
  * @method PDM_TERSANGKA       setPDMPERKARA()             Sets the current record's "PDM_PERKARA" value
+ * @method PDM_TERSANGKA       setMSPENDIDIKAN()           Sets the current record's "MS_PENDIDIKAN" value
+ * @method PDM_TERSANGKA       setMSJNSKELAMIN()           Sets the current record's "MS_JNSKELAMIN" value
  * @method PDM_TERSANGKA       setPDMPASAL()               Sets the current record's "PDM_PASAL" collection
  * @method PDM_TERSANGKA       setPDMUPAYABANDING()        Sets the current record's "PDM_UPAYA_BANDING" collection
  * @method PDM_TERSANGKA       setPDMUPAYAGRASI()          Sets the current record's "PDM_UPAYA_GRASI" collection
@@ -252,6 +261,7 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+			 'sequence' => 'PDM_TERSANGKA',
              'length' => 8,
              ));
         $this->hasColumn('nama', 'string', 100, array(
@@ -670,13 +680,13 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'primary' => false,
              'length' => 4,
              ));
-        $this->hasColumn('pendidikan', 'string', 50, array(
+        $this->hasColumn('pendidikan', 'integer', 8, array(
              'notnull' => false,
-             'type' => 'string',
+             'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'length' => 50,
+             'length' => 8,
              ));
         $this->hasColumn('putusan_tetap', 'integer', 1, array(
              'notnull' => false,
@@ -811,8 +821,20 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('MS_AGAMA', array(
+             'local' => 'id_agama',
+             'foreign' => 'id'));
+
         $this->hasOne('PDM_PERKARA', array(
              'local' => 'id_perkara',
+             'foreign' => 'id'));
+
+        $this->hasOne('MS_PENDIDIKAN', array(
+             'local' => 'pendidikan',
+             'foreign' => 'id'));
+
+        $this->hasOne('MS_JNSKELAMIN', array(
+             'local' => 'jkl',
              'foreign' => 'id'));
 
         $this->hasMany('PDM_PASAL', array(

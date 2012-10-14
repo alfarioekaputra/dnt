@@ -12,25 +12,12 @@ class PDM_TERSANGKAForm extends BasePDM_TERSANGKAForm
 {
   public function configure()
   {
-	$this->setWidget('jkl', new sfWidgetFormChoice(array('choices' => array('0' => '--jenis kelamin--', '1' => 'Laki-laki', '2' => 'Perempuan'))));
-	$this->setWidget('id_agama', new sfWidgetFormChoice(array('choices' => array('0' => '--Agama--', '1' => 'Islam', '2' => 'Kristen Protestan', '3' => 'Kristen Katolik', '4' => 'Hindu', '5' => 'Budha'))));
-	$this->setWidget('pendidikan',
-					 new sfWidgetFormChoice(
-						  array('choices' =>
-							array('0' => '--Pendidikan--',
-								  '1' => 'Tidak Tamat SD',
-								  '2' => 'SD / SR',
-								  '3' => 'SMP / SLTP',
-								  '4' => 'SMA / SLTA',
-								  '5' => 'Diploma / Sarjana Muda',
-								  '6' => 'Sarjana (S1)',
-								  '7' => 'Pascasarjana (S2)',
-								  '8' => 'Doktor (S3)',
-								  '9' => 'Profesor'
-								  )
-							)
-					  )
-					);
+	$this->embedRelation('PDM_PERKARA');
+	
+	$this->setWidget('id_agama', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_AGAMA'), 'add_empty' => 'Pilih', 'method' => 'getNama')));
+	$this->setWidget('pendidikan', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_PENDIDIKAN'), 'add_empty' => 'Pilih', 'method' => 'getNama')));
+	$this->setWidget('jkl', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_JNSKELAMIN'), 'add_empty' => 'Pilih', 'method' => 'getNama')));
+	$this->setWidget('tgl_lahir', new sfWidgetFormInputText());
 	$this->setWidget('alamat', new sfWidgetFormTextArea());
   }
 }

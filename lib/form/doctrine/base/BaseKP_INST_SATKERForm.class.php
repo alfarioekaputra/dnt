@@ -15,7 +15,7 @@ abstract class BaseKP_INST_SATKERForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                    => new sfWidgetFormInputHidden(),
+      'id'                    => new sfWidgetFormInputText(),
       'inst_satkerkd'         => new sfWidgetFormInputText(),
       'inst_satkerinduk'      => new sfWidgetFormInputText(),
       'inst_nama'             => new sfWidgetFormInputText(),
@@ -50,7 +50,7 @@ abstract class BaseKP_INST_SATKERForm extends BaseFormDoctrine
     ));
 
     $this->setValidators(array(
-      'id'                    => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
+      'id'                    => new sfValidatorInteger(array('required' => false)),
       'inst_satkerkd'         => new sfValidatorString(array('max_length' => 50)),
       'inst_satkerinduk'      => new sfValidatorString(array('max_length' => 12, 'required' => false)),
       'inst_nama'             => new sfValidatorString(array('max_length' => 100, 'required' => false)),

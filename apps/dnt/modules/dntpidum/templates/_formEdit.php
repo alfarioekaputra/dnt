@@ -7,7 +7,7 @@
 <?php endif; ?>
 <div class="form-inline">
   <label>
-    No. Perkara
+    No. Register
   </label>
   <?php echo $form['PDM_PERKARA']['nomor_perkara']->render() ?>
   <select name="apb_aps" class="span1">
@@ -26,7 +26,7 @@
       <div class="span5">
         <label>Nama</label>  <?php echo $form['nama']->render(array('name' => 'nama_terdakwa[]', 'class' => 'span3')) ?> 
         <label>Tempat/Tanggal Lahir</label>  <?php echo $form['tempat_lahir']->render(array('name' => 'tempat_lahir[]', 'class' => 'span3-edit')) ?>  <?php echo $form['tgl_lahir']->render(array('name' => 'tgl_lahir[]', 'class' => 'datepicker span2-edit', 'id' => 'data_tgllahir1', 'onchange' => 'addtgllahir("1")')) ?>
-        <label>Usia</label>  <?php echo $form['umur']->render(array('name' => 'umur[]', 'id' => 'data_umur1', 'class' => 'span1', 'readonly')) ?>
+        <label>Usia</label>  <?php echo $form['umur']->render(array('name' => 'umur[]', 'id' => 'data_umur1', 'class' => 'span1', 'readonly' => 'true')) ?>
         <label>Jenis Kelamin</label>  <?php echo $form['jkl']->render(array('name' => 'jkl[]', 'class' => 'span2')) ?>
         <label>Alamat</label>  <?php echo $form['alamat']->render(array('name' => 'alamat[]', 'class' => 'span4')) ?> 
       </div>
@@ -186,37 +186,40 @@
           '<div class="tab-pane in active" id="new_tab_id'+tab_counter+'">' +
             '<div class="row">' +
               '<div class="span5">' +
-                '<label>Nama</label>' +  '<?php echo $form['nama']->render(array('name' => 'nama_terdakwa[]', 'class' => 'span3')) ?>' +
-                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $form['tempat_lahir']->render(array('name' => 'tempat_lahir[]', 'class' => 'span3-edit')) ?>' +  '<input type="text" id="data_tgllahir'+tab_counter+'" onChange=addtgllahir("'+tab_counter+'") class="datepicker span2-edit" name="tgl_lahir[]" maxlength="10">' +
-                '<label>Usia</label>' +  '<input type="text" id = "data_umur'+tab_counter+'" class="span1" name="umur[]" readonly="true">' +
-                '<label>Jenis Kelamin</label>' +
-                  '<select name="jkl[]" class="span2" id="jkl">'+
-                    '<option value="" selected="selected">Pilih</option>'+
-                    <?php foreach($jkl_db as $jkl_db): ?>
-                    '<option value="<?php echo $jkl_db->getId() ?>"><?php echo $jkl_db->getNama() ?></option>'+
-                    <?php endforeach; ?>
-                  '</select>' +
-                '<label>Alamat</label>' +  '<?php echo $form['alamat']->render(array('name' => 'alamat[]', 'class' => 'span4')) ?> ' +
+                '<label>Nama</label>' + '<?php echo $formTersangka['nama']->render(array('class' => 'span3')) ?>' +
+                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $formTersangka['tempat_lahir']->render(array('class' => 'span3-edit')) ?>' + '<input type="text" id="data_tgllahir'+tab_counter+'" onChange=addtgllahir("'+tab_counter+'") class="datepicker span2-edit" />' +
+                '<label>Usia</label>' + '<input type="text" id="data_umur'+tab_counter+'" class="span1" />' +
+                '<label>Jenis Kelamin</label>' + '<select name="pdm_tersangka[jkl]" class="span2" id="pdm_tersangka_jkl">' +
+                                                    '<option value="0">--jenis kelamin--</option>' +
+                                                    '<option value="1">Laki-laki</option>' +
+                                                    '<option value="2">Perempuan</option>' +
+                                                  '</select>' +
+                '<label>Alamat</label>' + '<?php echo $formTersangka['alamat']->render(array('class' => 'span5')) ?>' +
               '</div>' +
-              
-              '<div class="span3"> ' +
-                '<label>Agama</label>' +
-                  '<select name="id_agama[]" class="span2" id="jkl">'+
-                    '<option value="" selected="selected">Pilih</option>'+
-                    <?php foreach($agama_db as $agama_db): ?>
-                    '<option value="<?php echo $agama_db->getId() ?>"><?php echo $agama_db->getNama() ?></option>'+
-                    <?php endforeach; ?>
-                  '</select>' +
-                '<label>Pekerjaan</label>' +  '<?php echo $form['pekerjaan']->render(array('name' => 'pekerjaan[]', 'class' => 'span3')) ?>' +
-                '<label>Kewarganegaraan</label>' +  '<?php echo $form['kewarganegaraan']->render(array('name' => 'kewarganegaraan[]', 'class' => 'span3')) ?>' +
-                '<label>Pendidikan</label>' +
-                  '<select name="pendidikan[]" class="span2" id="jkl">'+
-                    '<option value="" selected="selected">Pilih</option>'+
-                    <?php foreach($pendidikan_db as $pendidikan_db): ?>
-                    '<option value="<?php echo $pendidikan_db->getId() ?>"><?php echo $pendidikan_db->getNama() ?></option>'+
-                    <?php endforeach; ?>
-                  '</select>' +
-              '</div>' + 
+              '<div class="span3">' +
+                '<label>Agama</label>' + '<select name="pdm_tersangka[id_agama]" class="span3" id="pdm_tersangka_id_agama">' +
+                                            '<option value="0">--Agama--</option>' +
+                                            '<option value="1">Islam</option>' +
+                                            '<option value="2">Kristen Protestan</option>' +
+                                            '<option value="3">Kristen Katolik</option>' +
+                                            '<option value="4">Hindu</option>' +
+                                            '<option value="5">Budha</option>' +
+                                          '</select>' +
+                '<label>Pekerjaan</label>' + '<?php echo $formTersangka['pekerjaan']->render(array('class' => 'span3')) ?>' +
+                '<label>Kewarganegaraan</label>' + '<?php echo $formTersangka['kewarganegaraan']->render(array('class' => 'span3')) ?>' +
+                '<label>Pendidikan</label>' + '<select name="pdm_tersangka[pendidikan]" class="span3" id="pdm_tersangka_pendidikan">' +
+                                                  '<option value="0">--Pendidikan--</option>' +
+                                                  '<option value="1">Tidak Tamat SD</option>' +
+                                                  '<option value="2">SD / SR</option>' + 
+                                                  '<option value="3">SMP / SLTP</option>' +
+                                                  '<option value="4">SMA / SLTA</option>' +
+                                                  '<option value="5">Diploma / Sarjana Muda</option>' +
+                                                  '<option value="6">Sarjana (S1)</option>' +
+                                                  '<option value="7">Pascasarjana (S2)</option>' +
+                                                  '<option value="8">Doktor (S3)</option>' +
+                                                  '<option value="9">Profesor</option>' +
+                                                '</select>' +
+              '</div>' +
             '</div>' +
             '<hr />' +
             '<legend><b>Putusan Inkrah</b></legend>' +

@@ -23,22 +23,64 @@ class dntpidumActions extends sfActions
               ->execute();*/
     
     $conn = Doctrine_Manager::connection();
-    $query = "SELECT  PDM_PERKARA.ID,PDM_PERKARA.NOMOR_PERKARA,NAMA||' #'|| 
-              TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
-               DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT as NAMA_TERSANGKA, 
-              CASE 
-                       WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
-                        WHEN PUTUSAN_TETAP=2 THEN (SELECT TO_CHAR(''||'#'||TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
-                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                        WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                        END NO#TGL_PUTUSAN,
-              CASE WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NULL THEN 'MERAH'
-              WHEN PDM_SETOR_DNT.ID_TERSANGKA IS NOT NULL THEN 'HIJAU'
-              END STATUS
-              FROM PDM_TERSANGKA 
-              LEFT JOIN PDM_PERKARA ON PDM_PERKARA.ID =PDM_TERSANGKA.ID_PERKARA
-               LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID";
+    $query = "SELECT A.ID,
+              NOMOR_PERKARA,
+              NAMA,
+              NO_TGL_PUTUSAN
+            FROM PDM_PERKARA
+            LEFT JOIN
+              (SELECT ID,
+                ID_PERKARA,
+                NAMA,
+                CASE
+                  WHEN PUTUSAN_UPAYA_HUKUM=1
+                  THEN
+                    (SELECT TO_CHAR(''
+                      ||'#'
+                      ||TO_CHAR(TGL_PUTUSAN_PN, 'DD-MM-YYYY'))
+                    FROM PDM_PERKARA
+                    WHERE ID=PDM_TERSANGKA.ID_PERKARA
+                    )
+                  WHEN PUTUSAN_TETAP=2
+                  THEN
+                    (SELECT NO_PUTUSAN
+                      ||'#'
+                      ||TO_CHAR(TGL_PUTUSAN, 'DD-MM-YYYY')
+                    FROM PDM_UPAYA_BANDING
+                    WHERE ID_TERSANGKA=PDM_TERSANGKA.ID
+                    )
+                  WHEN PUTUSAN_TETAP=3
+                  THEN
+                    (SELECT NO_PUTUSAN
+                      ||'#'
+                      ||TO_CHAR(TGL_PUTUSAN, 'DD-MM-YYYY')
+                    FROM PDM_UPAYA_KASASI
+                    WHERE ID_TERSANGKA=PDM_TERSANGKA.ID
+                    )
+                  WHEN PUTUSAN_TETAP=4
+                  THEN
+                    (SELECT NO_PUTUSAN
+                      ||'#'
+                      ||TO_CHAR(TGL_PUTUSAN, 'DD-MM-YYYY')
+                    FROM PDM_UPAYA_PK
+                    WHERE ID_TERSANGKA=PDM_TERSANGKA.ID
+                    )
+                  WHEN PUTUSAN_TETAP=5
+                  THEN
+                    (SELECT NO_GRASI
+                      ||'#'
+                      ||TO_CHAR(TGL_GRASI, 'DD-MM-YYYY')
+                    FROM PDM_UPAYA_GRASI
+                    WHERE ID_TERSANGKA=PDM_TERSANGKA.ID
+                    )
+                END NO_TGL_PUTUSAN
+              FROM PDM_TERSANGKA
+              WHERE PUTUSAN_UPAYA_HUKUM = 1
+              OR PUTUSAN_TETAP         IN (2,3,4,5)) A
+              ON A.ID_PERKARA           =PDM_PERKARA.ID
+              LEFT JOIN KP_INST_SATKER C
+              ON ID_INSTANSI     =C.INST_SATKERKD
+              WHERE INST_SATKERKD='00'";
     
     $item_per_page = $request->getParameter('iDisplayLength', 10);
 
@@ -52,20 +94,22 @@ class dntpidumActions extends sfActions
     $first = 0;
     
     foreach($pager->getResults() as $v){
-      $no_tgl_putusan = explode("#",$v['NO#TGL_PUTUSAN']);
-      //echo $abc[0];
+      $no_tgl_putusan = explode("#",$v['NO_TGL_PUTUSAN']);
+      //echo $no_tgl_putusan[0];
       if($first++)
         $json .= ',';
         $json .= '[
-          "<center>'.$v['NOMOR_PERKARA'].'</center>",
-          "<center>'.$v['NAMA_TERSANGKA'].'</center>",
-          "<center>'.$no_tgl_putusan[0].'</center>",
-          "<center>'.$no_tgl_putusan[1].'</center>",
-          "<center>'.$v['STATUS'].'</center>",';
-        $json .= '"<center><a class=\"btn\" href=\"' . sfContext::getInstance()->getController()->genUrl('penerimaanSpdp/edittambah?id_perkara=' . $v['ID'] . '&kode_satker=' . $v['INST_SATKERKD'], true) . '\">Edit</a></center>"]';
-        $json .= ']}';
-        return $this->renderText($json);
+          "'.$v['NOMOR_PERKARA'].'",
+          "'.$v['NAMA'].'",
+          "'.$no_tgl_putusan[0].'",
+          "'.$no_tgl_putusan[1].'",
+          "'.$v['NOMOR_PERKARA'].'",';
+        $json .= '"<center><a class=\"btn btn-info\" href=\"' . sfContext::getInstance()->getController()->genUrl('dntpidum/edit?id=' . $v['ID'] . '&kode_satker=' . $v['INST_SATKERKD'], true) . '\">Edit</a></center>"]';
+        
+        
     }
+    $json .= ']}';
+    return $this->renderText($json);
   }
   
   public function processDatadetil($page = 1, $item_per_page = 10, $query) {
@@ -143,7 +187,7 @@ class dntpidumActions extends sfActions
             $json .= '[
 		 		"' . $v['INST_SATKERKD'] . '",
 				"' . $v['INST_NAMA'] . '",
-				"<input type=\"button\" class=\"ncusbtn\" data-dismiss=\"modal\" value=\"Pilih\" name=\"pilih\" onClick=\"goPilihKejati(\'' . $gabung . ' \',\'' . $pilihkejatitab . '\')\">"]';
+				"<input type=\"button\" class=\"btn\" data-dismiss=\"modal\" value=\"Pilih\" name=\"pilih\" onClick=\"goPilihKejati(\'' . $gabung . ' \',\'' . $pilihkejatitab . '\')\">"]';
 
             //$json =']';
         }
@@ -161,26 +205,88 @@ class dntpidumActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new PDM_PERKARAForm();
-    $this->formTersangka = new PDM_TERSANGKAForm();
+    $this->form = new PDM_TERSANGKAForm();
+    $this->formTersangka = new PDM_PERKARAForm();
+    
+    $this->jkl_db = Doctrine::getTable('MS_JNSKELAMIN')
+                    ->createQuery('a')
+                    ->execute();
+    
+    $this->agama_db = Doctrine::getTable('MS_AGAMA')
+                      ->createQuery('a')
+                      ->execute();
+    
+    $this->pendidikan_db = Doctrine::getTable('MS_PENDIDIKAN')
+                        ->createQuery('a')
+                        ->execute();
     
   }
 
   public function executeCreate(sfWebRequest $request)
   {
-    $this->forward404Unless($request->isMethod(sfRequest::POST));
-
-    $this->form = new PDM_PERKARAForm();
-
-    $this->processForm($request, $this->form);
-
-    $this->setTemplate('new');
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Fungsi');
+      
+      $this->forward404Unless($request->isMethod(sfRequest::POST));
+      
+      $this->form = new PDM_TERSANGKAForm();
+      //$this->formTersangka = new PDM_TERSANGKAForm();
+      
+      $this->setTemplate('new');
+      
+      $this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
+      if ($request->isMethod('post')) {
+          $perkara = new PDM_PERKARA();
+          $perkara->setNomorPerkara($this->form['PDM_PERKARA']['nomor_perkara']->getValue());
+          $perkara->save();
+          
+          $nama_terdakwa = $request->getParameter('nama_terdakwa');
+          $tempat_lahir = $request->getParameter('tempat_lahir');
+          $tgl_lahir = $request->getParameter('tgl_lahir');
+          $jkl = $request->getParameter('jkl');
+          $umur = $request->getParameter('umur');
+          $pendidikan = $request->getParameter('pendidikan');
+          $id_agama = $request->getParameter('id_agama');
+          $pekerjaan = $request->getParameter('pekerjaan');
+          $kewarganegaraan = $request->getParameter('kewarganegaraan');
+          $alamat = $request->getParameter('alamat');
+          
+          for($i = 0; $i < count($nama_terdakwa); $i++)
+          {
+           // $connection = Doctrine_Manager::connection();
+            $terdakwa = new PDM_TERSANGKA();
+            $terdakwa->setNama(strtoupper($nama_terdakwa[$i]));
+            $terdakwa->setTempatLahir($tempat_lahir[$i]);
+            $terdakwa->setTglLahir(setTanggal($tgl_lahir[$i]));
+            $terdakwa->setJkl($jkl[$i]);
+            $terdakwa->setUmur($umur[$i]);
+            $terdakwa->setPendidikan($pendidikan[$i]);
+            $terdakwa->setIdAgama($id_agama[$i]);
+            $terdakwa->setPekerjaan($pekerjaan[$i]);
+            $terdakwa->setKewarganegaraan($kewarganegaraan[$i]);
+            $terdakwa->setAlamat($alamat[$i]);
+            $terdakwa->setIdPerkara($perkara->getId());
+            $terdakwa->save();
+           // $connection->commit();
+          }
+          
+      }
+      
+      $this->redirect('dntpidum/edit?id='.$perkara->getId());
   }
 
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($pdm_perkara = Doctrine::getTable('PDM_PERKARA')->find(array($request->getParameter('id'))), sprintf('Object pdm_perkara does not exist (%s).', $request->getParameter('id')));
-    $this->form = new PDM_PERKARAForm($pdm_perkara);
+    //$this->forward404Unless($pdm_perkara = Doctrine::getTable('PDM_TERSANGKA')->find(array($request->getParameter('id'))), sprintf('Object pdm_perkara does not exist (%s).', $request->getParameter('id')));
+    /*$this->forward404Unless(
+            $pdm_perkara = Doctrine::getTable('PDM_PERKARA')
+                        ->createQuery('u')
+                        ->leftJoin('u.PDM_TERSANGKA p')
+                        ->where('u.id = ' . $request->getParameter('id'))
+                        ->fetchOne(),
+                sprintf('Object pdm_tersangka does not exist (%s).', $request->getParameter('id'))
+    );*/
+    $this->form = new PDM_TERSANGKAForm();
+    //$this->formTersangka = new PDM_TERSANGKAForm($pdm_tersangka);
   }
 
   public function executeUpdate(sfWebRequest $request)
@@ -204,13 +310,28 @@ class dntpidumActions extends sfActions
     $this->redirect('dntpidum/index');
   }
 
-  protected function processForm(sfWebRequest $request, sfForm $form)
+  protected function processForm(sfWebRequest $request, sfForm $form, sfForm $formTersangka)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    if ($form->isValid())
+    $formTersangka->bind($request->getParameter($formTersangka->getName()), $request->getFiles($formTersangka->getName()));
+    if ($form->isValid() and $formTersangka->isValid())
     {
-      $pdm_perkara = $form->save();
-
+      $perkara = new PDM_PERKARA();
+      $perkara->setNomorPerkara($this->form['PDM_PERKARA']['nomor_perkara']->getValue());
+      $perkara->save();
+      
+      $terdakwa = new PDM_TERSANGKA();
+      $terdakwa->setNama($this->formTersangka['PDM_TERSANGKA']['nama']->getValue());
+      $terdakwa->setTempatLahir($this->formTersangka['PDM_TERSANGKA']['tempat_lahir']->getValue());
+      $terdakwa->setTglLahir(setTanggal($this->form['PDM_TERSANGKA']['tgl_lahir']->getValue()));
+      $terdakwa->setJkl($this->formTersangka['PDM_TERSANGKA']['jkl']->getValue());
+      $terdakwa->setPendidikan($this->formTersangka['PDM_TERSANGKA']['pendidikan']->getValue());
+      $terdakwa->setIdAgama($this->formTersangka['PDM_TERSANGKA']['id_agama']->getValue());
+      $terdakwa->setPekerjaan($this->formTersangka['PDM_TERSANGKA']['pekerjaan']->getValue());
+      $terdakwa->setAlamat($this->formTersangka['PDM_TERSANGKA']['alamat']->getValue());
+      $terdakwa->setIdPerkara($perkara->getId());
+      $terdakwa->save();
+      
       $this->redirect('dntpidum/edit?id='.$pdm_perkara->getId());
     }
   }

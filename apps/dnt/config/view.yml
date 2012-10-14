@@ -12,7 +12,7 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [dnt/dnt.css, dnt/bootstrap.css, dnt/ui-lightness/jquery-ui-1.8.24.custom.css, global/demo_table.css]
+  stylesheets:    [dnt/dnt.css, dnt/bootstrap.css, dnt/ui-lightness/jquery-ui-1.8.24.custom.css, dnt/DT_bootstrap.css]
 
   javascripts:    [dnt/jquery.js, dnt/bootstrap.js, global/jquery.dataTables.js, global/jquery-ui.js]
 

@@ -378,6 +378,7 @@ abstract class BasePDM_PERKARA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+			 'sequence' => 'PDM_PERKARA',
              'length' => 8,
              ));
         $this->hasColumn('nomor_perkara', 'string', 255, array(
