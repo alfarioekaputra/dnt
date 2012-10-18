@@ -1,4 +1,5 @@
 <?php
+//ini_set('memory_limit', '-1');
 
 /**
  * dntpidum actions.
@@ -276,17 +277,34 @@ class dntpidumActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
-    //$this->forward404Unless($pdm_perkara = Doctrine::getTable('PDM_TERSANGKA')->find(array($request->getParameter('id'))), sprintf('Object pdm_perkara does not exist (%s).', $request->getParameter('id')));
-    /*$this->forward404Unless(
-            $pdm_perkara = Doctrine::getTable('PDM_PERKARA')
-                        ->createQuery('u')
-                        ->leftJoin('u.PDM_TERSANGKA p')
-                        ->where('u.id = ' . $request->getParameter('id'))
-                        ->fetchOne(),
-                sprintf('Object pdm_tersangka does not exist (%s).', $request->getParameter('id'))
-    );*/
-    $this->form = new PDM_TERSANGKAForm();
-    //$this->formTersangka = new PDM_TERSANGKAForm($pdm_tersangka);
+    //$this->forward404Unless(
+    $this->pdm_perkara = Doctrine::getTable('PDM_PERKARA')
+                ->createQuery('a')
+                ->where('id = ' . $request->getParameter('id'))
+                ->orderby('id')
+                ->execute();
+
+    $this->pdm_tersangka = Doctrine::getTable('PDM_TERSANGKA')
+                ->createQuery('b')
+                ->where('id_perkara = ' . $request->getParameter('id'))
+                ->orderby('id')
+                ->execute();
+                //sprintf('Object pdm_tersangka does not exist (%s).', $request->getParameter('id'))
+    $this->form = new PDM_PERKARAForm();
+    $this->formTersangka = new PDM_TERSANGKAForm();
+    
+    $this->jkl_db = Doctrine::getTable('MS_JNSKELAMIN')
+                    ->createQuery('a')
+                    ->execute();
+    
+    $this->agama_db = Doctrine::getTable('MS_AGAMA')
+                      ->createQuery('a')
+                      ->execute();
+    
+    $this->pendidikan_db = Doctrine::getTable('MS_PENDIDIKAN')
+                        ->createQuery('a')
+                        ->execute();
+
   }
 
   public function executeUpdate(sfWebRequest $request)

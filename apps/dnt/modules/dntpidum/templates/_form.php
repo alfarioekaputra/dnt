@@ -26,7 +26,7 @@
       <div class="span5">
         <label>Nama</label>  <?php echo $form['nama']->render(array('name' => 'nama_terdakwa[]', 'class' => 'span3')) ?> 
         <label>Tempat/Tanggal Lahir</label>  <?php echo $form['tempat_lahir']->render(array('name' => 'tempat_lahir[]', 'class' => 'span3-edit')) ?>  <?php echo $form['tgl_lahir']->render(array('name' => 'tgl_lahir[]', 'class' => 'datepicker span2-edit', 'id' => 'data_tgllahir1', 'onchange' => 'addtgllahir("1")')) ?>
-        <label>Usia</label>  <?php echo $form['umur']->render(array('name' => 'umur[]', 'id' => 'data_umur1', 'class' => 'span1', 'readonly')) ?>
+        <label>Usia</label>  <?php echo $form['umur']->render(array('name' => 'umur[]', 'id' => 'data_umur1', 'class' => 'span1', 'readonly' => 'true')) ?>
         <label>Jenis Kelamin</label>  <?php echo $form['jkl']->render(array('name' => 'jkl[]', 'class' => 'span2')) ?>
         <label>Alamat</label>  <?php echo $form['alamat']->render(array('name' => 'alamat[]', 'class' => 'span4')) ?> 
       </div>
@@ -57,9 +57,9 @@
     <div class="row">&nbsp;</div>
     <div class="form-inline">
       <label class="span3-label"></label>
-      <label class="span3-pasal">Pasal Didakwakan<br /><input type="text"></label>
-      <label class="span2">Tambah<br /><btn class="btn">+</btn></label>
+      <label class="span3-pasal1">Pasal Didakwakan <div style="margin-right:-80px; float:right;"><input class="btn btn-warning" type="button" value="Tambah" onclick="addpasal('1')" id="add_pasal1" ></div><br /><br /><textarea name="pasal_didakwakan1[]" id="pasal_didakwakan1" class="span4"></textarea></label>
     </div>
+    <div class="row">&nbsp;</div>
     <div class="form-inline">
       <label class="span3-label">Jenis Putusan</label>
         <select class="span3" name="jns_putusan">
@@ -183,12 +183,12 @@
 
     function addTab() {
         $('.tab-content').append(
-          '<div class="tab-pane in active" id="new_tab_id'+tab_counter+'">' +
+          '<div class="tab-pane in active" id="new_tab_id'+addtab+'">' +
             '<div class="row">' +
               '<div class="span5">' +
                 '<label>Nama</label>' +  '<?php echo $form['nama']->render(array('name' => 'nama_terdakwa[]', 'class' => 'span3')) ?>' +
-                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $form['tempat_lahir']->render(array('name' => 'tempat_lahir[]', 'class' => 'span3-edit')) ?>' +  '<input type="text" id="data_tgllahir'+tab_counter+'" onChange=addtgllahir("'+tab_counter+'") class="datepicker span2-edit" name="tgl_lahir[]" maxlength="10">' +
-                '<label>Usia</label>' +  '<input type="text" id = "data_umur'+tab_counter+'" class="span1" name="umur[]" readonly="true">' +
+                '<label>Tempat/Tanggal Lahir</label>' + '<?php echo $form['tempat_lahir']->render(array('name' => 'tempat_lahir[]', 'class' => 'span3-edit')) ?>' +  '<input type="text" id="data_tgllahir'+addtab+'" onChange=addtgllahir("'+addtab+'") class="datepicker span2-edit" name="tgl_lahir[]" maxlength="10">' +
+                '<label>Usia</label>' +  '<input type="text" id = "data_umur'+addtab+'" class="span1" name="umur[]" readonly="true">' +
                 '<label>Jenis Kelamin</label>' +
                   '<select name="jkl[]" class="span2" id="jkl">'+
                     '<option value="" selected="selected">Pilih</option>'+
@@ -237,9 +237,9 @@
             '<div class="row">&nbsp;</div>' +
             '<div class="form-inline">' +
               '<label class="span3-label"></label>' +
-              '<label class="span3-pasal">Pasal Didakwakan<br /><input type="text"></label>' +
-              '<label class="span2">Tambah<br /><btn class="btn">+</btn></label>' +
+              '<label class="span3-pasal'+addtab+'">Pasal Didakwakan <div style="margin-right:-80px; float:right;"><input class="btn btn-warning" type="button" value="+" onclick="addpasal('+addtab+')" id="add_pasal'+addtab+'" ></div><br /><br /><textarea name="pasal_didakwakan'+addtab+'[]" id="pasal_didakwakan'+addtab+'" class="span4"></textarea></label>' +
             '</div>' +
+            '<div class="row">&nbsp;</div>' +
             '<div class="form-inline">' +
               '<label class="span3-label">Jenis Putusan</label>' +
                 '<select class="span3" name="jns_putusan">' +
@@ -342,12 +342,17 @@
             '</table>' +
           '</div>' 
         );
-        $('#myTab').append('<li id="tab_li'+tab_counter+'"><a href="#new_tab_id'+tab_counter+'" data-toggle="tab">Terdakwa '+tab_counter+' <span class="" onClick=dlttabtersangka("'+tab_counter+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
+        $('#myTab').append('<li id="tab_li'+addtab+'"><a href="#new_tab_id'+addtab+'" data-toggle="tab">Terdakwa '+addtab+' <span class="" onClick=dlttabtersangka("'+addtab+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
         $('#myTab a:last').tab('show');
         
-        tab_counter++;
+        addtab++;
     }
-    
+  
+  function addpasal(sRowId){
+    $(".span3-pasal"+sRowId+"").append('<br /><textarea name="pasal_didakwakan'+sRowId+'[]" id="pasal_didakwakan'+sRowId+'" class="span4"></textarea> &nbsp;<input type="button" class="btn btn-danger" value="-">');
+  }
+ 
+  
   function addtgllahir(sRowId)
     {
        /* DAY_MSECONDS = 1000 * 60 * 60 * 24;
@@ -417,6 +422,8 @@
         addTab();
         handeltgl($(document));
     });
+  
+  
   
   $("#add_tersangka").click(function() {
         $('#nilaiConter').val(tab_counter-1);
