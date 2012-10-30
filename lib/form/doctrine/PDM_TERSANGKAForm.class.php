@@ -12,8 +12,8 @@ class PDM_TERSANGKAForm extends BasePDM_TERSANGKAForm
 {
   public function configure()
   {
-	$this->embedRelation('PDM_PERKARA');
-	
+	  $this->embedRelation('PDM_PERKARA');
+
 	$this->setWidget('id_agama', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_AGAMA'), 'add_empty' => 'Pilih', 'method' => 'getNama')));
 	$this->setWidget('pendidikan', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_PENDIDIKAN'), 'add_empty' => 'Pilih', 'method' => 'getNama')));
 	$this->setWidget('jkl', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MS_JNSKELAMIN'), 'add_empty' => 'Pilih', 'method' => 'getNama')));

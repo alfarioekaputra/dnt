@@ -12,53 +12,71 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_SETOR_DNT', 'doctrine');
  * @property integer $id_tersangka
  * @property decimal $pj_biaya
  * @property decimal $denda
- * @property decimal $uang_lelang
+ * @property decimal $hasil_lelang
  * @property decimal $uang_rampasan
  * @property decimal $str_pj_biaya
  * @property decimal $str_denda
- * @property decimal $str_uang_lelang
+ * @property decimal $str_hasil_lelang
  * @property decimal $str_uang_rampasan
+ * @property integer $status
+ * @property string $keterangan
  * @property string $created_by
- * @property timestamp $created_time
  * @property string $created_ip
+ * @property timestamp $created_time
  * @property string $lastupdate_by
- * @property timestamp $lastupdate_time
  * @property string $lastupdate_ip
+ * @property timestamp $lastupdate_time
+ * @property PDM_PERKARA $PDM_PERKARA
+ * @property PDM_TERSANGKA $PDM_TERSANGKA
+ * @property Doctrine_Collection $PDM_DETAIL_STR
+ * @property Doctrine_Collection $PDM_BARBUK_LELANG
  * 
- * @method integer       getId()                Returns the current record's "id" value
- * @method integer       getIdPerkara()         Returns the current record's "id_perkara" value
- * @method integer       getIdTersangka()       Returns the current record's "id_tersangka" value
- * @method decimal       getPjBiaya()           Returns the current record's "pj_biaya" value
- * @method decimal       getDenda()             Returns the current record's "denda" value
- * @method decimal       getUangLelang()        Returns the current record's "uang_lelang" value
- * @method decimal       getUangRampasan()      Returns the current record's "uang_rampasan" value
- * @method decimal       getStrPjBiaya()        Returns the current record's "str_pj_biaya" value
- * @method decimal       getStrDenda()          Returns the current record's "str_denda" value
- * @method decimal       getStrUangLelang()     Returns the current record's "str_uang_lelang" value
- * @method decimal       getStrUangRampasan()   Returns the current record's "str_uang_rampasan" value
- * @method string        getCreatedBy()         Returns the current record's "created_by" value
- * @method timestamp     getCreatedTime()       Returns the current record's "created_time" value
- * @method string        getCreatedIp()         Returns the current record's "created_ip" value
- * @method string        getLastupdateBy()      Returns the current record's "lastupdate_by" value
- * @method timestamp     getLastupdateTime()    Returns the current record's "lastupdate_time" value
- * @method string        getLastupdateIp()      Returns the current record's "lastupdate_ip" value
- * @method PDM_SETOR_DNT setId()                Sets the current record's "id" value
- * @method PDM_SETOR_DNT setIdPerkara()         Sets the current record's "id_perkara" value
- * @method PDM_SETOR_DNT setIdTersangka()       Sets the current record's "id_tersangka" value
- * @method PDM_SETOR_DNT setPjBiaya()           Sets the current record's "pj_biaya" value
- * @method PDM_SETOR_DNT setDenda()             Sets the current record's "denda" value
- * @method PDM_SETOR_DNT setUangLelang()        Sets the current record's "uang_lelang" value
- * @method PDM_SETOR_DNT setUangRampasan()      Sets the current record's "uang_rampasan" value
- * @method PDM_SETOR_DNT setStrPjBiaya()        Sets the current record's "str_pj_biaya" value
- * @method PDM_SETOR_DNT setStrDenda()          Sets the current record's "str_denda" value
- * @method PDM_SETOR_DNT setStrUangLelang()     Sets the current record's "str_uang_lelang" value
- * @method PDM_SETOR_DNT setStrUangRampasan()   Sets the current record's "str_uang_rampasan" value
- * @method PDM_SETOR_DNT setCreatedBy()         Sets the current record's "created_by" value
- * @method PDM_SETOR_DNT setCreatedTime()       Sets the current record's "created_time" value
- * @method PDM_SETOR_DNT setCreatedIp()         Sets the current record's "created_ip" value
- * @method PDM_SETOR_DNT setLastupdateBy()      Sets the current record's "lastupdate_by" value
- * @method PDM_SETOR_DNT setLastupdateTime()    Sets the current record's "lastupdate_time" value
- * @method PDM_SETOR_DNT setLastupdateIp()      Sets the current record's "lastupdate_ip" value
+ * @method integer             getId()                Returns the current record's "id" value
+ * @method integer             getIdPerkara()         Returns the current record's "id_perkara" value
+ * @method integer             getIdTersangka()       Returns the current record's "id_tersangka" value
+ * @method decimal             getPjBiaya()           Returns the current record's "pj_biaya" value
+ * @method decimal             getDenda()             Returns the current record's "denda" value
+ * @method decimal             getHasilLelang()       Returns the current record's "hasil_lelang" value
+ * @method decimal             getUangRampasan()      Returns the current record's "uang_rampasan" value
+ * @method decimal             getStrPjBiaya()        Returns the current record's "str_pj_biaya" value
+ * @method decimal             getStrDenda()          Returns the current record's "str_denda" value
+ * @method decimal             getStrHasilLelang()    Returns the current record's "str_hasil_lelang" value
+ * @method decimal             getStrUangRampasan()   Returns the current record's "str_uang_rampasan" value
+ * @method integer             getStatus()            Returns the current record's "status" value
+ * @method string              getKeterangan()        Returns the current record's "keterangan" value
+ * @method string              getCreatedBy()         Returns the current record's "created_by" value
+ * @method string              getCreatedIp()         Returns the current record's "created_ip" value
+ * @method timestamp           getCreatedTime()       Returns the current record's "created_time" value
+ * @method string              getLastupdateBy()      Returns the current record's "lastupdate_by" value
+ * @method string              getLastupdateIp()      Returns the current record's "lastupdate_ip" value
+ * @method timestamp           getLastupdateTime()    Returns the current record's "lastupdate_time" value
+ * @method PDM_PERKARA         getPDMPERKARA()        Returns the current record's "PDM_PERKARA" value
+ * @method PDM_TERSANGKA       getPDMTERSANGKA()      Returns the current record's "PDM_TERSANGKA" value
+ * @method Doctrine_Collection getPDMDETAILSTR()      Returns the current record's "PDM_DETAIL_STR" collection
+ * @method Doctrine_Collection getPDMBARBUKLELANG()   Returns the current record's "PDM_BARBUK_LELANG" collection
+ * @method PDM_SETOR_DNT       setId()                Sets the current record's "id" value
+ * @method PDM_SETOR_DNT       setIdPerkara()         Sets the current record's "id_perkara" value
+ * @method PDM_SETOR_DNT       setIdTersangka()       Sets the current record's "id_tersangka" value
+ * @method PDM_SETOR_DNT       setPjBiaya()           Sets the current record's "pj_biaya" value
+ * @method PDM_SETOR_DNT       setDenda()             Sets the current record's "denda" value
+ * @method PDM_SETOR_DNT       setHasilLelang()       Sets the current record's "hasil_lelang" value
+ * @method PDM_SETOR_DNT       setUangRampasan()      Sets the current record's "uang_rampasan" value
+ * @method PDM_SETOR_DNT       setStrPjBiaya()        Sets the current record's "str_pj_biaya" value
+ * @method PDM_SETOR_DNT       setStrDenda()          Sets the current record's "str_denda" value
+ * @method PDM_SETOR_DNT       setStrHasilLelang()    Sets the current record's "str_hasil_lelang" value
+ * @method PDM_SETOR_DNT       setStrUangRampasan()   Sets the current record's "str_uang_rampasan" value
+ * @method PDM_SETOR_DNT       setStatus()            Sets the current record's "status" value
+ * @method PDM_SETOR_DNT       setKeterangan()        Sets the current record's "keterangan" value
+ * @method PDM_SETOR_DNT       setCreatedBy()         Sets the current record's "created_by" value
+ * @method PDM_SETOR_DNT       setCreatedIp()         Sets the current record's "created_ip" value
+ * @method PDM_SETOR_DNT       setCreatedTime()       Sets the current record's "created_time" value
+ * @method PDM_SETOR_DNT       setLastupdateBy()      Sets the current record's "lastupdate_by" value
+ * @method PDM_SETOR_DNT       setLastupdateIp()      Sets the current record's "lastupdate_ip" value
+ * @method PDM_SETOR_DNT       setLastupdateTime()    Sets the current record's "lastupdate_time" value
+ * @method PDM_SETOR_DNT       setPDMPERKARA()        Sets the current record's "PDM_PERKARA" value
+ * @method PDM_SETOR_DNT       setPDMTERSANGKA()      Sets the current record's "PDM_TERSANGKA" value
+ * @method PDM_SETOR_DNT       setPDMDETAILSTR()      Sets the current record's "PDM_DETAIL_STR" collection
+ * @method PDM_SETOR_DNT       setPDMBARBUKLELANG()   Sets the current record's "PDM_BARBUK_LELANG" collection
  * 
  * @package    dnt
  * @subpackage model
@@ -75,10 +93,11 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_SETOR_DNT',
              'length' => 8,
              ));
         $this->hasColumn('id_perkara', 'integer', 8, array(
-             'notnull' => true,
+             'notnull' => false,
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -86,7 +105,7 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'length' => 8,
              ));
         $this->hasColumn('id_tersangka', 'integer', 8, array(
-             'notnull' => true,
+             'notnull' => false,
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
@@ -109,7 +128,7 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'primary' => false,
              'length' => 16,
              ));
-        $this->hasColumn('uang_lelang', 'decimal', 16, array(
+        $this->hasColumn('hasil_lelang', 'decimal', 16, array(
              'notnull' => false,
              'type' => 'decimal',
              'fixed' => 0,
@@ -141,7 +160,7 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'primary' => false,
              'length' => 16,
              ));
-        $this->hasColumn('str_uang_lelang', 'decimal', 16, array(
+        $this->hasColumn('str_hasil_lelang', 'decimal', 16, array(
              'notnull' => false,
              'type' => 'decimal',
              'fixed' => 0,
@@ -157,13 +176,37 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'primary' => false,
              'length' => 16,
              ));
-        $this->hasColumn('created_by', 'string', 32, array(
+        $this->hasColumn('status', 'integer', 8, array(
+             'notnull' => false,
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'length' => 8,
+             ));
+        $this->hasColumn('keterangan', 'string', 100, array(
              'notnull' => false,
              'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'length' => 32,
+             'length' => 100,
+             ));
+        $this->hasColumn('created_by', 'string', 30, array(
+             'notnull' => false,
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'length' => 30,
+             ));
+        $this->hasColumn('created_ip', 'string', 30, array(
+             'notnull' => false,
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'length' => 30,
              ));
         $this->hasColumn('created_time', 'timestamp', 7, array(
              'notnull' => false,
@@ -173,21 +216,21 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'primary' => false,
              'length' => 7,
              ));
-        $this->hasColumn('created_ip', 'string', 15, array(
+        $this->hasColumn('lastupdate_by', 'string', 30, array(
              'notnull' => false,
              'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'length' => 15,
+             'length' => 30,
              ));
-        $this->hasColumn('lastupdate_by', 'string', 32, array(
+        $this->hasColumn('lastupdate_ip', 'string', 30, array(
              'notnull' => false,
              'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'length' => 32,
+             'length' => 30,
              ));
         $this->hasColumn('lastupdate_time', 'timestamp', 7, array(
              'notnull' => false,
@@ -197,19 +240,25 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'primary' => false,
              'length' => 7,
              ));
-        $this->hasColumn('lastupdate_ip', 'string', 32, array(
-             'notnull' => false,
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'length' => 32,
-             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasOne('PDM_PERKARA', array(
+             'local' => 'id_perkara',
+             'foreign' => 'id'));
+
+        $this->hasOne('PDM_TERSANGKA', array(
+             'local' => 'id_tersangka',
+             'foreign' => 'id'));
+
+        $this->hasMany('PDM_DETAIL_STR', array(
+             'local' => 'id',
+             'foreign' => 'id_str_dnt'));
+
+        $this->hasMany('PDM_BARBUK_LELANG', array(
+             'local' => 'id',
+             'foreign' => 'id_str_dnt'));
     }
 }

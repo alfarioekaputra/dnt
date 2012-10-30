@@ -5,6 +5,6 @@ all:
   doctrine:
     class: sfDoctrineDatabase
     param:
-     dsn:      oracle://simkari:bandung@192.168.1.102/(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.102)(PORT=1521)))(CONNECT_DATA=(SID=ORCL)))
+     dsn:      oracle://simkari:bandung@192.168.1.103/(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.103)(PORT=1521)))(CONNECT_DATA=(SID=ORCL)))
      #dsn:      oracle://simkari:bandung@10.1.1.220/(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.1.1.220)(PORT=1521)))(CONNECT_DATA=(SID=ORCL)))
      #dsn:      oracle://simkari:bandung@10.1.4.53/(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.1.4.53)(PORT=1521)))(CONNECT_DATA=(SID=SIMKARI)))

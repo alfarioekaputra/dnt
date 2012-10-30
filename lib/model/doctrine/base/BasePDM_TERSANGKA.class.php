@@ -86,6 +86,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @property Doctrine_Collection $PDM_UPAYA_GRASI
  * @property Doctrine_Collection $PDM_UPAYA_KASASI
  * @property Doctrine_Collection $PDM_UPAYA_PK
+ * @property Doctrine_Collection $PDM_SETOR_DNT
  * 
  * @method integer             getId()                     Returns the current record's "id" value
  * @method string              getNama()                   Returns the current record's "nama" value
@@ -166,6 +167,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @method Doctrine_Collection getPDMUPAYAGRASI()          Returns the current record's "PDM_UPAYA_GRASI" collection
  * @method Doctrine_Collection getPDMUPAYAKASASI()         Returns the current record's "PDM_UPAYA_KASASI" collection
  * @method Doctrine_Collection getPDMUPAYAPK()             Returns the current record's "PDM_UPAYA_PK" collection
+ * @method Doctrine_Collection getPDMSETORDNT()            Returns the current record's "PDM_SETOR_DNT" collection
  * @method PDM_TERSANGKA       setId()                     Sets the current record's "id" value
  * @method PDM_TERSANGKA       setNama()                   Sets the current record's "nama" value
  * @method PDM_TERSANGKA       setTempatLahir()            Sets the current record's "tempat_lahir" value
@@ -245,6 +247,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_TERSANGKA', 'doctrine');
  * @method PDM_TERSANGKA       setPDMUPAYAGRASI()          Sets the current record's "PDM_UPAYA_GRASI" collection
  * @method PDM_TERSANGKA       setPDMUPAYAKASASI()         Sets the current record's "PDM_UPAYA_KASASI" collection
  * @method PDM_TERSANGKA       setPDMUPAYAPK()             Sets the current record's "PDM_UPAYA_PK" collection
+ * @method PDM_TERSANGKA       setPDMSETORDNT()            Sets the current record's "PDM_SETOR_DNT" collection
  * 
  * @package    dnt
  * @subpackage model
@@ -261,7 +264,7 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-			 'sequence' => 'PDM_TERSANGKA',
+             'sequence' => 'PDM_TERSANGKA',
              'length' => 8,
              ));
         $this->hasColumn('nama', 'string', 100, array(
@@ -854,6 +857,10 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'foreign' => 'id_tersangka'));
 
         $this->hasMany('PDM_UPAYA_PK', array(
+             'local' => 'id',
+             'foreign' => 'id_tersangka'));
+
+        $this->hasMany('PDM_SETOR_DNT', array(
              'local' => 'id',
              'foreign' => 'id_tersangka'));
     }

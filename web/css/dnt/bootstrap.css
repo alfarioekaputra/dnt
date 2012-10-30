@@ -1297,6 +1297,17 @@ select:focus:required:invalid:focus {
   margin-bottom: 5px;
 }
 
+.input-prepend-edit{
+  margin-bottom: 5px;
+  width: 160px;
+}
+
+.input-prepend-edit-date{
+  margin-bottom: 5px;
+  width: 100px;
+}
+
+.input-prepend-edit input,
 .input-prepend input,
 .input-append input,
 .input-prepend select,
@@ -1326,6 +1337,7 @@ select:focus:required:invalid:focus {
   border-left-color: #ccc;
 }
 
+.input-prepend-edit .add-on,
 .input-prepend .add-on,
 .input-append .add-on {
   display: inline-block;
@@ -1342,6 +1354,7 @@ select:focus:required:invalid:focus {
   border: 1px solid #ccc;
 }
 
+.input-prepend-edit .add-on,
 .input-prepend .add-on,
 .input-append .add-on,
 .input-prepend .btn,
@@ -1358,6 +1371,7 @@ select:focus:required:invalid:focus {
   border-color: #46a546;
 }
 
+.input-prepend-edit .add-on,
 .input-prepend .add-on,
 .input-prepend .btn {
   margin-right: -1px;

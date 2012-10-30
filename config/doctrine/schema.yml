@@ -361,9 +361,21 @@ PDM_BARBUK_LELANG:
       fixed: false
       unsigned: false
       primary: true
-    id_barbuk:
-      notnull: true
+    id_str_dnt:
+      notnull: false
       type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_ba:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_lelang:
+      notnull: false
+      type: timestamp(7)
       fixed: false
       unsigned: false
       primary: false
@@ -373,15 +385,75 @@ PDM_BARBUK_LELANG:
       fixed: false
       unsigned: false
       primary: false
-    uang_lelang:
+    nilai_wajar:
       notnull: false
       type: decimal(16)
       fixed: false
       unsigned: false
       primary: false
+    penyimpanan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    kondisi:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    hambatan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    usulan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    petunjuk:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    hasil_lelang:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_bukti_str:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_str:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
     created_by:
       notnull: false
-      type: string(32)
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
@@ -391,15 +463,15 @@ PDM_BARBUK_LELANG:
       fixed: false
       unsigned: false
       primary: false
-    created_ip:
+    lastupdate_by:
       notnull: false
-      type: string(15)
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
-    lastupdate_by:
+    lastupdate_ip:
       notnull: false
-      type: string(32)
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
@@ -409,12 +481,109 @@ PDM_BARBUK_LELANG:
       fixed: false
       unsigned: false
       primary: false
-    lastupdate_ip:
+  relations:
+    PDM_SETOR_DNT:
+      local: id_str_dnt
+      foreign: id
+      type: one
+PDM_DETAIL_STR:
+  connection: doctrine
+  tableName: PDM_DETAIL_STR
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_str_dnt:
       notnull: false
-      type: string(15)
+      type: integer(8)
       fixed: false
       unsigned: false
       primary: false
+    no_ssbp:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_ssbp:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_bukti_str:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_str:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    setor:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    keterangan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDM_SETOR_DNT:
+      local: id_str_dnt
+      foreign: id
+      type: one
 PDM_PASAL:
   connection: doctrine
   tableName: PDM_PASAL
@@ -1463,6 +1632,10 @@ PDM_PERKARA:
       local: id
       foreign: id_perkara
       type: many
+    PDM_SETOR_DNT:
+      local: id
+      foreign: id_perkara
+      type: many
 PDM_SETOR_DNT:
   connection: doctrine
   tableName: PDM_SETOR_DNT
@@ -1473,13 +1646,13 @@ PDM_SETOR_DNT:
       unsigned: false
       primary: true
     id_perkara:
-      notnull: true
+      notnull: false
       type: integer(8)
       fixed: false
       unsigned: false
       primary: false
     id_tersangka:
-      notnull: true
+      notnull: false
       type: integer(8)
       fixed: false
       unsigned: false
@@ -1496,7 +1669,7 @@ PDM_SETOR_DNT:
       fixed: false
       unsigned: false
       primary: false
-    uang_lelang:
+    hasil_lelang:
       notnull: false
       type: decimal(16)
       fixed: false
@@ -1520,7 +1693,7 @@ PDM_SETOR_DNT:
       fixed: false
       unsigned: false
       primary: false
-    str_uang_lelang:
+    str_hasil_lelang:
       notnull: false
       type: decimal(16)
       fixed: false
@@ -1532,9 +1705,27 @@ PDM_SETOR_DNT:
       fixed: false
       unsigned: false
       primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    keterangan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
     created_by:
       notnull: false
-      type: string(32)
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
@@ -1544,15 +1735,15 @@ PDM_SETOR_DNT:
       fixed: false
       unsigned: false
       primary: false
-    created_ip:
+    lastupdate_by:
       notnull: false
-      type: string(15)
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
-    lastupdate_by:
+    lastupdate_ip:
       notnull: false
-      type: string(32)
+      type: string(30)
       fixed: false
       unsigned: false
       primary: false
@@ -1562,12 +1753,23 @@ PDM_SETOR_DNT:
       fixed: false
       unsigned: false
       primary: false
-    lastupdate_ip:
-      notnull: false
-      type: string(32)
-      fixed: false
-      unsigned: false
-      primary: false
+  relations:
+    PDM_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+    PDM_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+    PDM_DETAIL_STR:
+      local: id
+      foreign: id_str_dnt
+      type: many
+    PDM_BARBUK_LELANG:
+      local: id
+      foreign: id_str_dnt
+      type: many
 PDM_TERSANGKA:
   connection: doctrine
   tableName: PDM_TERSANGKA
@@ -2025,6 +2227,10 @@ PDM_TERSANGKA:
       foreign: id_tersangka
       type: many
     PDM_UPAYA_PK:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDM_SETOR_DNT:
       local: id
       foreign: id_tersangka
       type: many

@@ -34,3 +34,23 @@ function cobaTanggal($request)
         return $date;
     }
 }
+
+function getDetilPasalTersangka($request)
+{    
+    $conn = Doctrine_Manager::connection();
+                $getDataPasalTersangka="select * FROM PDM_PASAL where ID_TERSANGKA='". $request . "' order by id";
+                $statement5=$conn->execute($getDataPasalTersangka);
+              $statement5->execute();
+              $resultDataPasalTersangka=$statement5->fetchAll();
+     return    $resultDataPasalTersangka;
+}
+
+function getDetails($prefix, $request)
+{
+    $conn = Doctrine_Manager::connection();
+                $getData="select * FROM PDM_".$prefix." where ID_TERSANGKA='". $request . "' order by id";
+                $statement=$conn->execute($getData);
+              $statement->execute();
+              $resultData=$statement->fetchAll();
+     return    $resultData;
+}

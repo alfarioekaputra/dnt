@@ -7,7 +7,8 @@
 						 'agama_db' 		=> $agama_db,
 						 'pendidikan_db'	=> $pendidikan_db,
 						 'pdm_perkara'		=> $pdm_perkara,
-						 'pdm_tersangka'	=> $pdm_tersangka
+						 'pdm_tersangka'	=> $pdm_tersangka,
+						 'tersangka'		=> $tersangka
 						 )
 					)
 ?>
