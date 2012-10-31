@@ -86,6 +86,8 @@ class dntpidumActions extends sfActions
   public function processDatadetil($page = 1, $item_per_page = 10, $query) {
         $connection = Doctrine_Manager::connection();
 
+
+
         $statement = $connection->execute($query);
         $statement->execute();
         $this->resultsetKejati = $statement->fetchAll();
@@ -271,6 +273,7 @@ class dntpidumActions extends sfActions
           $KeteranganTahanan = $request->getParameter('keterangan_tahanan');
 
           $DendaHasilDinas = $request->getParameter('denda_hsl_dinas');
+		  $BpAmarPutusan = $request->getParameter('bp_amar_putusan');
           
           $perkara = new PDM_PERKARA();
           $perkara->setNomorPerkara($request->getParameter('nomor_perkara'));
@@ -347,7 +350,7 @@ class dntpidumActions extends sfActions
               $terdakwa->setPdnPengawasan($PpCombo[$i]);
               $terdakwa->setPjBiaya($PpBiayaPerkara[$i]);
             }
-            $terdakwa->setTglEksekusi($TglP48[$i]);
+            $terdakwa->setTglEksekusi(setTanggal($TglP48[$i]));
             $terdakwa->save();
 
             if($JnsPengadilanPutusan[$i] == 1){
@@ -384,14 +387,8 @@ class dntpidumActions extends sfActions
               $upayaKasasi->setIdTersangka($terdakwa->getId());
               $upayaKasasi->save();
             }
-
-            $SetorDnt = new PDM_SETOR_DNT();
-            $SetorDnt->setIdPerkara($perkara->getId());
-            $SetorDnt->setIdTersangka($terdakwa->getId());
-            $SetorDnt->setPjBiaya($DendaHasilDinas[$i]);
-            $SetorDnt->save();
-
-            $d = $i + 1;
+			
+			$d = $i + 1;
             //untuk pembayaran denda
             $setor      = $request->getParameter('denda_setor' .$d);
             $sisa       = $request->getParameter('denda_sisa' .$d);
@@ -400,6 +397,28 @@ class dntpidumActions extends sfActions
             $buktiSetor = $request->getParameter('denda_bukti_setor' .$d);
             $tglSetor   = $request->getParameter('denda_tgl_setor' .$d);
             $keterangan = $request->getParameter('denda_keterangan' .$d);
+			
+            $SetorDnt = new PDM_SETOR_DNT();
+            $SetorDnt->setIdPerkara($perkara->getId());
+            $SetorDnt->setIdTersangka($terdakwa->getId());
+			if($DendaHasilDinas[$i] != null and $BpAmarPutusan[$i] == null){
+				$SetorDnt->setDenda($DendaHasilDinas[$i]);
+				$SetorDnt->setStatus(1);
+				for($c = 0; $c < count($setor); $c++){
+					if($setor[$c] != null and $sisa[$c] != '0'){
+						$SetorDnt->setStatus(2);
+					}elseif($sisa[$c] == '0'){
+						$SetorDnt->setStatus(3);
+					}
+				}
+			}elseif($DendaHasilDinas[$i] == null and $BpAmarPutusan[$i] != null){
+				$SetorDnt->setPjBiaya($BpAmarPutusan[$i]);
+			}elseif($DendaHasilDinas[$i] != null and $BpAmarPutusan[$i] != null){
+				$SetorDnt->setDenda($DendaHasilDinas[$i]);
+				$SetorDnt->setPjBiaya($BpAmarPutusan[$i]);
+			}
+            
+            $SetorDnt->save();
 
             for($ds = 0; $ds < count($setor); $ds++){
               $SetorDetil = new PDM_DETAIL_STR();

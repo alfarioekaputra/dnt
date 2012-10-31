@@ -48,9 +48,29 @@ function getDetilPasalTersangka($request)
 function getDetails($prefix, $request)
 {
     $conn = Doctrine_Manager::connection();
-                $getData="select * FROM PDM_".$prefix." where ID_TERSANGKA='". $request . "' order by id";
-                $statement=$conn->execute($getData);
-              $statement->execute();
-              $resultData=$statement->fetchAll();
-     return    $resultData;
+    $getData="select * FROM PDM_".$prefix." where ID_TERSANGKA='". $request . "' order by id";
+    $statement=$conn->execute($getData);
+    $statement->execute();
+    $resultData=$statement->fetchAll();
+    return    $resultData;
+}
+
+function getSetorDnt($idPerkara, $idTersangka)
+{
+    $conn = Doctrine_Manager::connection();
+    $getData="select * FROM PDM_SETOR_DNT where ID_PERKARA ='".$idPerkara."' and ID_TERSANGKA='".$idTersangka. "' order by id";
+    $statement=$conn->execute($getData);
+    $statement->execute();
+    $resultData=$statement->fetchAll();
+    return    $resultData;
+}
+
+function getDetailSetor($request)
+{
+    $conn = Doctrine_Manager::connection();
+    $getData="select * FROM PDM_DETAIL_STR where ID_STR_DNT ='".$request."'order by id";
+    $statement=$conn->execute($getData);
+    $statement->execute();
+    $resultData=$statement->fetchAll();
+    return    $resultData;
 }

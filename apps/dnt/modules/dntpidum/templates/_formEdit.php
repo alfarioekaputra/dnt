@@ -31,7 +31,7 @@
 </ul>
 
 <div class="tab-content">
-  <?php $m = 1; $k = 1; ?>
+  <?php $m = 1; $k = 1; $s = 1; ?>
   <?php foreach ($tersangka as $datatersangka) : ?>
   <div class="tab-pane in active" id="new_tab_id<?php echo $m ?>"> 
     <div class="row">
@@ -85,8 +85,9 @@
           endforeach;
           foreach(getDetails('UPAYA_BANDING',$datatersangka['ID']) as $banding):
           endforeach;
-        foreach(getDetails('UPAYA_KASASI',$datatersangka['ID']) as $kasasi):
+          foreach(getDetails('UPAYA_KASASI',$datatersangka['ID']) as $kasasi):
           endforeach;
+        
           if($datatersangka['PUTUSAN_UPAYA_HUKUM'] == '1'){
             $NoAmarPutusan = $dataperkara->getNoLimpahPk();
             $TglPutusan = $dataperkara->getTglPutusanPn();
@@ -148,78 +149,78 @@
         <legend>Pidana Penjara:</legend>
         <label class="span3-label">Pidana Badan</label>
           <div class="input-prepend">
-            <input class="span1" id="pj_badan_tahun" size="16" type="text" name="pj_badan_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pj_badan_bulan" size="16" type="text" name="pj_badan_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pj_badan_hari" size="16" type="text" name="pj_badan_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pj_badan_tahun" size="16" type="text" name="pj_badan_tahun[]" value="<?php echo $datatersangka['PJ_BADAN_TAHUN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pj_badan_bulan" size="16" type="text" name="pj_badan_bulan[]" value="<?php echo $datatersangka['PJ_BADAN_BULAN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pj_badan_hari" size="16" type="text" name="pj_badan_hari[]" value="<?php echo $datatersangka['PJ_BADAN_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Denda</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="denda" size="16" type="text" name="pj_denda[]">
+            <span class="add-on">Rp.</span><input class="span2" id="denda" size="16" type="text" name="pj_denda[]" value="<?php echo $datatersangka['PJ_DENDA_RP'] ?>">
           </div>
         <label class="span3-label">Subsidair</label>
           <div class="input-prepend">
-            <input class="span1" id="pj_subsidair_tahun" size="16" type="text" name="pj_subsidair_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pj_subsidair_bulan" size="16" type="text" name="pj_subsidair_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pj_subsidair_hari" size="16" type="text" name="pj_subsidair_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pj_subsidair_tahun" size="16" type="text" name="pj_subsidair_tahun[]" value="<?php echo $datatersangka['PJ_SUB_TAHUN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pj_subsidair_bulan" size="16" type="text" name="pj_subsidair_bulan[]" value="<?php echo $datatersangka['PJ_SUB_BULAN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pj_subsidair_hari" size="16" type="text" name="pj_subsidair_hari[]" value="<?php echo $datatersangka['PJ_SUB_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Biaya Perkara</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pj_biaya_perkara" size="16" type="text" name="pj_biaya_perkara[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pj_biaya_perkara" size="16" type="text" name="pj_biaya_perkara[]" value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
           </div>
         <label class="span3-label">Pidana Tambahan</label>
-          <textarea rows="3" name="pj_pidana_tambahan[]"></textarea>
+          <textarea rows="3" name="pj_pidana_tambahan[]"><?php echo $datatersangka['PUTUSAN_TAMBAHAN'] ?></textarea>
         <legend>&nbsp;</legend>
       </div>
       <div id="pidana_kurungan_denda<?php echo $m?>" style="<?php echo $datatersangka['JENIS_PUTUSAN'] == '4' ? 'display:' : 'display:none' ?>">
         <legend>Pidana Kurungan:</legend>
         <label class="span3-label">Kurungan</label>
           <div class="input-prepend">
-            <input class="span1" id="pk_kurungan_tahun" size="16" type="text" name="pk_kurungan_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pk_kurungan_bulan" size="16" type="text" name="pk_kurungan_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pk_kurungan_hari" size="16" type="text" name="pk_kurungan_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pk_kurungan_tahun" size="16" type="text" name="pk_kurungan_tahun[]" value="<?php echo $datatersangka['KURUNGAN_TAHUN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pk_kurungan_bulan" size="16" type="text" name="pk_kurungan_bulan[]" value="<?php echo $datatersangka['KURUNGAN_BULAN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pk_kurungan_hari" size="16" type="text" name="pk_kurungan_hari[]" value="<?php echo $datatersangka['KURUNGAN_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Denda</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pk_denda" size="16" type="text" name="pk_denda[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pk_denda" size="16" type="text" name="pk_denda[]" value="<?php echo $datatersangka['DENDA'] ?>">
           </div>
         <label class="span3-label">Biaya Perkara</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pk_biaya_perkara" size="16" type="text" name="pk_biaya_perkara[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pk_biaya_perkara" size="16" type="text" name="pk_biaya_perkara[]" value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
           </div>
         <label class="span3-label">Pidana Tambahan</label>
-          <textarea rows="3" name="pk_pidana_tambahan"></textarea>
+          <textarea rows="3" name="pk_pidana_tambahan"><?php echo $datatersangka['PUTUSAN_TAMBAHAN'] ?></textarea>
         <legend>&nbsp;</legend>
       </div>
       <div id="pidana_bersyarat<?php echo $m?>" style="<?php echo $datatersangka['JENIS_PUTUSAN'] == '6' ? 'display:' : 'display:none' ?>">
         <legend>Pidana Bersyarat/Percobaan:</legend>
         <label class="span3-label">Pidana Badan</label>
           <div class="input-prepend">
-            <input class="span1" id="pb_badan_tahun" size="16" type="text" name="pb_badan_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pb_badan_bulan" size="16" type="text" name="pb_badan_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pb_badan_hari" size="16" type="text" name="pb_badan_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pb_badan_tahun" size="16" type="text" name="pb_badan_tahun[]" value="<?php echo $datatersangka['PJ_BADAN_TAHUN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pb_badan_bulan" size="16" type="text" name="pb_badan_bulan[]" value="<?php echo $datatersangka['PJ_BADAN_BULAN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pb_badan_hari" size="16" type="text" name="pb_badan_hari[]" value="<?php echo $datatersangka['PJ_BADAN_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Masa Percobaan</label>
           <div class="input-prepend">
-            <input class="span1" id="pb_percobaan_tahun" size="16" type="text" name="pb_percobaan_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pb_percobaan_bulan" size="16" type="text" name="pb_percobaan_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pb_percobaan_hari" size="16" type="text" name="pb_percobaan_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pb_percobaan_tahun" size="16" type="text" name="pb_percobaan_tahun[]" value="<?php echo $datatersangka['PJ_PIDANA_COBA_THN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pb_percobaan_bulan" size="16" type="text" name="pb_percobaan_bulan[]" value="<?php echo $datatersangka['PJ_PIDANA_COBA_BLN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pb_percobaan_hari" size="16" type="text" name="pb_percobaan_hari[]" value="<?php echo $datatersangka['PJ_PIDANA_COBA_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Denda</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pb_denda" size="16" type="text" name="pb_denda[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pb_denda" size="16" type="text" name="pb_denda[]" value="<?php echo $datatersangka['DENDA'] ?>">
           </div>
         <label class="span3-label">Subsidair</label>
           <div class="input-prepend">
-            <input class="span1" id="pb_subsidair_tahun" size="16" type="text" name="pb_subsidair_tahun[]"><span class="add-on">Tahun</span>
-            <input class="span1" id="pb_subsidair_bulan" size="16" type="text" name="pb_subsidair_bulan[]"><span class="add-on">Bulan</span>
-            <input class="span1" id="pb_subsidair_hari" size="16" type="text" name="pb_subsidair_hari[]"><span class="add-on">Hari</span>
+            <input class="span1" id="pb_subsidair_tahun" size="16" type="text" name="pb_subsidair_tahun[]" value="<?php echo $datatersangka['PJ_SUB_TAHUN'] ?>"><span class="add-on">Tahun</span>
+            <input class="span1" id="pb_subsidair_bulan" size="16" type="text" name="pb_subsidair_bulan[]" value="<?php echo $datatersangka['PJ_SUB_BULAN'] ?>"><span class="add-on">Bulan</span>
+            <input class="span1" id="pb_subsidair_hari" size="16" type="text" name="pb_subsidair_hari[]" value="<?php echo $datatersangka['PJ_SUB_HARI'] ?>"><span class="add-on">Hari</span>
           </div>
         <label class="span3-label">Biaya Perkara</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pb_biaya_perkara" size="16" type="text" name="pb_biaya_perkara[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pb_biaya_perkara" size="16" type="text" name="pb_biaya_perkara[]" value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
           </div>
         <label class="span3-label">Pidana Tambahan</label>
-          <textarea rows="3" name="pb_pidana_tambahan[]"></textarea>
+          <textarea rows="3" name="pb_pidana_tambahan[]"><?php echo $datatersangka['PUTUSAN_TAMBAHAN'] ?></textarea>
         <legend>&nbsp;</legend>
       </div>
       <div id="pidana_pengawasan<?php echo $m?>" style="<?php echo $datatersangka['JENIS_PUTUSAN'] == '7' ? 'display:' : 'display:none' ?>">
@@ -228,13 +229,13 @@
           <label class="span3-label">Pidana Pengawasan</label>
             <select name="pp_combo[]">
               <option value="0">Pilih Jenis Pidana Pengawasan</option>
-              <option value="1">Dikembalikan Kepada Orang Tua</option>
-              <option value="0">Diserahkan Kepada Negara</option>
+              <option value="1" <?php if($datatersangka['PDN_PENGAWASAN'] == '1'){echo 'selected';} ?>>Dikembalikan Kepada Orang Tua</option>
+              <option value="0" <?php if($datatersangka['PDN_PENGAWASAN'] == '2'){echo 'selected';} ?>>Diserahkan Kepada Negara</option>
             </select>
         </div>
         <label class="span3-label">Biaya Perkara</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pp_biaya_perkara" size="16" type="text" name="pp_biaya_perkara[]">
+            <span class="add-on">Rp.</span><input class="span2" id="pp_biaya_perkara" size="16" type="text" name="pp_biaya_perkara[]" value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
           </div>
         <legend>&nbsp;</legend>
       </div>
@@ -242,18 +243,37 @@
     <div class="row">&nbsp;</div>
     <div class="form-inline">
       <label class="span3-label">Tanggal P.48</label>
-        <input type="text" name="tgl_p48" class="datepicker span2-edit" />
+        <input type="text" name="tgl_p48[]" value="<?php echo getTanggal($datatersangka['TGL_EKSEKUSI'])?>"  class="datepicker span2-edit" />
         &nbsp;Tanggal BA Eksekusi &nbsp; <input type="text" name="tgl_ba_eksekusi[]" class="datepicker span2-edit" />
     </div>
     <div class="row">&nbsp;</div>
     <div class="form-inline">
       <label class="span3-label">Tempat Penahanan</label>
+        <?php
+          foreach(getDetails('PENAHANAN', $datatersangka['ID']) as $penahanan):
+          endforeach;
+          
+          if($datatersangka['PUTUSAN_UPAYA_HUKUM'] == '1'){
+            $jnsTahan = $penahanan['KETUAPN_IDLOKTAHAN'];
+            $tglMulai = $penahanan['KETUAPN_START'];
+            $tglSelesai = $penahanan['KETUAPN_END'];
+          }elseif($datatersangka['PUTUSAN_TETAP'] == '2'){
+            $jnsTahan = $penahanan['KETUAPT_IDLOKTAHAN'];
+            $tglMulai = $penahanan['KETUAPT_START'];
+            $tglSelesai = $penahanan['KETUAPT_END'];
+          }elseif ($datatersangka['PUTUSAN_TETAP'] == '3') {
+            $jnsTahan = $penahanan['HAKIM1_IDLOKTAHAN'];
+            $tglMulai = $penahanan['HAKIM1_START'];
+            $tglSelesai = $penahanan['HAKIM1_END'];
+          }
+          
+        ?>
         <select class="span2" name="jns_tahanan">
-            <option value="1">Rutan</option>
-            <option value="2">Kota</option>
-            <option value="3">Rumah</option>
+            <option value="1" <?php if($jnsTahan == '1'){ echo 'selected'; } ?>>Rutan</option>
+            <option value="2" <?php if($jnsTahan == '2'){ echo 'selected'; } ?>>Kota</option>
+            <option value="3" <?php if($jnsTahan == '3'){ echo 'selected'; } ?>>Rumah</option>
           </select>
-        <input type="text" name="tgl_penahanan_mulai" class="datepicker span2-edit" /> s/d <input type="text" name="tgl_penahanan_selesai" class="datepicker span2-edit" />
+        <input type="text" name="tgl_penahanan_mulai" value="<?php echo getTanggal($tglMulai) ?>" class="datepicker span2-edit" /> s/d <input type="text" name="tgl_penahanan_selesai" value="<?php echo getTanggal($tglSelesai) ?>" class="datepicker span2-edit" />
     </div>
     <div class="row">&nbsp;</div>
     <div class="form-inline">
@@ -262,26 +282,25 @@
     </div>
     <div class="row">&nbsp;</div>
     <hr />
-    <legend>Posisi Kasus</legend>
-    <div class="form-inline">
-      <label class="span3-label">Posisi Kasus</label>
-      <textarea class="span5" name="posisi_kasus" style="height: 100px;"></textarea>
-    </div>
-    <hr />
     <legend><b>Hasil Dinas</b></legend>
+    <?php
+      foreach(getSetorDnt($dataperkara->getId(), $datatersangka['ID']) as $setorDnt):
+      endforeach;
+      
+    ?>
     <div class="form-inline">
       <label>Amar Putusan</label>&nbsp;
       <div class="input-prepend">
-        <span class="add-on">Rp.</span><input type="text" id="denda_hsl_dinas<?php echo $m ?>" name="denda_hsl_dinas[]" class="span2 uang1" />
+        <span class="add-on">Rp.</span><input type="text" id="denda_hsl_dinas<?php echo $m ?>" name="denda_hsl_dinas[]" value="<?php echo $setorDnt['DENDA'] ?>" class="span2 uang1" />
       </div>
     </div>
     <div style="overflow-x:scroll;">
       <legend>Pembayaran Denda</legend>
-      <table class="table" id="tbl_denda1">
+      <table class="table" id="tbl_denda<?php echo $m ?>">
         <input type="hidden" name="hdnpembayaran" id="hdnpembayaran" value="0">
         <thead>
           <tr>
-            <th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda1" onClick=tambahDenda("1")></th>
+            <th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda<?php echo $m ?>" onClick=tambahDenda("<?php echo $m ?>")></th>
             <th>Setor</th>
             <th>Sisa</th>
             <th>No. SSBP</th>
@@ -293,7 +312,43 @@
           </tr>
         </thead>
         <tbody>
-          
+          <?php foreach(getDetailSetor($setorDnt['ID']) as $detailSetor): ?>
+          <tr id="datatr<?php echo $s; ?>">
+            <td></td>
+            <td>
+              <div class="input-prepend-edit">
+               <span class="add-on">Rp.</span><input type="text" name="denda_setor<?php echo $m; ?>[]" class="span2 setor<?php echo $s; ?>" value="<?php echo $detailSetor['SETOR'] ?>" onkeyup=hitung("<?php echo $s; ?>") >
+              </div>
+            </td>
+            <td>
+            <div class="input-prepend-edit">
+               <span class="add-on">Rp.</span><input type="text" name="denda_sisa<?php echo $m; ?>[]" value="<?php echo $detailSetor['SISA'] ?>" class="span2 sisa<?php echo $s; ?>">
+            </div>
+            </td>
+            <td>
+              <input type="text" name="denda_ssbp<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_SSBP'] ?>" class="span2">
+            </td>
+            <td>
+              <div class="input-prepend-edit-date">
+                 <input type="text" id="denda_tgl_ssbp<?php echo $m; ?>" name="denda_tgl_ssbp<?php echo $m; ?>'[]" value="<?php echo getTanggal($detailSetor['TGL_SSBP']) ?>" class="datepicker span2-edit">
+              </div>
+            </td>
+            <td>
+              <input type="text" name="denda_bukti_setor<?php echo $m; ?>'[]" value="<?php echo $detailSetor['NO_BUKTI_STR'] ?>" class="span2">
+            </td>
+            <td>
+              <div class="input-prepend-edit-date">
+                <input type="text" name="denda_tgl_setor<?php echo $m; ?>'[]" value="<?php echo getTanggal($detailSetor['TGL_STR']) ?>" class="datepicker span2-edit">
+              </div>
+            </td>
+            <td>
+              <input type="text" name="denda_keterangan<?php echo $m; ?>'[]" value="<?php echo $detailSetor['KETERANGAN'] ?>" class="span2">
+            </td>
+            <td>
+              <input type="button" class="btn btn-danger" value="-" id="hapus_denda<?php echo $s; ?>" onClick=deleteDenda("<?php echo $s; ?>")>
+            </td>
+          </tr>
+          <?php $s++; endforeach; ?>
         </tbody>
       </table>
     </div>
@@ -315,7 +370,7 @@
             <td>Biaya Perkara</td>
             <td>
               <div class="input-prepend-edit">
-                <span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" class="span2">
+                <span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" value="<?php echo $setorDnt['PJ_BIAYA'] ?>" class="span2">
               </div>
             </td>
             <td>
@@ -343,61 +398,67 @@
         </tbody>
       </table>
     </div>
-    <hr />
-    <legend><b>Barang Rampasan</b></legend>
-    <div style="overflow-x:scroll">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>No. Perkara</th>
-            <th>Jenis Barang</th>
-            <th>No. BA Lelang</th>
-            <th>Hasil Lelang</th>
-            <th>Setor</th>
-            <th>No. Bukti Setor</th>
-            <th>Tanggal Setor</th>
-            <th>Status</th>
-            <th>Tambah</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input type="text" name="br_no_perkara[]" class="span2">
-            </td>
-            <td>
-              <input type="text" name="br_jenis_barang[]" class="span2">
-            </td>
-            <td>
-              <input type="text" name="br_no_ba_lelang[]" class="span2">
-            </td>
-            <td>
-              <div class="input-prepend-edit">
-                <span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2">
-              </div>
-            </td>
-            <td>
-              <div class="input-prepend-edit">
-                <span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">
-              </div>
-            </td>
-            <td>
-              <input type="text" name="br_no_bukti_setor[]" class="span2">
-            </td>
-            <td>
-              <div class="input-prepend-edit-date">
-                <input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
   <?php 
     $m++;  
     endforeach; 
   ?>
+</div>
+<hr />
+<legend>Posisi Kasus</legend>
+<div class="form-inline">
+  <label class="span3-label">Posisi Kasus</label>
+  <textarea class="span5" name="posisi_kasus" style="height: 100px;"><?php echo $dataperkara->getPosisiKasus(); ?></textarea>
+</div>
+<hr />
+<legend><b>Barang Rampasan</b></legend>
+<div style="overflow-x:scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>No. Perkara</th>
+        <th>Jenis Barang</th>
+        <th>No. BA Lelang</th>
+        <th>Hasil Lelang</th>
+        <th>Setor</th>
+        <th>No. Bukti Setor</th>
+        <th>Tanggal Setor</th>
+        <th>Status</th>
+        <th>Tambah</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input type="text" name="br_no_perkara[]" class="span2">
+        </td>
+        <td>
+          <input type="text" name="br_jenis_barang[]" class="span2">
+        </td>
+        <td>
+          <input type="text" name="br_no_ba_lelang[]" class="span2">
+        </td>
+        <td>
+          <div class="input-prepend-edit">
+            <span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2">
+          </div>
+        </td>
+        <td>
+          <div class="input-prepend-edit">
+            <span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">
+          </div>
+        </td>
+        <td>
+          <input type="text" name="br_no_bukti_setor[]" class="span2">
+        </td>
+        <td>
+          <div class="input-prepend-edit-date">
+            <input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <script type="text/javascript">
 $(function () {

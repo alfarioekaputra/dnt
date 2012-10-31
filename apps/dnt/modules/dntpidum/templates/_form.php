@@ -23,6 +23,62 @@
 <div class="tab-content">
   
 </div>
+<hr />
+<legend><b>Posisi Kasus</b></legend>
+<div class="form-inline">
+  <label class="span3-label">Posisi Kasus</label>
+  <textarea name="posisi_kasus" class="span5" style="height: 100px;"></textarea>
+</div>
+<hr />
+<legend><b>Barang Rampasan</b></legend>
+<div style="overflow-x:scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>No. Perkara</th>
+        <th>Jenis Barang</th>
+        <th>No. BA Lelang</th>
+        <th>Hasil Lelang</th>
+        <th>Setor</th>
+        <th>No. Bukti Setor</th>
+        <th>Tanggal Setor</th>
+        <th>Status</th>
+        <th>Tambah</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input type="text" name="br_no_perkara[]" class="span2">
+        </td>
+        <td>
+          <input type="text" name="br_jenis_barang[]" class="span2">
+        </td>
+        <td>
+          <input type="text" name="br_no_ba_lelang[]" class="span2">
+        </td>
+        <td>
+          <div class="input-prepend-edit">
+            <span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2">
+          </div>
+        </td>
+        <td>
+          <div class="input-prepend-edit">
+            <span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">
+          </div>
+        </td>
+        <td>
+          <input type="text" name="br_no_bukti_setor[]" class="span2">
+        </td>
+        <td>
+          <div class="input-prepend-edit-date">
+            <input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <input type="submit" value="Simpan" class="btn btn-warning" />
 </form>
 <script type="text/javascript">
@@ -242,11 +298,6 @@
           '<div class="row">&nbsp;</div>'+
           '<hr />'+
           '<br />'+
-          '<legend><b>Posisi Kasus</b></legend>'+
-          '<div class="form-inline">'+
-            '<label class="span3-label">Posisi Kasus</label>'+
-              '<textarea name="posisi_kasus" class="span5" style="height: 100px;"></textarea>'+
-          '</div>'+
           '<legend><b>Hasil Dinas</b></legend>'+
           '<div class="form-inline">'+
             '<label>Amar Putusan</label>&nbsp;'+
@@ -260,7 +311,7 @@
               '<input type="hidden" name="hdnpembayaran" id="hdnpembayaran" value="0">'+
               '<thead>'+
                 '<tr>'+
-                  '<th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda1" onClick=tambahDenda("'+addtab+'")></th>'+
+                  '<th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda'+addtab+'" onClick=tambahDenda("'+addtab+'")></th>'+
                   '<th>Setor</th>'+
                   '<th>Sisa</th>'+
                   '<th>No. SSBP</th>'+
@@ -294,7 +345,7 @@
                   '<td>Biaya Perkara</td>'+
                   '<td>'+
                     '<div class="input-prepend-edit">'+
-                      '<span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" class="span2">'+
+                      '<span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" id="bp_amar_putusan'+addtab+'" class="span2 numeric">'+
                     '</div>'+
                   '</td>'+
                   '<td>'+
@@ -316,56 +367,6 @@
                   '<td>'+
                     '<div class="input-prepend-edit-date">'+
                       '<input type="text" name="bp_tgl_setor[]" class="datepicker span2-edit">'+
-                    '</div>'+
-                  '</td>'+
-                '</tr>'+
-              '</tbody>'+
-            '</table>'+
-          '</div>'+
-          '<hr />'+
-          '<legend><b>Barang Rampasan</b></legend>'+
-          '<div style="overflow-x:scroll">'+
-            '<table class="table">'+
-              '<thead>'+
-                '<tr>'+
-                  '<th>No. Perkara</th>'+
-                  '<th>Jenis Barang</th>'+
-                  '<th>No. BA Lelang</th>'+
-                  '<th>Hasil Lelang</th>'+
-                  '<th>Setor</th>'+
-                  '<th>No. Bukti Setor</th>'+
-                  '<th>Tanggal Setor</th>'+
-                  '<th>Status</th>'+
-                  '<th>Tambah</th>'+
-                '</tr>'+
-              '</thead>'+
-              '<tbody>'+
-                '<tr>'+
-                  '<td>'+
-                    '<input type="text" name="br_no_perkara[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<input type="text" name="br_jenis_barang[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<input type="text" name="br_no_ba_lelang[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit">'+
-                      '<span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2">'+
-                    '</div>'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit">'+
-                      '<span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">'+
-                    '</div>'+
-                  '</td>'+
-                  '<td>'+
-                    '<input type="text" name="br_no_bukti_setor[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit-date">'+
-                      '<input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">'+
                     '</div>'+
                   '</td>'+
                 '</tr>'+
@@ -609,7 +610,7 @@
   
   function mirror(value)
   {
-    $("#denda_hsl_dinas"+value).val($('.mirror'+value).val());
+    $("#bp_amar_putusan"+value).val($('.mirror'+value).val());
   }
   
   function hitung(value)
