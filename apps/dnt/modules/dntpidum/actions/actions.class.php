@@ -86,8 +86,6 @@ class dntpidumActions extends sfActions
   public function processDatadetil($page = 1, $item_per_page = 10, $query) {
         $connection = Doctrine_Manager::connection();
 
-
-
         $statement = $connection->execute($query);
         $statement->execute();
         $this->resultsetKejati = $statement->fetchAll();
