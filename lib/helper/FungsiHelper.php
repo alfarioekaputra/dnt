@@ -65,10 +65,10 @@ function getSetorDnt($idPerkara, $idTersangka)
     return    $resultData;
 }
 
-function getDetailSetor($request)
+function getDetailSetor($request, $status)
 {
     $conn = Doctrine_Manager::connection();
-    $getData="select * FROM PDM_DETAIL_STR where ID_STR_DNT ='".$request."'order by id";
+    $getData="select * FROM PDM_DETAIL_STR where ID_STR_DNT ='".$request."' and status='".$status."' order by id";
     $statement=$conn->execute($getData);
     $statement->execute();
     $resultData=$statement->fetchAll();

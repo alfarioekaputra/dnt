@@ -30,7 +30,8 @@
   <textarea name="posisi_kasus" class="span5" style="height: 100px;"></textarea>
 </div>
 <hr />
-<legend><b>Barang Rampasan</b></legend>
+ 
+<legend><b>Barang Rampasan</b><br /> <a class="btn btn-warning" data-toggle="modal" href="http://localhost/dnt/web/dnt" data-target="#myModal" >Tambah</a></legend>
 <div style="overflow-x:scroll">
   <table class="table">
     <thead>
@@ -80,9 +81,26 @@
   </table>
 </div>
 <input type="submit" value="Simpan" class="btn btn-warning" />
+<!-- Modal -->
+<div id="myModal" class="modal large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
 </form>
 <script type="text/javascript">
   $(document).ready(function() {
+        $('.modal-body').load("<?php echo url_for('barangRampasan/new') ?>");
+   
         $( ".datepicker" ).datepicker({
             changeMonth: true,
             changeYear: true,
@@ -172,7 +190,7 @@
             //div yang ditampilkan berdasarkan jenis pututsan
             '<div id="pidana_mati_seumur_hidup'+addtab+'" style="display:none;">'+
               '<label class="span3-label">&nbsp;</label>'+
-              'Biaya Perkara &nbsp; <div class="input-prepend"><span class="add-on">Rp.</span><input type="text" id="biaya_perkara" name="biaya_perkara[]" class="span2 numeric mirror'+addtab+'" onkeyup=mirror("'+addtab+'") /></div>'+
+              'Biaya Perkara &nbsp; <div class="input-prepend"><span class="add-on">Rp.</span><input type="text" id="biaya_perkara'+addtab+'" name="biaya_perkara[]" class="span2 numeric mirror'+addtab+'" onkeyup=mirror("'+addtab+'") /></div>'+
             '</div>'+
             '<div id="seumur_hidup'+addtab+'" style="display:none;">'+
               '<label class="span3-label">&nbsp;</label>'+
@@ -188,7 +206,7 @@
                 '</div>'+
               '<label class="span3-label">Denda</label>'+
                 '<div class="input-prepend">'+
-                  '<span class="add-on">Rp.</span><input class="span2" id="denda" size="16" type="text" name="pj_denda[]">'+
+                  '<span class="add-on">Rp.</span><input class="span2 numeric" id="denda'+addtab+'" size="16" type="text" name="pj_denda[]" onkeyup=mirror("'+addtab+'")>'+
                 '</div>'+
               '<label class="span3-label">Subsidair</label>'+
                 '<div class="input-prepend">'+
@@ -198,7 +216,7 @@
                 '</div>'+
               '<label class="span3-label">Biaya Perkara</label>'+
                 '<div class="input-prepend">'+
-                  '<span class="add-on">Rp.</span><input class="span2" id="pj_biaya_perkara" size="16" type="text" name="pj_biaya_perkara[]">'+
+                  '<span class="add-on">Rp.</span><input class="span2 numeric" id="pj_biaya_perkara'+addtab+'" size="16" type="text" name="pj_biaya_perkara[]" onkeyup=mirror("'+addtab+'")>'+
                 '</div>'+
               '<label class="span3-label">Pidana Tambahan</label>'+
                 '<textarea rows="3" name="pj_pidana_tambahan[]"></textarea>'+
@@ -214,11 +232,11 @@
                 '</div>'+
               '<label class="span3-label">Denda</label>'+
                 '<div class="input-prepend">'+
-                  '<span class="add-on">Rp.</span><input class="span2" id="pk_denda" size="16" type="text" name="pk_denda[]">'+
+                  '<span class="add-on">Rp.</span><input class="span2" id="pk_denda'+addtab+'" size="16" type="text" name="pk_denda[]" onkeyup=mirror("'+addtab+'")>'+
                 '</div>'+
               '<label class="span3-label">Biaya Perkara</label>'+
                 '<div class="input-prepend">'+
-                  '<span class="add-on">Rp.</span><input class="span2" id="pk_biaya_perkara" size="16" type="text" name="pk_biaya_perkara[]">'+
+                  '<span class="add-on">Rp.</span><input class="span2" id="pk_biaya_perkara'+addtab+'" size="16" type="text" name="pk_biaya_perkara[]" onkeyup=mirror("'+addtab+'")>'+
                 '</div>'+
               '<label class="span3-label">Pidana Tambahan</label>'+
                 '<textarea rows="3" name="pk_pidana_tambahan"></textarea>'+
@@ -610,7 +628,12 @@
   
   function mirror(value)
   {
-    $("#bp_amar_putusan"+value).val($('.mirror'+value).val());
+    if($('#biaya_perkara'+value).val()){
+      $("#bp_amar_putusan"+value).val($('#biaya_perkara'+value).val());
+    }else if($('#denda'+value).val() != null && $('#pj_biaya_perkara'+value).val() != ''){
+      $("#denda_hsl_dinas"+value).val($('#denda'+value).val());
+      $("#bp_amar_putusan"+value).val($('#pj_biaya_perkara'+value).val());
+    }
   }
   
   function hitung(value)

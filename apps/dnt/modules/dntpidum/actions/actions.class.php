@@ -36,7 +36,7 @@ class dntpidumActions extends sfActions
               WHERE PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)
               )B 
               GROUP BY ID_PERKARA) A ON A.ID_PERKARA=PDM_PERKARA.ID
-              LEFT JOIN KP_INST_SATKER C ON ID_INSTANSI=C.INST_SATKERKD
+              LEFT JOIN KP_INST_SATKER C ON PDM_PERKARA.INST_SATKERKD=C.INST_SATKERKD
               WHERE INST_SATKERKD='00'";
     
     $item_per_page = $request->getParameter('iDisplayLength', 10);
@@ -274,6 +274,11 @@ class dntpidumActions extends sfActions
 
           $DendaHasilDinas = $request->getParameter('denda_hsl_dinas');
 		  $BpAmarPutusan = $request->getParameter('bp_amar_putusan');
+          $BpSetor = $request->getParameter('bp_setor');
+          $BpNoSsbp = $request->getParameter('bp_no_ssbp');
+          $BpTglSsbp = $request->getParameter('bp_tgl_ssbp');
+          $BpNoBuktiStr = $request->getParameter('bp_no_bukti_setor');
+          $BpTglBuktiStr = $request->getParameter('bp_tgl_setor');
           
           $perkara = new PDM_PERKARA();
           $perkara->setNomorPerkara($request->getParameter('nomor_perkara'));
@@ -397,6 +402,8 @@ class dntpidumActions extends sfActions
             $buktiSetor = $request->getParameter('denda_bukti_setor' .$d);
             $tglSetor   = $request->getParameter('denda_tgl_setor' .$d);
             $keterangan = $request->getParameter('denda_keterangan' .$d);
+            
+            
 			
             $SetorDnt = new PDM_SETOR_DNT();
             $SetorDnt->setIdPerkara($perkara->getId());
@@ -419,19 +426,33 @@ class dntpidumActions extends sfActions
 			}
             
             $SetorDnt->save();
-
-            for($ds = 0; $ds < count($setor); $ds++){
-              $SetorDetil = new PDM_DETAIL_STR();
-              $SetorDetil->setIdStrDnt($SetorDnt->getId());
-              $SetorDetil->setSetor($setor[$ds]);
-              $SetorDetil->setSisa($sisa[$ds]);
-              $SetorDetil->setNoSsbp($ssbp[$ds]);
-              $SetorDetil->setTglSsbp(setTanggal($tglSsbp[$ds]));
-              $SetorDetil->setNoBuktiStr($buktiSetor[$ds]);
-              $SetorDetil->setTglStr(setTanggal($tglSetor[$ds]));
-              $SetorDetil->setKeterangan($keterangan[$ds]);
-              $SetorDetil->save();
+            if($DendaHasilDinas != ''){
+              for($ds = 0; $ds < count($setor); $ds++){
+                $SetorDetil = new PDM_DETAIL_STR();
+                $SetorDetil->setIdStrDnt($SetorDnt->getId());
+                $SetorDetil->setSetor($setor[$ds]);
+                $SetorDetil->setSisa($sisa[$ds]);
+                $SetorDetil->setNoSsbp($ssbp[$ds]);
+                $SetorDetil->setTglSsbp(setTanggal($tglSsbp[$ds]));
+                $SetorDetil->setNoBuktiStr($buktiSetor[$ds]);
+                $SetorDetil->setTglStr(setTanggal($tglSetor[$ds]));
+                $SetorDetil->setKeterangan($keterangan[$ds]);
+                $SetorDetil->setStatus(2);
+                $SetorDetil->save();
+              }
             }
+            //if($BpAmarPutusan !=''){
+                $SetorDetil = new PDM_DETAIL_STR();
+                $SetorDetil->setIdStrDnt($SetorDnt->getId());
+                $SetorDetil->setSetor($BpSetor[$i]);
+                $SetorDetil->setNoSsbp($BpNoSsbp[$i]);
+                $SetorDetil->setTglSsbp(setTanggal($BpTglSsbp[$i]));
+                $SetorDetil->setNoBuktiStr($BpNoBuktiStr[$i]);
+                $SetorDetil->setTglStr(setTanggal($BpTglBuktiStr[$i]));
+                $SetorDetil->setStatus(1);
+                $SetorDetil->save();
+            //}
+            
             //
             $q = $i + 1;
             $nilaiNamaPasal = 'pasal_didakwakan' . $q;
@@ -457,7 +478,7 @@ class dntpidumActions extends sfActions
           }*/
       }
       
-      //$this->redirect('dntpidum/edit?id='.$perkara->getId());
+      $this->redirect('dntpidum/edit?id='.$perkara->getId());
   }
 
   public function executeEdit(sfWebRequest $request)
@@ -506,13 +527,404 @@ class dntpidumActions extends sfActions
 
   public function executeUpdate(sfWebRequest $request)
   {
-    $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($pdm_perkara = Doctrine::getTable('PDM_PERKARA')->find(array($request->getParameter('id'))), sprintf('Object pdm_perkara does not exist (%s).', $request->getParameter('id')));
-    $this->form = new PDM_PERKARAForm($pdm_perkara);
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Fungsi');
+      
+    //$this->forward404Unless($request->isMethod(sfRequest::POST));
+    
+    $this->form = new PDM_TERSANGKAForm();
+    //$this->formTersangka = new PDM_TERSANGKAForm();
+    
+    $this->setTemplate('new');
+    
+    $this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
+    if ($request->isMethod('post')) {
+      $JnsPengadilanPutusan = $request->getParameter('jns_pengadilan_putusan');
+      $NoPutusan = $request->getParameter('no_amar_putusan');
+      $TglPutusan = $request->getParameter('tgl_putusan');
+      $PosisiKasus = $request->getParameter('posisi_kasus');
 
-    $this->processForm($request, $this->form);
+      $nama_terdakwa = $request->getParameter('nama_terdakwa');
+      $tempat_lahir = $request->getParameter('tempat_lahir');
+      $tgl_lahir = $request->getParameter('tgl_lahir');
+      $jkl = $request->getParameter('jkl');
+      $umur = $request->getParameter('umur');
+      $pendidikan = $request->getParameter('pendidikan');
+      $id_agama = $request->getParameter('id_agama');
+      $pekerjaan = $request->getParameter('pekerjaan');
+      $kewarganegaraan = $request->getParameter('kewarganegaraan');
+      $alamat = $request->getParameter('alamat');
+      $jnsPutusan = $request->getParameter('jns_putusan');
+      $PjBiayaPerkara = $request->getParameter('biaya_perkara');
+      //$PjBIayaSeumurHidup = $request->getParameter('biaya_seumur_hidup');
 
-    $this->setTemplate('edit');
+      //pidana penjara
+      $PjBadanThn = $request->getParameter('pj_badan_tahun');
+      $PjBadanBln = $request->getParameter('pj_badan_bulan');
+      $PjBadanHari = $request->getParameter('pj_badan_hari');
+      $PjDenda = $request->getParameter('pj_denda');
+      $PjSubThn = $request->getParameter('pj_subsidair_tahun');
+      $PjSubBln = $request->getParameter('pj_subsidair_bulan');
+      $PjSubHari = $request->getParameter('pj_subsidair_hari');
+      $PjBiaya = $request->getParameter('pj_biaya_perkara');
+      $PjPidanaTambahan = $request->getParameter('pj_pidana_tambahan');
+      //end pidana penjara
+      
+      //pidana kurungan denda
+      $PkKurunganThn = $request->getParameter('pk_kurungan_tahun');
+      $PkKurunganBln = $request->getParameter('pk_kurungan_bulan');
+      $PkKurunganHari = $request->getParameter('pk_kurungan_hari');
+      $PkDenda = $request->getParameter('pk_denda');
+      $PkBiayaPerkara = $request->getParameter('pk_biaya_perkara');
+      $PkPidanaTambahan = $request->getParameter('pk_pidana_tambahan');
+      //end pidana kurungan denda
+      
+      //pidana bersyarat/percobaan
+      $PbBadanThn = $request->getParameter('pb_badan_tahun');
+      $PbBadanBln = $request->getParameter('pb_badan_bulan');
+      $PbBadanHari = $request->getParameter('pb_badan_hari');
+      $PbPercobaanThn = $request->getParameter('pb_percobaan_tahun');
+      $PbPercobaanBln = $request->getParameter('pb_percobaan_bulan');
+      $PbPercobaanHari = $request->getParameter('pb_percobaan_hari');
+      $PbDenda = $request->getParameter('pb_denda');
+      $PbSubThn = $request->getParameter('pb_subsidair_tahun');
+      $PbSubBln = $request->getParameter('pb_subsidair_bulan');
+      $PbSubHari = $request->getParameter('pb_subsidair_hari');
+      $PbBiayaPerkara = $request->getParameter('pb_biaya_perkara');
+      $PbPidanaTambahan = $request->getParameter('pb_pidana_tambahan');
+      //end pidana bersyarat/percobaan
+
+      $PpCombo = $request->getParameter('pp_combo');
+      $PpBiayaPerkara = $request->getParameter('pp_biaya_perkara');
+
+      $TglP48 = $request->getParameter('tgl_p48');
+
+      $JnsTahanan = $request->getParameter('jns_tahanan');
+      $TglPenahananMulai = $request->getParameter('tgl_penahanan_mulai');
+      $TglPenahananSelesai = $request->getParameter('tgl_penahanan_selesai');
+      $KeteranganTahanan = $request->getParameter('keterangan_tahanan');
+
+      $DendaHasilDinas = $request->getParameter('denda_hsl_dinas');
+      $BpAmarPutusan = $request->getParameter('bp_amar_putusan');
+      $BpSetor = $request->getParameter('bp_setor');
+      $BpNoSsbp = $request->getParameter('bp_no_ssbp');
+      $BpTglSsbp = $request->getParameter('bp_tgl_ssbp');
+      $BpNoBuktiStr = $request->getParameter('bp_no_bukti_setor');
+      $BpTglBuktiStr = $request->getParameter('bp_tgl_setor');
+      
+      $updateIdTersangka = $request->getParameter('hidenIdTersangka');
+      $updateIdPasal = $request->getParameter('idpasal');
+      
+      $idbanding = $request->getParameter('idbanding');
+      $idkasasi = $request->getParameter('idkasasi');
+      
+      $conn = Doctrine_Manager::connection();
+      $conn->beginTransaction();
+           
+      
+        
+        for ($j=0; $j < count($NoPutusan); $j++) {
+            if($JnsPengadilanPutusan[$j] == 1){
+              $updatePdmPerkaraLimpah = Doctrine_Query::create()
+                ->update('PDM_PERKARA')
+                ->set('NOMOR_PERKARA', '?', $request->getParameter('nomor_perkara'))
+                ->set('JNS_PELIMPAHAN', '?', $request->getParameter('apb_aps'))
+                ->set('POSISI_KASUS', '?', $request->getParameter('posisi_kasus'))
+                ->set('NO_LIMPAH_PK', '?', $NoPutusan[$j])
+                ->set('TGL_PUTUSAN_PN', '?', setTanggal($TglPutusan[$j]))
+                ->where('ID = ?', $request->getParameter('idperkara'))
+                ->execute();
+              }else{
+                $updatePdmPerkara = Doctrine_Query::create()
+                ->update('PDM_PERKARA')
+                ->set('NOMOR_PERKARA', '?', $request->getParameter('nomor_perkara'))
+                ->set('JNS_PELIMPAHAN', '?', $request->getParameter('apb_aps'))
+                ->set('POSISI_KASUS', '?', $request->getParameter('posisi_kasus'))
+                ->where('ID = ?', $request->getParameter('idperkara'))
+                ->execute();
+              }
+          }
+      
+      for ($z = 0; $z < count($updateIdTersangka); $z++) {
+        $updateTersangka = Doctrine_Query::create()
+          ->update('PDM_TERSANGKA')
+          ->set('NAMA', '?', strtoupper($nama_terdakwa[$z]))
+          ->set('TEMPAT_LAHIR', '?', $tempat_lahir[$z])
+          ->set('TGL_LAHIR', '?', setTanggal($tgl_lahir[$z]))
+          ->set('JKL', '?', $jkl[$z])
+          ->set('KEWARGANEGARAAN', '?', $kewarganegaraan[$z])
+          ->set('ALAMAT', '?', $alamat[$z])
+          ->set('PEKERJAAN', '?', $pekerjaan[$z])
+          ->set('UMUR', '?', $umur[$z])
+          ->set('ID_AGAMA', '?', $id_agama[$z])
+          ->set('PENDIDIKAN', '?', $pendidikan[$z])
+          ->set('JENIS_PUTUSAN', '?', $jnsPutusan[$z])
+          ->where('ID=' . $updateIdTersangka[$z] . 'AND ID_PERKARA=' . $request->getParameter('idperkara'))
+          ->execute();
+        
+        if($JnsPengadilanPutusan[$z] == 1){
+          $updateTersangka = Doctrine_Query::create()
+          ->update('PDM_TERSANGKA')
+          ->set('PUTUSAN_UPAYA_HUKUM', '?', 1)
+          ->set('PUTUSAN_TETAP', '?', '')
+          ->where('ID=' . $updateIdTersangka[$z] . ' AND ID_PERKARA=' . $request->getParameter('idperkara'))
+          ->execute();
+        }elseif ($JnsPengadilanPutusan[$z] == 2) {
+          $updateTersangka = Doctrine_Query::create()
+          ->update('PDM_TERSANGKA')
+          ->set('PUTUSAN_TETAP', '?', 2)
+          ->set('PUTUSAN_UPAYA_HUKUM', '?', 0)
+          ->where('ID=' . $updateIdTersangka[$z] . ' AND ID_PERKARA=' . $request->getParameter('idperkara'))
+          ->execute();
+          
+          if($idbanding[$z] == ''){
+            //echo $idbanding[$z];
+            $upayaBanding = new PDM_UPAYA_BANDING(); 
+            $upayaBanding->setNoPutusan($NoPutusan[$z]);
+            $upayaBanding->setTglPutusan(setTanggal($TglPutusan[$z]));
+            $upayaBanding->setIdTersangka($updateIdTersangka[$z]);
+            $upayaBanding->save();  
+          }else{
+            $updateBanding = Doctrine_Query::create()
+            ->update("PDM_UPAYA_BANDING")
+            ->set('NO_PUTUSAN', '?', $NoPutusan[$z])
+            ->set('TGL_PUTUSAN', '?', setTanggal($TglPutusan[$z]))
+            ->where('ID = '.$idbanding[$z]. ' AND ID_TERSANGKA = '.$updateIdTersangka[$z])
+            ->execute();
+          }
+        }elseif ($JnsPengadilanPutusan[$z] == 3) {
+          $updateTersangka = Doctrine_Query::create()
+          ->update('PDM_TERSANGKA')
+          ->set('PUTUSAN_TETAP', '?', 3)
+          ->set('PUTUSAN_UPAYA_HUKUM', '?', 0)
+          ->where('ID=' . $updateIdTersangka[$z] . ' AND ID_PERKARA=' . $request->getParameter('idperkara'))
+          ->execute();
+          
+          if($idkasasi[$z] == ''){
+            $upayaKasasi = new PDM_UPAYA_KASASI();
+            $upayaKasasi->setNoPutusan($NoPutusan[$z]);
+            $upayaKasasi->setTglPutusan(setTanggal($TglPutusan[$z]));
+            $upayaKasasi->setIdTersangka($updateIdTersangka[$z]);
+            $upayaKasasi->save();  
+          }else{
+            $updateKasasi = Doctrine_Query::create()
+            ->update('PDM_UPAYA_KASASI')
+            ->set('NO_PUTUSAN', '?', $NoPutusan[$z])
+            ->set('TGL_PUTUSAN', '?', setTanggal($TglPutusan[$z]))
+            ->where('ID = '.$idkasasi[$z]. ' AND ID_TERSANGKA = '.$updateIdTersangka[$z])
+            ->execute();
+          }
+        }
+        
+        $qw = $z + 1;
+        $updateNamaPasal = 'pasal_didakwakan' . $qw;
+        $namaUpdatePasal = $request->getParameter($updateNamaPasal);
+        $hidenIdPasal = 'idpasal' . $qw;
+        $updateHidenIdPasal = $request->getParameter($hidenIdPasal);
+        
+        $nilaiNamaPasal = 'new_pasal_didakwakan' . $qw;
+
+        $namaPasal = $request->getParameter($nilaiNamaPasal);
+        
+        if($namaPasal != ''){
+          for ($s = 0; $s < count($namaPasal); $s++) {
+              $pdm_pasal = new PDM_PASAL();
+              $pdm_pasal->setIdTersangka($updateIdTersangka[$z]);
+              $pdm_pasal->setPasal($namaPasal[$s]);
+              $pdm_pasal->save();
+          }
+        }
+        for ($s = 0; $s < count($namaUpdatePasal); $s++) {
+          $updatePidumPasal = Doctrine_Query::create()
+            ->update('PDM_PASAL')
+            ->set('PASAL', '?', $namaUpdatePasal[$s])
+            ->where('ID=' . $updateHidenIdPasal[$s] . 'AND ID_TERSANGKA=' . $updateIdTersangka[$z])
+            ->execute();
+        }
+        
+        $d = $z + 1;
+        //untuk pembayaran denda
+        $setor      = $request->getParameter('denda_setor' .$d);
+        $sisa       = $request->getParameter('denda_sisa' .$d);
+        $ssbp       = $request->getParameter('denda_ssbp' .$d);
+        $tglSsbp    = $request->getParameter('denda_tgl_ssbp' .$d);
+        $buktiSetor = $request->getParameter('denda_bukti_setor' .$d);
+        $tglSetor   = $request->getParameter('denda_tgl_setor' .$d);
+        $keterangan = $request->getParameter('denda_keterangan' .$d);
+        
+        $new_setor      = $request->getParameter('new_denda_setor' .$d);
+        $new_sisa       = $request->getParameter('new_denda_sisa' .$d);
+        $new_ssbp       = $request->getParameter('new_denda_ssbp' .$d);
+        $new_tglSsbp    = $request->getParameter('new_denda_tgl_ssbp' .$d);
+        $new_buktiSetor = $request->getParameter('new_denda_bukti_setor' .$d);
+        $new_tglSetor   = $request->getParameter('new_denda_tgl_setor' .$d);
+        $new_keterangan = $request->getParameter('new_denda_keterangan' .$d);
+        
+        $idSetorDnt = $request->getParameter('idsetordnt');
+        
+        $idDetailSetor = $request->getParameter('iddetailsetor');
+        
+        $idBp = $request->getParameter('idBp');
+        $statusHD = $request->getParameter('statusHD');
+        $statusBP = $request->getParameter('statusBP');
+        
+        //print_r($setor[$z]);exit;
+        //if($idSetorDnt[$z] == ''){
+          
+          if($DendaHasilDinas[$z] != null and $BpAmarPutusan[$z] == null){
+            if($idSetorDnt[$z] == ''){
+              $SetorDnt = new PDM_SETOR_DNT();
+              $SetorDnt->setIdPerkara($request->getParameter('idperkara'));
+              $SetorDnt->setIdTersangka($updateIdTersangka[$z]);
+              $SetorDnt->setDenda($DendaHasilDinas[$z]);
+              $SetorDnt->setStatus(1);
+              for($c = 0; $c < count($setor); $c++){
+                  if($setor[$c] != null and $sisa[$c] != '0'){
+                      $SetorDnt->setStatus(2);
+                  }elseif($sisa[$c] == '0'){
+                      $SetorDnt->setStatus(3);
+                  }
+              }
+              $SetorDnt->save();
+              
+              for($ds = 0; $ds < count($setor); $ds++){
+                $SetorDetil = new PDM_DETAIL_STR();
+                $SetorDetil->setIdStrDnt($SetorDnt->getId());
+                $SetorDetil->setSetor($setor[$ds]);
+                $SetorDetil->setSisa($sisa[$ds]);
+                $SetorDetil->setNoSsbp($ssbp[$ds]);
+                $SetorDetil->setTglSsbp(setTanggal($tglSsbp[$ds]));
+                $SetorDetil->setNoBuktiStr($buktiSetor[$ds]);
+                $SetorDetil->setTglStr(setTanggal($tglSetor[$ds]));
+                $SetorDetil->setKeterangan($keterangan[$ds]);
+                $SetorDetil->setStatus(2);
+                $SetorDetil->save();
+              }
+            }else{
+              $updateSetorDnt = Doctrine_Query::create()
+              ->update('PDM_SETOR_DNT')
+              ->set('DENDA', '?', $DendaHasilDinas[$z])
+              ->set('STATUS', '?', 1)
+              ->where('ID = '.$idSetorDnt[$z])
+              ->execute();
+            
+              for($c = 0; $c < count($setor); $c++){
+                if($setor[$c] != null and $sisa[$c] != '0'){
+                    $updateSetorDnt = Doctrine_Query::create()
+                    ->update('PDM_SETOR_DNT')
+                    ->set('STATUS', '?', 2)
+                    ->where('ID = '.$idSetorDnt[$c])
+                    ->execute();
+                }elseif($sisa[$c] == '0'){
+                    $updateSetorDnt = Doctrine_Query::create()
+                    ->update('PDM_SETOR_DNT')
+                    ->set('STATUS', '?', 3)
+                    ->where('ID = '.$idSetorDnt[$c])
+                    ->execute();
+                }
+              }
+            }
+          }elseif($DendaHasilDinas[$z] == null and $BpAmarPutusan[$z] != null){
+            if($idSetorDnt[$z] == ''){
+              $SetorDnt = new PDM_SETOR_DNT();
+              $SetorDnt->setPjBiaya($BpAmarPutusan[$z]);
+              $setorDnt->save();
+              
+              $SetorDetil = new PDM_DETAIL_STR();
+              $SetorDetil->setIdStrDnt($SetorDnt->getId());
+              $SetorDetil->setSetor($BpSetor[$z]);
+              $SetorDetil->setNoSsbp($BpNoSsbp[$z]);
+              $SetorDetil->setTglSsbp(setTanggal($BpTglSsbp[$z]));
+              $SetorDetil->setNoBuktiStr($BpNoBuktiStr[$z]);
+              $SetorDetil->setTglStr(setTanggal($BpTglBuktiStr[$z]));
+              $SetorDetil->setStatus(1);
+              $SetorDetil->save();
+            }else{  
+              $updateSetorDnt = Doctrine_Query::create()
+              ->update('PDM_SETOR_DNT')
+              ->set('PJ_BIAYA', '?', $BpAmarPutusan[$z])
+              ->where('ID = '.$idSetorDnt[$z])
+              ->execute();
+            }
+          }elseif($DendaHasilDinas[$z] != null and $BpAmarPutusan[$z] != null){
+            if($idSetorDnt[$z] == ''){  
+              $SetorDnt = new PDM_SETOR_DNT();
+              $SetorDnt->setDenda($DendaHasilDinas[$z]);
+              $SetorDnt->setPjBiaya($BpAmarPutusan[$z]);
+              $setorDnt->save();
+            }else{
+              if($new_setor != ''){
+                for($ds = 0; $ds < count($setor); $ds++){
+                  $SetorDetil = new PDM_DETAIL_STR();
+                  $SetorDetil->setIdStrDnt($idSetorDnt[$ds]);
+                  $SetorDetil->setSetor($new_setor[$ds]);
+                  $SetorDetil->setSisa($new_sisa[$ds]);
+                  $SetorDetil->setNoSsbp($new_ssbp[$ds]);
+                  $SetorDetil->setTglSsbp(setTanggal($new_tglSsbp[$ds]));
+                  $SetorDetil->setNoBuktiStr($new_buktiSetor[$ds]);
+                  $SetorDetil->setTglStr(setTanggal($new_tglSetor[$ds]));
+                  $SetorDetil->setKeterangan($new_keterangan[$ds]);
+                  $SetorDetil->setStatus(2);
+                  $SetorDetil->save();
+                }
+              }else{
+                for($ds = 0; $ds < count($setor); $ds++){
+                  $updateDetailsSetorHD = Doctrine_Query::create()
+                    ->update('PDM_DETAIL_STR')
+                    ->set('SETOR', '?', $setor[$ds])
+                    ->set('SISA', '?', $sisa[$ds])
+                    ->set('NO_SSBP', '?', $ssbp[$ds])
+                    ->set('TGL_SSBP', '?', setTanggal($tglSsbp[$ds]))
+                    ->set('NO_BUKTI_STR', '?', $buktiSetor[$ds])
+                    ->set('TGL_STR', '?', setTanggal($tglSetor[$ds]))
+                    ->set('KETERANGAN', '?', $keterangan[$ds])
+                    ->where('ID = '.$idDetailSetor[$ds].' AND ID_STR_DNT = ' . $idSetorDnt[$ds] . ' AND STATUS = 2')
+                    ->execute();
+                }
+              }
+              
+              if($statusBP[$z] == 1){
+                if($idSetorDnt[$ds] == ''){
+                  for($ds = 0; $ds < count($BpSetor); $ds++){
+                    $SetorDetil = new PDM_DETAIL_STR();
+                    $SetorDetil->setIdStrDnt($idSetorDnt[$ds]);
+                    $SetorDetil->setSetor($BpSetor[$ds]);
+                    $SetorDetil->setNoSsbp($BpNoSsbp[$ds]);
+                    $SetorDetil->setTglSsbp(setTanggal($BpTglSsbp[$ds]));
+                    $SetorDetil->setNoBuktiStr($BpNoBuktiStr[$ds]);
+                    $SetorDetil->setTglStr(setTanggal($BpTglBuktiStr[$ds]));
+                    $SetorDetil->setStatus(1);
+                    $SetorDetil->save();
+                  }
+                }else{
+                  for($ds = 0; $ds < count($BpSetor); $ds++){
+                    $updateDetailsSetorHD = Doctrine_Query::create()
+                      ->update('PDM_DETAIL_STR')
+                      ->set('SETOR', '?', $BpSetor[$ds])
+                      ->set('NO_SSBP', '?', $BpNoSsbp[$ds])
+                      ->set('TGL_SSBP', '?', setTanggal($BpTglSsbp[$ds]))
+                      ->set('NO_BUKTI_STR', '?', $BpNoBuktiStr[$ds])
+                      ->set('TGL_STR', '?', setTanggal($BpTglBuktiStr[$ds]))
+                      ->where('ID = '.$idBp[$ds].' AND ID_STR_DNT = ' . $idSetorDnt[$ds] . ' AND STATUS = 1')
+                      ->execute();
+                  }
+                }
+              }
+              
+              $updateSetorDnt = Doctrine_Query::create()
+              ->update('PDM_SETOR_DNT')
+              ->set('DENDA', '?', $DendaHasilDinas[$z])
+              ->set('PJ_BIAYA', '?', $BpAmarPutusan[$z])
+              ->where('ID = '.$idSetorDnt[$z])
+              ->execute();
+            }
+          }
+         
+        
+      }
+      
+      $conn->commit();
+    }
+    //$this->redirect('dntpidum/edit?id='.$request->getParameter('idperkara'));
   }
 
   public function executeDelete(sfWebRequest $request)
@@ -523,31 +935,5 @@ class dntpidumActions extends sfActions
     $pdm_perkara->delete();
 
     $this->redirect('dntpidum/index');
-  }
-
-  protected function processForm(sfWebRequest $request, sfForm $form, sfForm $formTersangka)
-  {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    $formTersangka->bind($request->getParameter($formTersangka->getName()), $request->getFiles($formTersangka->getName()));
-    if ($form->isValid() and $formTersangka->isValid())
-    {
-      $perkara = new PDM_PERKARA();
-      $perkara->setNomorPerkara($this->form['PDM_PERKARA']['nomor_perkara']->getValue());
-      $perkara->save();
-      
-      $terdakwa = new PDM_TERSANGKA();
-      $terdakwa->setNama($this->formTersangka['PDM_TERSANGKA']['nama']->getValue());
-      $terdakwa->setTempatLahir($this->formTersangka['PDM_TERSANGKA']['tempat_lahir']->getValue());
-      $terdakwa->setTglLahir(setTanggal($this->form['PDM_TERSANGKA']['tgl_lahir']->getValue()));
-      $terdakwa->setJkl($this->formTersangka['PDM_TERSANGKA']['jkl']->getValue());
-      $terdakwa->setPendidikan($this->formTersangka['PDM_TERSANGKA']['pendidikan']->getValue());
-      $terdakwa->setIdAgama($this->formTersangka['PDM_TERSANGKA']['id_agama']->getValue());
-      $terdakwa->setPekerjaan($this->formTersangka['PDM_TERSANGKA']['pekerjaan']->getValue());
-      $terdakwa->setAlamat($this->formTersangka['PDM_TERSANGKA']['alamat']->getValue());
-      $terdakwa->setIdPerkara($perkara->getId());
-      $terdakwa->save();
-      
-      $this->redirect('dntpidum/edit?id='.$pdm_perkara->getId());
-    }
   }
 }

@@ -1,25 +1,26 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 <?php use_helper('Fungsi'); ?>
-<form action="<?php echo url_for('dntpidum/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-<?php if (!$form->getObject()->isNew()): ?>
-<input type="hidden" name="sf_method" value="put" />
-<input type="hidden" name="nilaiConter" id="nilaiConter">
-<?php endif; ?>
-<div class="form-inline">
- <?php 
+<?php 
     foreach ($pdm_perkara as $perkara) {
       # code...
       //echo $perkara['PDM_TERSANGKA'][0]['nama'];
     } 
   ?>
+<form action="<?php echo url_for('dntpidum/update?id='.$perkara->getId()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<?php if (!$form->getObject()->isNew()): ?>
+<input type="hidden" name="sf_method" value="put" />
+<?php endif; ?>
+<input type="hidden" name="nilaiConter" id="nilaiConter">
+<input type="hidden" name="idperkara" value="<?php echo $perkara->getId() ?>" />
+<div class="form-inline">
   <label>
     No. Perkara
   </label>
   <input type="text" name="nomor_perkara" value="<?php echo $perkara->getNomorPerkara() ?>" />
   <select name="apb_aps" class="span1">
-    <option value="1" selected="true">Apb</option>
-    <option value="2">Aps</option>
+    <option value="1" <?php echo $perkara->getJnsPelimpahan() == 1 ? 'selected' : '' ?>>Apb</option>
+    <option value="2" <?php echo $perkara->getJnsPelimpahan() == 2 ? 'selected' : '' ?>>Aps</option>
   </select>
 </div>
 
@@ -33,6 +34,7 @@
 <div class="tab-content">
   <?php $m = 1; $k = 1; $s = 1; ?>
   <?php foreach ($tersangka as $datatersangka) : ?>
+  <input type="hidden" name="hidenIdTersangka[]" id="hidenIdTersangka<?php echo $m; ?>" value="<?php echo $datatersangka['ID'] ?>" >
   <div class="tab-pane in active" id="new_tab_id<?php echo $m ?>"> 
     <div class="row">
       <div class="span5">
@@ -99,8 +101,12 @@
             $TglPutusan = $kasasi['TGL_PUTUSAN'];
           }
           
+          $bandingid = $banding['ID'] ? $banding['ID'] : '';
+          $kasasiid = $kasasi['ID'] ? $kasasi['ID'] : '';
         ?>
-        <input type="text" name="no_amar_putusan[]" value="<?php echo $NoAmarPutusan; ?>" class="span3" /> <input type="text" name="tgl_putusan" value="<?php echo getTanggal($TglPutusan); ?>" class="datepicker span2-edit" />
+        <input type="hidden" name="idbanding[]" value="<?php echo $bandingid ?>" />
+        <input type="hidden" name="idkasasi[]" value="<?php echo $kasasiid ?>" />
+        <input type="text" name="no_amar_putusan[]" value="<?php echo $NoAmarPutusan; ?>" class="span3" /> <input type="text" name="tgl_putusan[]" value="<?php echo getTanggal($TglPutusan); ?>" class="datepicker span2-edit" />
         <select class="span1" name="jns_pengadilan_putusan[]">
           <option value="">Pilih</option>
           <option value="1" <?php if($datatersangka['PUTUSAN_UPAYA_HUKUM'] == '1'){echo 'selected';} ?>>PN</option>
@@ -115,11 +121,13 @@
       Pasal Didakwakan <br /><br /> 
       <div id="divPasalDakwa<?php echo $m; ?>" style="margin-left:220px; float:left;">
         <?php foreach(getDetilPasalTersangka($datatersangka['ID']) as $pasal): ?>
+          <input type="hidden" name="idpasal<?php echo $m ?>[]" id="idpasal<?php echo $k; ?>" value="<?php echo $pasal['ID'] ?>" />
           <textarea name="pasal_didakwakan<?php echo $m ?>[]" id="pasal_didakwakan<?php echo $k ?>" class="span4"><?php echo $pasal['PASAL']; ?></textarea> &nbsp;<input type="button" class="btn btn-danger" value="-" id="close_pasal<?php echo $k ?>" onClick=deletePasalDakwa("<?php echo $k ?>")>
         <?php
             $k++;
             endforeach;
         ?>
+        <input type="hidden" name="nilai_n" id="nilai_p" value="<?php echo $k; ?>">
       </div>
     </div>
     <div class="row">&nbsp;</div>
@@ -288,6 +296,7 @@
       endforeach;
       
     ?>
+    <input type="hidden" name="id_setor_dnt" value="<?php echo $setorDnt['ID'] ?>" />
     <div class="form-inline">
       <label>Amar Putusan</label>&nbsp;
       <div class="input-prepend">
@@ -312,7 +321,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach(getDetailSetor($setorDnt['ID']) as $detailSetor): ?>
+          <?php foreach(getDetailSetor($setorDnt['ID'], 2) as $detailSetor): ?>
           <tr id="datatr<?php echo $s; ?>">
             <td></td>
             <td>
@@ -330,28 +339,48 @@
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                 <input type="text" id="denda_tgl_ssbp<?php echo $m; ?>" name="denda_tgl_ssbp<?php echo $m; ?>'[]" value="<?php echo getTanggal($detailSetor['TGL_SSBP']) ?>" class="datepicker span2-edit">
+                 <input type="text" id="denda_tgl_ssbp<?php echo $m; ?>" name="denda_tgl_ssbp<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_SSBP']) ?>" class="datepicker span2-edit">
               </div>
             </td>
             <td>
-              <input type="text" name="denda_bukti_setor<?php echo $m; ?>'[]" value="<?php echo $detailSetor['NO_BUKTI_STR'] ?>" class="span2">
+              <input type="text" name="denda_bukti_setor<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_BUKTI_STR'] ?>" class="span2">
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                <input type="text" name="denda_tgl_setor<?php echo $m; ?>'[]" value="<?php echo getTanggal($detailSetor['TGL_STR']) ?>" class="datepicker span2-edit">
+                <input type="text" name="denda_tgl_setor<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_STR']) ?>" class="datepicker span2-edit">
               </div>
             </td>
             <td>
-              <input type="text" name="denda_keterangan<?php echo $m; ?>'[]" value="<?php echo $detailSetor['KETERANGAN'] ?>" class="span2">
+              <input type="text" name="denda_keterangan<?php echo $m; ?>[]" value="<?php echo $detailSetor['KETERANGAN'] ?>" class="span2">
             </td>
             <td>
               <input type="button" class="btn btn-danger" value="-" id="hapus_denda<?php echo $s; ?>" onClick=deleteDenda("<?php echo $s; ?>")>
             </td>
           </tr>
+          <?php
+              $idDetailSetor = $detailSetor['ID'] ? $detailSetor['ID'] : '';
+              $idSetorDnt = $detailSetor['ID_STR_DNT'] ? $detailSetor['ID_STR_DNT'] : '';
+          ?>  
+          <input type="hidden" name="iddetailsetor[]" value="<?php echo $idDetailSetor ?>" />
+          <input type="hidden" name="idsetordnt[]" value="<?php echo $idSetorDnt ?>" />
           <?php $s++; endforeach; ?>
+          <input type="hidden" name="nilai_hsl_dinas" id="nilai_hsl_dinas" value="<?php echo $s; ?>">
         </tbody>
       </table>
     </div>
+    <?php
+      foreach(getDetailSetor($setorDnt['ID'], 1) as $detailSetorBp):
+      endforeach;
+      
+      
+      $statusBP = $detailSetorBp['STATUS'] ? $detailSetorBp['STATUS'] : '';
+      $idBp = $detailSetorBp['ID'] ? $detailSetorBp['ID'] : '';
+      $statusHD = $detailSetor['STATUS'] ? $detailSetor['STATUS'] : '';
+    ?>
+    
+    <input type="hidden" name="statusBP[]" value="<?php echo $statusBP ?>" />
+    <input type="hidden" name="idBp[]" value="<?php echo $idBp ?>" />
+    <input type="hidden" name="statusHD[]" value="<?php echo $statusHD ?>" />
     <div style="overflow-x:scroll;">
       <table class="table">
         <thead>
@@ -375,23 +404,23 @@
             </td>
             <td>
               <div class="input-prepend-edit">
-                <span class="add-on">Rp.</span><input type="text" name="bp_setor[]" class="span2">
+                <span class="add-on">Rp.</span><input type="text" name="bp_setor[]" value="<?php echo $detailSetorBp['SETOR'] ?>" class="span2">
               </div>
             </td>
             <td>
-              <input type="text" name="bp_no_ssbp[]" class="span2">
+              <input type="text" name="bp_no_ssbp[]" value="<?php echo $detailSetorBp['NO_SSBP'] ?>" class="span2">
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                <input type="text" name="bp_tgl_ssbp[]" class="datepicker span2-edit">
+                <input type="text" name="bp_tgl_ssbp[]" value="<?php echo getTanggal($detailSetorBp['TGL_SSBP']) ?>" class="datepicker span2-edit">
               </div>
             </td>
             <td>
-              <input type="text" name="bp_no_bukti_setor[]" class="span2">
+              <input type="text" name="bp_no_bukti_setor[]" value="<?php echo $detailSetorBp['NO_BUKTI_STR'] ?>" class="span2">
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                <input type="text" name="bp_tgl_setor[]" class="datepicker span2-edit">
+                <input type="text" name="bp_tgl_setor[]" value="<?php echo getTanggal($detailSetorBp['TGL_STR']) ?>" class="datepicker span2-edit">
               </div>
             </td>
           </tr>
@@ -460,6 +489,8 @@
     </tbody>
   </table>
 </div>
+<input type="submit" value="Simpan" class="btn btn-warning" />
+</form>
 <script type="text/javascript">
 $(function () {
     $('#myTab a:first').tab('show');
@@ -878,10 +909,11 @@ $(function () {
       $("#pidana_pengawasan" + nilai).show();
     }
   }
-
-  var IdPasalDakwa = 1;
+  
+  nilai_pasal = $('#nilai_p').val();
+  var IdPasalDakwa = parseInt(nilai_pasal);
   function addpasal(sRowId){
-    $("#divPasalDakwa"+sRowId).append('<br /><textarea name="pasal_didakwakan'+sRowId+'[]" id="pasal_didakwakan'+IdPasalDakwa+'" class="span4"></textarea> &nbsp;<input type="button" class="btn btn-danger" value="-" id="close_pasal'+IdPasalDakwa+'" onClick=deletePasalDakwa("'+IdPasalDakwa+'")>');
+    $("#divPasalDakwa"+sRowId).append('<br /><textarea name="new_pasal_didakwakan'+sRowId+'[]" id="new_pasal_didakwakan'+IdPasalDakwa+'" class="span4"></textarea> &nbsp;<input type="button" class="btn btn-danger" value="-" id="close_pasal'+IdPasalDakwa+'" onClick=deletePasalDakwa("'+IdPasalDakwa+'")>');
     IdPasalDakwa++;
   }
   
@@ -890,37 +922,40 @@ $(function () {
     var randomnumber=parseInt(noterakhir)+1;
     $("#hdnpembayaran").val(randomnumber);
     
+    nilai_pasal = $('#nilai_hsl_dinas').val();
+  var nilaiHslDinas = parseInt(nilai_pasal);
+    
     $("#tbl_denda"+value).append(
         '<tr id="datatr'+randomnumber+'">'+
           '<td></td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="denda_setor'+value+'[]" class="span2 setor'+randomnumber+'" onkeyup=hitung("'+randomnumber+'") >'+
+               '<span class="add-on">Rp.</span><input type="text" name="new_denda_setor'+value+'[]" class="span2 setor'+nilaiHslDinas+'" onkeyup=hitung("'+nilaiHslDinas+'") >'+
             '</div>'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="denda_sisa'+value+'[]" class="span2 sisa'+randomnumber+'">'+
+               '<span class="add-on">Rp.</span><input type="text" name="new_denda_sisa'+value+'[]" class="span2 sisa'+nilaiHslDinas+'">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_ssbp'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_ssbp'+value+'[]" class="span2">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-               '<input type="text" id="denda_tgl_ssbp'+tab_counter+'" name="denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
+               '<input type="text" id="denda_tgl_ssbp'+tab_counter+'" name="new_denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_bukti_setor'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_bukti_setor'+value+'[]" class="span2">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-              '<input type="text" name="denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
+              '<input type="text" name="new_denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_keterangan'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_keterangan'+value+'[]" class="span2">'+
           '</td>'+
           '<td>'+
             '<input type="button" class="btn btn-danger" value="-" id="hapus_denda'+randomnumber+'" onClick=deleteDenda("'+randomnumber+'")>'+

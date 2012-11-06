@@ -1,3 +1,4 @@
+<div class="span8">
 <h1>Pdm upaya bandin gs List</h1>
 
 <table>
@@ -48,3 +49,4 @@
 </table>
 
   <a href="<?php echo url_for('dnttest/new') ?>">New</a>
+</div>
