@@ -4,32 +4,178 @@
 <form action="<?php echo url_for('barangRampasan/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
+<input type="hidden" name="nilaiConter" id="nilaiConterRampasan">
 <?php endif; ?>
-  <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          &nbsp;<a href="<?php echo url_for('barangRampasan/index') ?>">Back to list</a>
-          <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'barangRampasan/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-          <?php endif; ?>
-          <input type="submit" value="Save" />
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <div class="span11">
-		<div class="row">
-			<div class="form-inline">
-				<label><div class="span1">Jenis</div> <?php echo $form['nama']->render() ?></label>
-			</div>
-			<div class="form-inline">
-				<label><div class="span1">Jumlah</div> <?php echo $form['jumlah']->render() ?></label>
-				<label><div class="span1">Satuan</div> <?php echo $form['id_satuan']->render() ?></label>
-			</div>
-			</div>
+<button type="button" id="add_rampasan" >Tambah Barang Rampasan</button>
+<ul class="nav nav-tabs" id="tabRampasan">
+  
+</ul>
+<div class="tab-content rampasan">
+  
+</div>
+<legend>Penyelesaian Barang Rampasan</legend>
+<ul class="nav nav-tabs" id="tabPenyelesaian">
+  <li id="tab_li_proses"><a data-toggle="tab" href="#proses">Proses Lelang</a></li>
+  <li id="tab_li_hambatan"><a data-toggle="tab" href="#hambatan">Hambatan Lelang</a></li>
+  <li id="tab_li_petunjuk"><a data-toggle="tab" href="#petunjuk_penyelesaian">Petunjuk Penyelesaian</a></li>
+</ul>
+<div class="tab-content penyelesaian">
+  <div id="proses" class="tab-pane">
+	<div class="span11">
+	  <div class="row">
+		<div class="form-inline">
+		  <label><div class="span2">No. BA Lelang</div> &nbsp;<input type="text" name="no_ba_lelang" /></label>
+		  <label><div class="span1">Tanggal</div> &nbsp;<input type="text" name="tgl_lelang" id="datepicker" class="span2-edit" /></label>
+		</div>
+		<div class="form-inline">
+		  <label><div class="span2">Taksiran</div> &nbsp;<input type="text" name="taksiran" /></label>
+		</div>
+		<div class="form-inline">
+		  <label><div class="span2">Nilai Wajar Hasil Lelang</div> &nbsp;<input type="text" name="nilai_wajar" /></label>
+		</div>
+		<div class="form-inline">
+		  <label><div class="span2">Tempat Penyimpanan</div> &nbsp;<input type="text" name="tempat_penyimpanan" /></label>
+		</div>
+		<div class="form-inline">
+		  <label>
+			&nbsp;<div class="span2">Kondisi</div>
+			  <select name="kondisi" class="span2">
+				<option value="0">--Pilih--</option>
+				<option value="1">Baik</option>
+				<option value="2">Rusak</option>
+				<option value="3">Rusak Berat</option>
+			  </select>
+		  </label>
+		</div>
+		<div class="form-inline">
+		  <label>
+			<div class="span2">Hasil Lelang</div>
+			  &nbsp;<div class="input-prepend">
+				<span class="add-on">Rp.</span>
+				<input id="hasil_lelang" name="hasil_lelang" type="text" />
+			  </div>
+		  </label>
+		</div>		
+	  </div>
+	  <table class="table table-bordered table-striped">
+		<thead>
+		  <tr>
+			<th>Tanggal Lelang</th>
+			<th>No. BA Lelang</th>
+			<th>Taksiran</th>
+			<th>Hasil Lelang</th>
+			<th>Hambatan / Permasalahan</th>
+			<th>Petunjuk Penyelesaian</th>
+			<th>Action
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td>aaaa</td>
+			<td>aaaa</td>
+			<td>aaaa</td>
+			<td>aaaa</td>
+			<td>aaaa</td>
+			<td>aaaa</td>
+			<td>aaaa</td>
+		  </tr>
+		  <tr>
+			<td>bbb</td>
+			<td>bbb</td>
+			<td>bbb</td>
+			<td>bbb</td>
+			<td>bbb</td>
+			<td>bbb</td>
+			<td>bbb</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+  </div>
+  <div id="hambatan" class="tab-pane">
+	<div class="span11">
+	  <div class="row">
+		<div class="form-inline">
+		  <label><div class="span1">Hambatan</div> <textarea name="hambatan" class="span4"></textarea></label>
+		</div>
+		<div class="form-inline">
+		  <label><div class="span1">Usulan</div> <textarea name="usulan" class="span4"></textarea></label>
 		</div>
 	  </div>
-    </tbody>
-  </table>
+	</div>
+  </div>
+  <div id="petunjuk_penyelesaian" class="tab-pane">
+  <div class="span11">
+	  <div class="row">
+		<div class="form-inline">
+		  <label><div class="span2">Keterangan / Catatan</div> <textarea name="keterangan" class="span4"></textarea></label>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
 </form>
+<script type="text/javascript" >
+	$(document).ready(function(){
+	  $('#tabPenyelesaian a[href="#proses"]').tab('show');
+	  
+	  $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "button",
+            buttonImage: "<?php echo image_path('calendar.gif') ?>",
+            buttonImageOnly: true,
+            yearRange: '1910:+0',
+            dateFormat: 'dd-mm-yy',
+        });
+	});
+	var tab_counter_rampasan = 1;
+	var addtabRampasan=1;
+	
+	function addTabRampasan(){
+		$('.rampasan').append(
+			'<div class="tab-pane in active" id="rampasan_id'+addtabRampasan+'">' +
+				'<div class="span11">' +
+					'<div class="row">' +
+						'<div class="form-inline">' +
+							'<label><div class="span1">Jenis</div> <?php echo $form['nama']->render() ?></label>' +
+						'</div>' +
+						'<div class="form-inline">' +
+							'<label><div class="span1">Jumlah</div> <?php echo $form['jumlah']->render() ?></label>' +
+							'<label><div class="span1">Satuan</div> <?php echo $form['id_satuan']->render() ?></label>' +
+						'</div>' +
+						'<div class="form-inline">' +
+							'<label><div class="span1">Pemilik</div> <?php echo $form['pemilik']->render() ?></label>' +
+						'</div>' +
+						'<div class="form-inline">' +
+							'<label>' +
+							  '<div class="span1">Petunjuk</div>' +
+							  '<select name="petunjuk[]" class="span3">' +
+								  '<option value="0">--Pilih--</option>' +
+								  '<option value="1">Dihibahkan</option>' +
+								  '<option value="2">Dimusnahkan</option>' +
+								  '<option value="3">Lelang</option>' +
+							  '</select>' +
+							'</label>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</div>'
+		);
+		$('#tabRampasan').append('<li id="tab_li_rampas'+addtabRampasan+'"><a href="#rampasan_id'+addtabRampasan+'" data-toggle="tab">Barang Rampasan '+addtabRampasan+' <span class="" onClick=dlttabrampasan("'+addtabRampasan+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
+		$('#tabRampasan a:last').tab('show');
+      
+      addtabRampasan++;
+	}
+	
+	var nourut = 2;
+	$('#add_rampasan').button().click(function(){
+		addTabRampasan();
+		//handeltgl($(document));
+	});
+	
+	$("#add_rampasan").click(function() {
+		$('#nilaiConterRampasan').val(tab_counter_rampasan-1);
+	});
+</script>

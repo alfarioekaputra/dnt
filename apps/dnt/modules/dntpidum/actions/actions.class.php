@@ -760,6 +760,7 @@ class dntpidumActions extends sfActions
         $new_keterangan = $request->getParameter('new_denda_keterangan' .$d);
         
         $idSetorDnt = $request->getParameter('idsetordnt');
+        $id_setor_dnt = $request->getParameter('id_setor_dnt');
         
         $idDetailSetor = $request->getParameter('iddetailsetor');
         
@@ -771,7 +772,7 @@ class dntpidumActions extends sfActions
         //if($idSetorDnt[$z] == ''){
           
           if($DendaHasilDinas[$z] != null and $BpAmarPutusan[$z] == null){
-            if($idSetorDnt[$z] == ''){
+            if($id_setor_dnt[$z] == ''){
               $SetorDnt = new PDM_SETOR_DNT();
               $SetorDnt->setIdPerkara($request->getParameter('idperkara'));
               $SetorDnt->setIdTersangka($updateIdTersangka[$z]);
@@ -786,25 +787,41 @@ class dntpidumActions extends sfActions
               }
               $SetorDnt->save();
               
-              for($ds = 0; $ds < count($setor); $ds++){
-                $SetorDetil = new PDM_DETAIL_STR();
-                $SetorDetil->setIdStrDnt($SetorDnt->getId());
-                $SetorDetil->setSetor($setor[$ds]);
-                $SetorDetil->setSisa($sisa[$ds]);
-                $SetorDetil->setNoSsbp($ssbp[$ds]);
-                $SetorDetil->setTglSsbp(setTanggal($tglSsbp[$ds]));
-                $SetorDetil->setNoBuktiStr($buktiSetor[$ds]);
-                $SetorDetil->setTglStr(setTanggal($tglSetor[$ds]));
-                $SetorDetil->setKeterangan($keterangan[$ds]);
-                $SetorDetil->setStatus(2);
-                $SetorDetil->save();
-              }
             }else{
+              if($new_setor != ''){
+                for($ds = 0; $ds < count($new_setor); $ds++){
+                  $SetorDetil = new PDM_DETAIL_STR();
+                  $SetorDetil->setIdStrDnt($id_setor_dnt[$ds]);
+                  $SetorDetil->setSetor($new_setor[$ds]);
+                  $SetorDetil->setSisa($new_sisa[$ds]);
+                  $SetorDetil->setNoSsbp($new_ssbp[$ds]);
+                  $SetorDetil->setTglSsbp(setTanggal($new_tglSsbp[$ds]));
+                  $SetorDetil->setNoBuktiStr($new_buktiSetor[$ds]);
+                  $SetorDetil->setTglStr(setTanggal($new_tglSetor[$ds]));
+                  $SetorDetil->setKeterangan($new_keterangan[$ds]);
+                  $SetorDetil->setStatus(2);
+                  $SetorDetil->save();
+                }
+              }else{
+                for($ds = 0; $ds < count($setor); $ds++){
+                  $updateDetailsSetorHD = Doctrine_Query::create()
+                    ->update('PDM_DETAIL_STR')
+                    ->set('SETOR', '?', $setor[$ds])
+                    ->set('SISA', '?', $sisa[$ds])
+                    ->set('NO_SSBP', '?', $ssbp[$ds])
+                    ->set('TGL_SSBP', '?', setTanggal($tglSsbp[$ds]))
+                    ->set('NO_BUKTI_STR', '?', $buktiSetor[$ds])
+                    ->set('TGL_STR', '?', setTanggal($tglSetor[$ds]))
+                    ->set('KETERANGAN', '?', $keterangan[$ds])
+                    ->where('ID = '.$idDetailSetor[$ds].' AND ID_STR_DNT = ' . $idSetorDnt[$ds] . ' AND STATUS = 2')
+                    ->execute();
+                }
+              }
               $updateSetorDnt = Doctrine_Query::create()
               ->update('PDM_SETOR_DNT')
               ->set('DENDA', '?', $DendaHasilDinas[$z])
               ->set('STATUS', '?', 1)
-              ->where('ID = '.$idSetorDnt[$z])
+              ->where('ID = '.$id_setor_dnt[$z])
               ->execute();
             
               for($c = 0; $c < count($setor); $c++){
@@ -812,22 +829,22 @@ class dntpidumActions extends sfActions
                     $updateSetorDnt = Doctrine_Query::create()
                     ->update('PDM_SETOR_DNT')
                     ->set('STATUS', '?', 2)
-                    ->where('ID = '.$idSetorDnt[$c])
+                    ->where('ID = '.$id_setor_dnt[$c])
                     ->execute();
                 }elseif($sisa[$c] == '0'){
                     $updateSetorDnt = Doctrine_Query::create()
                     ->update('PDM_SETOR_DNT')
                     ->set('STATUS', '?', 3)
-                    ->where('ID = '.$idSetorDnt[$c])
+                    ->where('ID = '.$id_setor_dnt[$c])
                     ->execute();
                 }
               }
             }
           }elseif($DendaHasilDinas[$z] == null and $BpAmarPutusan[$z] != null){
-            if($idSetorDnt[$z] == ''){
+            if($id_setor_dnt[$z] == ''){
               $SetorDnt = new PDM_SETOR_DNT();
               $SetorDnt->setPjBiaya($BpAmarPutusan[$z]);
-              $setorDnt->save();
+              $SetorDnt->save();
               
               $SetorDetil = new PDM_DETAIL_STR();
               $SetorDetil->setIdStrDnt($SetorDnt->getId());
@@ -842,20 +859,34 @@ class dntpidumActions extends sfActions
               $updateSetorDnt = Doctrine_Query::create()
               ->update('PDM_SETOR_DNT')
               ->set('PJ_BIAYA', '?', $BpAmarPutusan[$z])
-              ->where('ID = '.$idSetorDnt[$z])
+              ->where('ID = '.$id_setor_dnt[$z])
               ->execute();
+              
+              for($ds = 0; $ds < count($BpSetor); $ds++){
+                    $updateDetailsSetorHD = Doctrine_Query::create()
+                      ->update('PDM_DETAIL_STR')
+                      ->set('SETOR', '?', $BpSetor[$ds])
+                      ->set('NO_SSBP', '?', $BpNoSsbp[$ds])
+                      ->set('TGL_SSBP', '?', setTanggal($BpTglSsbp[$ds]))
+                      ->set('NO_BUKTI_STR', '?', $BpNoBuktiStr[$ds])
+                      ->set('TGL_STR', '?', setTanggal($BpTglBuktiStr[$ds]))
+                      ->where('ID = '.$idBp[$ds].' AND ID_STR_DNT = ' . $id_setor_dnt[$ds] . ' AND STATUS = 1')
+                      ->execute();
+                  }
             }
           }elseif($DendaHasilDinas[$z] != null and $BpAmarPutusan[$z] != null){
-            if($idSetorDnt[$z] == ''){  
-              $SetorDnt = new PDM_SETOR_DNT();
-              $SetorDnt->setDenda($DendaHasilDinas[$z]);
-              $SetorDnt->setPjBiaya($BpAmarPutusan[$z]);
-              $setorDnt->save();
+            if($id_setor_dnt[$z] == ''){  
+              $updateSetorDnt = Doctrine_Query::create()
+              ->update('PDM_SETOR_DNT')
+              ->set('DENDA', '?', $DendaHasilDinas[$z])
+              ->set('PJ_BIAYA', '?', $BpAmarPutusan[$z])
+              ->where('ID = '.$id_setor_dnt[$z])
+              ->execute();
             }else{
               if($new_setor != ''){
-                for($ds = 0; $ds < count($setor); $ds++){
+                for($ds = 0; $ds < count($new_setor); $ds++){
                   $SetorDetil = new PDM_DETAIL_STR();
-                  $SetorDetil->setIdStrDnt($idSetorDnt[$ds]);
+                  $SetorDetil->setIdStrDnt($id_setor_dnt[$ds]);
                   $SetorDetil->setSetor($new_setor[$ds]);
                   $SetorDetil->setSisa($new_sisa[$ds]);
                   $SetorDetil->setNoSsbp($new_ssbp[$ds]);
@@ -883,10 +914,10 @@ class dntpidumActions extends sfActions
               }
               
               if($statusBP[$z] == 1){
-                if($idSetorDnt[$ds] == ''){
+                if($id_setor_dnt[$z] == ''){
                   for($ds = 0; $ds < count($BpSetor); $ds++){
                     $SetorDetil = new PDM_DETAIL_STR();
-                    $SetorDetil->setIdStrDnt($idSetorDnt[$ds]);
+                    $SetorDetil->setIdStrDnt($id_setor_dnt[$ds]);
                     $SetorDetil->setSetor($BpSetor[$ds]);
                     $SetorDetil->setNoSsbp($BpNoSsbp[$ds]);
                     $SetorDetil->setTglSsbp(setTanggal($BpTglSsbp[$ds]));
@@ -904,7 +935,7 @@ class dntpidumActions extends sfActions
                       ->set('TGL_SSBP', '?', setTanggal($BpTglSsbp[$ds]))
                       ->set('NO_BUKTI_STR', '?', $BpNoBuktiStr[$ds])
                       ->set('TGL_STR', '?', setTanggal($BpTglBuktiStr[$ds]))
-                      ->where('ID = '.$idBp[$ds].' AND ID_STR_DNT = ' . $idSetorDnt[$ds] . ' AND STATUS = 1')
+                      ->where('ID = '.$idBp[$ds].' AND ID_STR_DNT = ' . $id_setor_dnt[$ds] . ' AND STATUS = 1')
                       ->execute();
                   }
                 }
@@ -914,7 +945,7 @@ class dntpidumActions extends sfActions
               ->update('PDM_SETOR_DNT')
               ->set('DENDA', '?', $DendaHasilDinas[$z])
               ->set('PJ_BIAYA', '?', $BpAmarPutusan[$z])
-              ->where('ID = '.$idSetorDnt[$z])
+              ->where('ID = '.$id_setor_dnt[$z])
               ->execute();
             }
           }
@@ -924,7 +955,7 @@ class dntpidumActions extends sfActions
       
       $conn->commit();
     }
-    //$this->redirect('dntpidum/edit?id='.$request->getParameter('idperkara'));
+    $this->redirect('dntpidum/edit?id='.$request->getParameter('idperkara'));
   }
 
   public function executeDelete(sfWebRequest $request)

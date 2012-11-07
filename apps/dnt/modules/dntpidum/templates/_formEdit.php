@@ -296,7 +296,7 @@
       endforeach;
       
     ?>
-    <input type="hidden" name="id_setor_dnt" value="<?php echo $setorDnt['ID'] ?>" />
+    <input type="hidden" name="id_setor_dnt[]" value="<?php echo $setorDnt['ID'] ?>" />
     <div class="form-inline">
       <label>Amar Putusan</label>&nbsp;
       <div class="input-prepend">
