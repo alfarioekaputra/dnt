@@ -1,7 +1,7 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<form action="<?php echo url_for('barangRampasan/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <input type="hidden" name="nilaiConter" id="nilaiConterRampasan">
@@ -14,7 +14,7 @@
   
 </div>
 <legend>Penyelesaian Barang Rampasan</legend>
-<ul class="nav nav-tabs" id="tabPenyelesaian">
+<!--<ul class="nav nav-tabs" id="tabPenyelesaian">
   <li id="tab_li_proses"><a data-toggle="tab" href="#proses">Proses Lelang</a></li>
   <li id="tab_li_hambatan"><a data-toggle="tab" href="#hambatan">Hambatan Lelang</a></li>
   <li id="tab_li_petunjuk"><a data-toggle="tab" href="#petunjuk_penyelesaian">Petunjuk Penyelesaian</a></li>
@@ -113,69 +113,136 @@
 	  </div>
 	</div>
   </div>
-</div>
+</div>-->
+<input type="button" class="btn btn-warning" value="tambah" id="tambah_lelang" onClick=tambahLelang()>
+<input type="hidden" name="hdnlelang" id="hdnlelang" value="0">
+<table class="table table-bordered table-striped" id="tbl_lelang">
+  <thead>
+	<tr>
+	  <th>No. BA Lelang</th>
+	  <th>Tanggal Lelang</th>
+	  <th>Taksiran</th>
+	  <th>Nilai Wajar / <br /> Hasil Lelang</th>
+	  <th>Tempat Penyimpanan</th>
+	  <th>Kondisi</th>
+	  <th>Hasil Lelang</th>
+	  <th>Hambatan / Permasalahan</th>
+	  <th>Petunjuk Penyelesaian</th>
+	  <th>Action
+	</tr>
+  </thead>
+  <tbody>
+	
+  </tbody>
+</table>
 
-</form>
 <script type="text/javascript" >
-	$(document).ready(function(){
-	  $('#tabPenyelesaian a[href="#proses"]').tab('show');
-	  
-	  $("#datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showOn: "button",
-            buttonImage: "<?php echo image_path('calendar.gif') ?>",
-            buttonImageOnly: true,
-            yearRange: '1910:+0',
-            dateFormat: 'dd-mm-yy',
-        });
-	});
-	var tab_counter_rampasan = 1;
-	var addtabRampasan=1;
+  $(document).ready(function(){
+	$('#tabPenyelesaian a[href="#proses"]').tab('show');
 	
-	function addTabRampasan(){
-		$('.rampasan').append(
-			'<div class="tab-pane in active" id="rampasan_id'+addtabRampasan+'">' +
-				'<div class="span11">' +
-					'<div class="row">' +
-						'<div class="form-inline">' +
-							'<label><div class="span1">Jenis</div> <?php echo $form['nama']->render() ?></label>' +
-						'</div>' +
-						'<div class="form-inline">' +
-							'<label><div class="span1">Jumlah</div> <?php echo $form['jumlah']->render() ?></label>' +
-							'<label><div class="span1">Satuan</div> <?php echo $form['id_satuan']->render() ?></label>' +
-						'</div>' +
-						'<div class="form-inline">' +
-							'<label><div class="span1">Pemilik</div> <?php echo $form['pemilik']->render() ?></label>' +
-						'</div>' +
-						'<div class="form-inline">' +
-							'<label>' +
-							  '<div class="span1">Petunjuk</div>' +
-							  '<select name="petunjuk[]" class="span3">' +
-								  '<option value="0">--Pilih--</option>' +
-								  '<option value="1">Dihibahkan</option>' +
-								  '<option value="2">Dimusnahkan</option>' +
-								  '<option value="3">Lelang</option>' +
-							  '</select>' +
-							'</label>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>'
-		);
-		$('#tabRampasan').append('<li id="tab_li_rampas'+addtabRampasan+'"><a href="#rampasan_id'+addtabRampasan+'" data-toggle="tab">Barang Rampasan '+addtabRampasan+' <span class="" onClick=dlttabrampasan("'+addtabRampasan+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
-		$('#tabRampasan a:last').tab('show');
-      
-      addtabRampasan++;
-	}
+	$("#datepicker").datepicker({
+		  changeMonth: true,
+		  changeYear: true,
+		  showOn: "button",
+		  buttonImage: "<?php echo image_path('calendar.gif') ?>",
+		  buttonImageOnly: true,
+		  yearRange: '1910:+0',
+		  dateFormat: 'dd-mm-yy',
+	  });
+  });
+  var tab_counter_rampasan = 1;
+  var addtabRampasan=1;
+  
+  function addTabRampasan(){
+	  $('.rampasan').append(
+		  '<div class="tab-pane in active" id="rampasan_id'+addtabRampasan+'">' +
+			  '<div class="span11">' +
+				  '<div class="row">' +
+					  '<div class="form-inline">' +
+						  '<label><div class="span1">Jenis</div> <input type="text" name="jenis[]" id="jenis'+addtabRampasan+'"></label>' +
+					  '</div>' +
+					  '<div class="form-inline">' +
+						  '<label><div class="span1">Jumlah</div> <input type="text" name="jumlah[]" ></label>' +
+						  '<label><div class="span1">Satuan</div> <input type="text" name="satuan[]" ></label>' +
+					  '</div>' +
+					  '<div class="form-inline">' +
+						  '<label><div class="span1">Pemilik</div> <input type="text" name="pemilik[]" ></label>' +
+					  '</div>' +
+					  '<div class="form-inline">' +
+						  '<label>' +
+							'<div class="span1">Petunjuk</div>' +
+							'<select name="petunjuk[]" class="span3">' +
+								'<option value="0">--Pilih--</option>' +
+								'<option value="1">Dihibahkan</option>' +
+								'<option value="2">Dimusnahkan</option>' +
+								'<option value="3">Lelang</option>' +
+							'</select>' +
+						  '</label>' +
+					  '</div>' +
+				  '</div>' +
+			  '</div>' +
+		  '</div>'
+	  );
+	  $('#tabRampasan').append('<li id="tab_li_rampas'+addtabRampasan+'"><a href="#rampasan_id'+addtabRampasan+'" data-toggle="tab">Barang Rampasan '+addtabRampasan+' <span class="" onClick=dlttabrampasan("'+addtabRampasan+'","'+nourut+'") > | <i class="icon-remove-sign"></i></span></a></li>');
+	  $('#tabRampasan a:last').tab('show');
 	
-	var nourut = 2;
-	$('#add_rampasan').button().click(function(){
-		addTabRampasan();
-		//handeltgl($(document));
-	});
+	addtabRampasan++;
+  }
+  
+  count = 1;
+  function tambahLelang(){
+	var noterakhir=$("#hdnlelang").val();
+	var randomnumber=parseInt(noterakhir)+1;
+	$("#hdnlelang").val(randomnumber);
 	
-	$("#add_rampasan").click(function() {
-		$('#nilaiConterRampasan').val(tab_counter_rampasan-1);
+	$("#tbl_lelang").append(
+		'<tr id="data_lelang'+randomnumber+'">'+
+		  '<td><input type="text" name="no_ba_lelang[]" class="span2"></td>'+
+		  '<td>'+
+			'<div class="input-prepend-edit-date">'+
+			  '<input type="text" name="tgl_lelang[]" class="datepicker span2-edit">'+
+			'</td>'+
+		  '<td><input type="text" name="taksiran[]" class="span2"></td>'+
+		  '<td><input type="text" name="nilai_wajar_hasil_lelang[]" class="span2"></td>'+
+		  '<td><input type="text" name="tempat_penyimpanan[]" class="span2"></td>'+
+		  '<td>' +
+			'<select name="kondisi[]" class="span2">' +
+			  '<option value="0">--Pilih--</option>' +
+			  '<option value="1">Baik</option>' +
+			  '<option value="2">Rusak</option>' +
+			  '<option value="3">Rusak Berat</option>' +
+			'</select>' +
+		  '</td>'+
+		  '<td><input type="text" name="hasil_lelang[]" class="span2"></td>'+
+		  '<td><textarea name="hambatan" class="span3"></textarea></td>'+
+		  '<td><textarea name="catatan" class="span3"></textarea></td>'+
+		  '<td>Edit | Delete</td>'+
+		'</tr>'
+	  );
+	  count++;
+
+	  $(document).ready(function() {
+		$( ".datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showOn: "button",
+			buttonImage: "<?php echo image_path('calendar.gif') ?>",
+			buttonImageOnly: true,
+			yearRange: '1910:+0',
+			dateFormat: 'dd-mm-yy',
+		});
 	});
+  }
+  
+  var nourut = 2;
+  $('#add_rampasan').button().click(function(){
+	  addTabRampasan();
+	  //handeltgl($(document));
+  });
+  
+  $("#add_rampasan").click(function() {
+	  $('#nilaiConterRampasan').val(tab_counter_rampasan-1);
+  });
+  
+  
 </script>

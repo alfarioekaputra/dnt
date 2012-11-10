@@ -34,7 +34,8 @@ class barangRampasanActions extends sfActions
 
     $this->form = new PDM_BARBUKForm();
 
-    $this->processForm($request, $this->form);
+    //$this->processForm($request, $this->form);
+	$request->getParameter('idperkara');exit;
 
     $this->setTemplate('new');
   }

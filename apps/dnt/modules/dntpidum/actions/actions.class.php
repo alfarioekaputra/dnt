@@ -476,6 +476,47 @@ class dntpidumActions extends sfActions
               $upayaBanding->save();
             }
           }*/
+          
+        $jenis = $request->getParameter('jenis');
+        $jumlah = $request->getParameter('jumlah');
+        $satuan = $request->getParameter('satuan');
+        $pemilik = $request->getParameter('pemilik');
+        $petunjuk = $request->getParameter('petunjuk');
+        
+        $NoBaLelang = $request->getParameter('no_ba_lelang');
+        $TglLelang = $request->getParameter('tgl_lelang');
+        $Taksiran = $request->getParameter('taksiran');
+        $NilaiWajarLelang = $request->getParameter('nilai_wajar_hasil_lelang');
+        $TempatPenyimpanan = $request->getParameter('tempat_penyimpanan');
+        $Kondisi = $request->getParameter('kondisi');
+        $HasilLelang = $request->getParameter('hasil_lelang');
+        $Hambatan = $request->getParameter('hambatan');
+        $Catatan = $request->getParameter('catatan');
+        
+        for($a = 0; $a < count($jenis); $a++){
+          $barangRampasan = new PDM_BARBUK();
+          $barangRampasan->setIdPerkara($perkara->getId());
+          $barangRampasan->setNama($jenis[$a]);
+          $barangRampasan->setJumlah($jumlah[$a]);
+          $barangRampasan->setIdSatuan($satuan[$a]);
+          $barangRampasan->setPemilik($pemilik[$a]);
+          $barangRampasan->save();
+        }
+        
+        for($b = 0; $b < count($NoBaLelang); $b++){
+          $lelang = new PDM_BARBUK_LELANG();
+          $lelang->setIdBarbuk($barangRampasan->getId());
+          $lelang->setNoBa($NoBaLelang[$b]);
+          $lelang->setTglLelang(setTanggal($TglLelang[$b]));
+          $lelang->setTaksiran($Taksiran[$b]);
+          $lelang->setNilaiWajar($NilaiWajarLelang[$b]);
+          $lelang->setPenyimpanan($TempatPenyimpanan[$b]);
+          $lelang->setKondisi($Kondisi[$b]);
+          $lelang->setHasilLelang($HasilLelang[$b]);
+          $lelang->setHambatan($Hambatan[$b]);
+          $lelang->setPetunjuk($Catatan[$b]);
+          $lelang->save();
+        }
       }
       
       $this->redirect('dntpidum/edit?id='.$perkara->getId());

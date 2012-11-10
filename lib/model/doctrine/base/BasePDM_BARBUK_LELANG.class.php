@@ -92,7 +92,7 @@ abstract class BasePDM_BARBUK_LELANG extends sfDoctrineRecord
              'primary' => true,
              'length' => 8,
              ));
-        $this->hasColumn('id_str_dnt', 'integer', 8, array(
+        $this->hasColumn('id_barbuk', 'integer', 8, array(
              'notnull' => false,
              'type' => 'integer',
              'fixed' => 0,
@@ -257,8 +257,8 @@ abstract class BasePDM_BARBUK_LELANG extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('PDM_SETOR_DNT', array(
-             'local' => 'id_str_dnt',
+        $this->hasOne('PDM_BARBUK', array(
+             'local' => 'id_barbuk',
              'foreign' => 'id'));
     }
 }

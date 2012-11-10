@@ -20,7 +20,7 @@
 <ul class="nav nav-tabs" id="myTab">
   
 </ul>
-<div class="tab-content">
+<div class="tab-content tersangka">
   
 </div>
 <hr />
@@ -91,8 +91,8 @@
     <p>One fine body…</p>
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
+    <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
+    <button class="btn btn-primary">Simpan</button>
   </div>
 </div>
 
@@ -117,7 +117,7 @@
 	var addtab=1;
 
   function addTab() {
-      $('.tab-content').append(
+      $('.tab-content.tersangka').append(
         '<div class="tab-pane in active" id="new_tab_id'+addtab+'">' +
           '<div class="row">' +
             '<div class="span5">' +
@@ -316,80 +316,84 @@
           '<div class="row">&nbsp;</div>'+
           '<hr />'+
           '<br />'+
-          '<legend><b>Hasil Dinas</b></legend>'+
-          '<div class="form-inline">'+
-            '<label>Amar Putusan</label>&nbsp;'+
-            '<div class="input-prepend">'+
-              '<span class="add-on">Rp.</span><input type="text" id="denda_hsl_dinas'+addtab+'" name="denda_hsl_dinas[]" class="span2 uang'+addtab+'" />'+
+          '<div id="hasil_dinas'+addtab+'" style="display:none;">'+
+            '<legend><b>Hasil Dinas</b></legend>'+
+            '<div class="form-inline">'+
+              '<label>Amar Putusan</label>&nbsp;'+
+              '<div class="input-prepend">'+
+                '<span class="add-on">Rp.</span><input type="text" id="denda_hsl_dinas'+addtab+'" name="denda_hsl_dinas[]" class="span2 uang'+addtab+'" />'+
+              '</div>'+
+            '</div>'+
+            '<div style="overflow-x:scroll;">'+
+              '<legend>Pembayaran Denda</legend>'+
+              '<table class="table table-bordered" id="tbl_denda'+addtab+'">'+
+                '<input type="hidden" name="hdnpembayaran" id="hdnpembayaran'+addtab+'" value="0">'+
+                '<thead>'+
+                  '<tr>'+
+                    '<th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda'+addtab+'" onClick=tambahDenda("'+addtab+'")></th>'+
+                    '<th>Setor</th>'+
+                    '<th>Sisa</th>'+
+                    '<th>No. SSBP</th>'+
+                    '<th>Tanggal SSBP</th>'+
+                    '<th>No. Bukti Setor</th>'+
+                    '<th>Tanggal Setor</th>'+
+                    '<th>Keterangan</th>'+
+                    '<th></th>'+
+                  '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                  
+                '</tbody>'+
+              '</table>'+
             '</div>'+
           '</div>'+
-          '<div style="overflow-x:scroll;">'+
-            '<legend>Pembayaran Denda</legend>'+
-            '<table class="table" id="tbl_denda'+addtab+'">'+
-              '<input type="hidden" name="hdnpembayaran" id="hdnpembayaran" value="0">'+
-              '<thead>'+
-                '<tr>'+
-                  '<th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda'+addtab+'" onClick=tambahDenda("'+addtab+'")></th>'+
-                  '<th>Setor</th>'+
-                  '<th>Sisa</th>'+
-                  '<th>No. SSBP</th>'+
-                  '<th>Tanggal SSBP</th>'+
-                  '<th>No. Bukti Setor</th>'+
-                  '<th>Tanggal Setor</th>'+
-                  '<th>Keterangan</th>'+
-                  '<th></th>'+
-                '</tr>'+
-              '</thead>'+
-              '<tbody>'+
-                
-              '</tbody>'+
-            '</table>'+
-          '</div>'+
-          '<div style="overflow-x:scroll;">'+
-            '<table class="table">'+
-              '<thead>'+
-                '<tr>'+
-                  '<th></th>'+
-                  '<th>Amar Putusan</th>'+
-                  '<th>Setor</th>'+
-                  '<th>No. SSBP</th>'+
-                  '<th>Tanggal SSBP</th>'+
-                  '<th>No. Bukti Setor</th>'+
-                  '<th>Tanggal Setor</th>'+
-                '</tr>'+
-              '</thead>'+
-              '<tbody>'+
-                '<tr>'+
-                  '<td>Biaya Perkara</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit">'+
-                      '<span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" id="bp_amar_putusan'+addtab+'" class="span2 numeric">'+
-                    '</div>'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit">'+
-                      '<span class="add-on">Rp.</span><input type="text" name="bp_setor[]" class="span2">'+
-                    '</div>'+
-                  '</td>'+
-                  '<td>'+
-                    '<input type="text" name="bp_no_ssbp[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit-date">'+
-                      '<input type="text" name="bp_tgl_ssbp[]" class="datepicker span2-edit">'+
-                    '</div>'+
-                  '</td>'+
-                  '<td>'+
-                    '<input type="text" name="bp_no_bukti_setor[]" class="span2">'+
-                  '</td>'+
-                  '<td>'+
-                    '<div class="input-prepend-edit-date">'+
-                      '<input type="text" name="bp_tgl_setor[]" class="datepicker span2-edit">'+
-                    '</div>'+
-                  '</td>'+
-                '</tr>'+
-              '</tbody>'+
-            '</table>'+
+          '<div id="bp'+addtab+'" style="display:none;">'+
+            '<div style="overflow-x:scroll;">'+
+              '<table class="table table-bordered">'+
+                '<thead>'+
+                  '<tr>'+
+                    '<th></th>'+
+                    '<th>Amar Putusan</th>'+
+                    '<th>Setor</th>'+
+                    '<th>No. SSBP</th>'+
+                    '<th>Tanggal SSBP</th>'+
+                    '<th>No. Bukti Setor</th>'+
+                    '<th>Tanggal Setor</th>'+
+                  '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                  '<tr>'+
+                    '<td>Biaya Perkara</td>'+
+                    '<td>'+
+                      '<div class="input-prepend-edit">'+
+                        '<span class="add-on">Rp.</span><input type="text" name="bp_amar_putusan[]" id="bp_amar_putusan'+addtab+'" class="span2 numeric">'+
+                      '</div>'+
+                    '</td>'+
+                    '<td>'+
+                      '<div class="input-prepend-edit">'+
+                        '<span class="add-on">Rp.</span><input type="text" name="bp_setor[]" class="span2">'+
+                      '</div>'+
+                    '</td>'+
+                    '<td>'+
+                      '<input type="text" name="bp_no_ssbp[]" class="span2">'+
+                    '</td>'+
+                    '<td>'+
+                      '<div class="input-prepend-edit-date">'+
+                        '<input type="text" name="bp_tgl_ssbp[]" class="datepicker span2-edit">'+
+                      '</div>'+
+                    '</td>'+
+                    '<td>'+
+                      '<input type="text" name="bp_no_bukti_setor[]" class="span2">'+
+                    '</td>'+
+                    '<td>'+
+                      '<div class="input-prepend-edit-date">'+
+                        '<input type="text" name="bp_tgl_setor[]" class="datepicker span2-edit">'+
+                      '</div>'+
+                    '</td>'+
+                  '</tr>'+
+                '</tbody>'+
+              '</table>'+
+            '</div>'+
           '</div>'+
         '</div>'+
       '</div>'
@@ -410,6 +414,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).hide();
+      $("#bp" + nilai).hide();
     }else if(combo=='1'){
       $("#pidana_mati_seumur_hidup" + nilai).show();
       $("#seumur_hidup" + nilai).hide();
@@ -417,6 +423,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).hide();
+      $("#bp" + nilai).show();
     }else if(combo=='2'){
       $("#pidana_mati_seumur_hidup" + nilai).show();
       $("#seumur_hidup" + nilai).hide();
@@ -424,6 +432,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).hide();
+      $("#bp" + nilai).show();
     }else if(combo=='3'){
       $("#pidana_mati_seumur_hidup" + nilai).hide();
       $("#seumur_hidup" + nilai).hide();
@@ -431,6 +441,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).show();
+      $("#bp" + nilai).show();
     }else if(combo=='4'){
       $("#pidana_mati_seumur_hidup" + nilai).hide();
       $("#seumur_hidup" + nilai).hide();
@@ -438,6 +450,8 @@
       $("#pidana_kurungan_denda" + nilai).show();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).show();
+      $("#bp" + nilai).show();
     }else if(combo=='5'){
       $("#pidana_mati_seumur_hidup" + nilai).hide();
       $("#seumur_hidup" + nilai).hide();
@@ -445,6 +459,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).hide();
+      $("#bp" + nilai).hide();
     }else if(combo=='6'){
       $("#pidana_mati_seumur_hidup" + nilai).hide();
       $("#seumur_hidup" + nilai).hide();
@@ -452,6 +468,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).show();
       $("#pidana_pengawasan" + nilai).hide();
+      $("#hasil_dinas" + nilai).show();
+      $("#bp" + nilai).show();
     }else if(combo=='7'){
       $("#pidana_mati_seumur_hidup" + nilai).hide();
       $("#seumur_hidup" + nilai).hide();
@@ -459,6 +477,8 @@
       $("#pidana_kurungan_denda" + nilai).hide();
       $("#pidana_bersyarat" + nilai).hide();
       $("#pidana_pengawasan" + nilai).show();
+      $("#hasil_dinas" + nilai).hide();
+      $("#bp" + nilai).show();
     }
   }
 
@@ -470,44 +490,44 @@
   
   count = 1;
   function tambahDenda(value){
-    var noterakhir=$("#hdnpembayaran").val();
+    var noterakhir=$("#hdnpembayaran"+value).val();
     var randomnumber=parseInt(noterakhir)+1;
-    $("#hdnpembayaran").val(randomnumber);
+    $("#hdnpembayaran"+value).val(randomnumber);
     
     $("#tbl_denda"+value).append(
-        '<tr id="datatr'+randomnumber+'">'+
+        '<tr id="datatr'+value+'_'+randomnumber+'">'+
           '<td></td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="denda_setor'+value+'[]" class="span2 setor'+randomnumber+'" onkeyup=hitung("'+randomnumber+'") >'+
+               '<span class="add-on">Rp.</span><input type="text" name="denda_setor'+value+'[]" class="span2" id="setor_'+value+'_'+randomnumber+'" onkeyup=hitung(\''+value+'\',\''+randomnumber+'\') >'+
             '</div>'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="denda_sisa'+value+'[]" class="span2 sisa'+randomnumber+'">'+
+               '<span class="add-on">Rp.</span><input type="text" name="denda_sisa'+value+'[]" class="span2" id="sisa_'+value+'_'+randomnumber+'">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_ssbp'+value+'[]" class="span2">'+
+            '<input type="text" name="denda_ssbp'+value+'[]" class="span2" id="denda_ssbp_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-               '<input type="text" id="denda_tgl_ssbp'+count+'" name="denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
+               '<input type="text" id="denda_tgl_ssbp_'+value+'_'+randomnumber+'" name="denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_bukti_setor'+value+'[]" class="span2">'+
+            '<input type="text" name="denda_bukti_setor'+value+'[]" class="span2" id="denda_bukti_setor_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-              '<input type="text" id="denda_tgl_setor'+count+'" name="denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
+              '<input type="text" id="denda_tgl_setor_'+value+'_'+randomnumber+'" name="denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="denda_keterangan'+value+'[]" class="span2">'+
+            '<input type="text" name="denda_keterangan'+value+'[]" class="span2" id="denda_keterangan_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
-            '<input type="button" class="btn btn-danger" value="-" id="hapus_denda'+randomnumber+'" onClick=deleteDenda("'+randomnumber+'")>'+
+            '<input type="button" class="btn btn-danger" value="Hapus" onClick=deleteDenda(\''+value+'\',\''+randomnumber+'\')>'+
           '</td>'+
         '</tr>'
       );
@@ -636,46 +656,147 @@
     }
   }
   
-  function hitung(value)
+  function hitung(tab,row)
   {
-    var uang  = parseInt($('.uang'+value).val());
-    var setor = parseInt($('.setor'+value).val());
+    var rowIndex = $("#datatr"+tab+"_"+row).closest('tr').prevAll().length +1;
+    var jumlahrow =$("#tbl_denda"+tab+" tr").length ;
     
-    $("#tbl_denda1").each(function() {
-      $this = $(this)
-      if($("input.setor"+value).attr('class') == 'span2 setor1'){
-        var sisa  = uang - setor;
-        $('.sisa1').val(sisa);
-      }else{
-        var k = value - 1;
-        var j = value + 1;
+    if(rowIndex == 1){
+    //alert("rowindex"+rowIndex+"jumlahrow"+jumlahrow);
+       var besarDenda= $("#denda_hsl_dinas"+tab).val();  
+       $("#setor_"+tab+"_"+row).live('keyup',function () {
+           if(parseInt($(this).val()) > parseInt(besarDenda)){
+                alert('Jumlah Cicilan Lebih Besar Dari Besar Denda');
+                $(this).val("0")
+                return false;
+           }
+           var besarSisaDenda= parseInt(besarDenda)-parseInt($(this).val());
+           $("#sisa_"+tab+"_"+row).val(besarSisaDenda);
+           if($(this).val()==null ||$(this).val()==""){
+              $("#sisa_"+tab+"_"+row).val("");
+           }
+       });//end live func
+    }else{
+        //alert("rowindex1 "+rowIndex+"jumlahrow1 "+jumlahrow);
+       var sisaBesarDenda= $("#sisa_"+tab+"_"+(row-1)).val(); 
+       //alert(sisaBesarDenda);
+       $("#setor_"+tab+"_"+row).live('keyup',function () {
+           if(parseInt($(this).val()) > parseInt(sisaBesarDenda)){
+                alert('Jumlah Cicilan Lebih Besar Dari Besar Denda11');
+                $(this).val("0")
+                return false;
+           }
+           var besarSisaDenda= parseInt(sisaBesarDenda)-parseInt($(this).val());
+           $("#sisa_"+tab+"_"+row).val(besarSisaDenda);
+           if($(this).val()==null ||$(this).val()==""){
+              $("#sisa_"+tab+"_"+row).val("");
+           }
+       });//end live func
+    } 
         
-        var a = $("input.sisa"+k).val();
-        var b = $("input.setor"+value).val();
+  }
+  
+  function deleteDenda(tab,row){
+    var rowIndex = $("#datatr"+tab+"_"+row).closest('tr').prevAll().length+1;
+    var jumlahrowAwal = $("#tbl_denda"+tab+" tr").length;
+    //alert(jumlahrowAwal);
+    var cicilan = [];
+    for(var i=1;i<jumlahrowAwal;i++){
         
-        var sisa2 = a - b;
-        $('.sisa'+value).val(sisa2);
-        //alert($("input.sisa"+value).toggleClass('span2 sisa2 span2 asdf'));
-        
-      }
+        if(i!=row){
+            cicilan.push({
+              cicil: $("#setor_"+tab+"_"+i).val(),
+              sisa: $("#sisa_"+tab+"_"+i).val(),
+              denda_ssbp: $("#denda_ssbp_"+tab+"_"+i).val(),
+              denda_tgl_ssbp: $("#denda_tgl_ssbp_"+tab+"_"+i).val(),
+              denda_bukti_setor: $("#denda_bukti_setor_"+tab+"_"+i).val(),
+              denda_tgl_setor: $("#denda_tgl_setor_"+tab+"_"+i).val(),
+              denda_keterangan: $("#denda_keterangan_"+tab+"_"+i).val(),
+            });
+        }
+        jqRow = $("#datatr"+tab+"_"+i);
+        jqRow.remove();
+    }
+    $("#tbl_denda"+tab).trigger("update");
+    hitungDendaAfterDel(tab,row,rowIndex,jumlahrowAwal,cicilan);
+  }
+
+  function hitungDendaAfterDel(tab,row,rowIndex,jumlahrowAwal,cicilan){
+      var row2 = $("#tbl_denda"+tab);
+      var hidden = $("#hdnpembayaran"+tab).val();
       
-    });    
-    
-    /*var uang  = parseInt($('.uang'+value).val());
-    var setor = parseInt($('.setor'+value).val());
-    
-    var abc = value ++;
-    
-    //alert(abc);
-    
-    var setor2 = parseInt($('.setor'+abc).val());
-    
-    var sisa  = uang - setor;
-    $('.sisa'+value).val(sisa);
-    
-    var sisa2 = $('.sisa1').val() - setor2;
-    $('.sisa2').val(sisa2);*/
-    
+      var noterakhir=$("#hdnpembayaran"+tab).val();
+      var randomnumber=parseInt(noterakhir)-1;
+      $("#hdnpembayaran"+tab).val(randomnumber);
+      var newRow2 = row2;
+      var jumlahrow =$("#tbl_denda"+tab+" tr").length -2;
+      var besarDenda= $("#denda_hsl_dinas"+tab).val(); 
+      var totalCicil = 0;
+      $.each(cicilan, function(index,value) { 
+      totalCicil = parseInt(totalCicil) + parseInt(value.cicil);
+      if(index==0){ //jika cicilan pertama
+          value.sisa = parseInt(besarDenda) - parseInt(value.cicil);
+      }else{ 
+          value.sisa = parseInt(besarDenda) - parseInt(totalCicil);
+      }
+      //alert(parseInt(index)+1);
+          newRow2.append(
+              '<tr id="datatr'+tab+'_'+(parseInt(index)+1)+'">'+
+                '<td></td>' +
+                '<td>'+
+                  '<div class="input-prepend-edit">'+
+                    '<span class="add-on">Rp.</span><input type="text" name="denda_setor'+tab+'[]" id="setor_'+tab+'_'+(parseInt(index)+1)+'" value="'+value.cicil+'" onkeyup="hitung(\''+value+'\',\''+(parseInt(index)+1)+'\')" class="span2">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit">'+
+                    '<span class="add-on">Rp.</span><input type="text" name="denda_sisa'+tab+'[]" id="sisa_'+tab+'_'+(parseInt(index)+1)+'" value="'+value.sisa+'" id="sisa_'+tab+'_'+(parseInt(index)+1)+'" class="span2">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_ssbp'+value+'[]" class="span2" id="denda_ssbp_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_ssbp+'">'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit-date">'+
+                     '<input type="text" id="denda_tgl_ssbp_'+value+'_'+(parseInt(index)+1)+'" name="denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit" value="'+value.denda_tgl_ssbp+'">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_bukti_setor'+value+'[]" class="span2" id="denda_bukti_setor_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_bukti_setor+'">'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit-date">'+
+                    '<input type="text" id="denda_tgl_setor_'+value+'_'+(parseInt(index)+1)+'" name="denda_tgl_setor'+value+'[]" class="datepicker span2-edit" value="'+value.denda_tgl_setor+'">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_keterangan'+value+'[]" class="span2" id="denda_keterangan_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_keterangan+'">'+
+                '</td>'+
+                '<td>'+
+                '<td><input type="button" value="hapus" onclick=deleteDenda(\''+tab+'\',\''+(parseInt(index)+1)+'\')></td>'+
+              '</tr>'
+      
+          );
+          //alert(jumlahrow);
+          if($("#setor_"+tab+"_"+(parseInt(index)+1)).val() == 'undefined'){
+              //alert(test);
+              jqRow = $("#datatr"+tab+"_"+hidden);
+              jqRow.remove();
+          }
+      });	//end each
+      
+      $(document).ready(function() {
+          $( ".datepicker" ).datepicker({
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "<?php echo image_path('calendar.gif') ?>",
+              buttonImageOnly: true,
+              yearRange: '1910:+0',
+              dateFormat: 'dd-mm-yy',
+          });
+      });
+      
   }
   
 </script>
