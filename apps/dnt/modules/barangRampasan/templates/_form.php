@@ -163,7 +163,15 @@
 					  '</div>' +
 					  '<div class="form-inline">' +
 						  '<label><div class="span1">Jumlah</div> <input type="text" name="jumlah[]" ></label>' +
-						  '<label><div class="span1">Satuan</div> <input type="text" name="satuan[]" ></label>' +
+						  '<label>'+
+							'<div class="span1">Satuan</div>'+
+							'<select name="satuan[]" class="span2">'+
+							  '<option value="0">--Pilih--</option>'+
+							  <?php foreach($resultData as $satuan): ?>
+							  '<option value="<?php echo $satuan['ID'] ?>"><?php echo $satuan['SATUAN'] ?></option>'+
+							  <?php endforeach; ?>
+							'</select>'+
+						  '</label>' +
 					  '</div>' +
 					  '<div class="form-inline">' +
 						  '<label><div class="span1">Pemilik</div> <input type="text" name="pemilik[]" ></label>' +

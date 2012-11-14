@@ -994,6 +994,9 @@ class dntpidumActions extends sfActions
         
       }
       
+        
+        
+      
       $conn->commit();
     }
     $this->redirect('dntpidum/edit?id='.$request->getParameter('idperkara'));

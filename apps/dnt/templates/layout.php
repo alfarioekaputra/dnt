@@ -24,7 +24,7 @@
 				  <li>
 					<a href="<?php echo url_for('dntpidum/index') ?>">Denda Non Tilang Pidum</a>
 					<ul>
-					  <li><a href="#">Lelang Barang Rampasan</a></li>
+					  <li><a href="<?php echo url_for('barangRampasan/index') ?>">Lelang Barang Rampasan</a></li>
 					</ul>
 				  </li>
 				  <li>

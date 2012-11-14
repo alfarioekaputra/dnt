@@ -441,11 +441,11 @@
 </div>
 <hr />
 <legend><b>Barang Rampasan</b></legend>
+<a class="btn btn-warning" data-toggle="modal" href="<?php echo url_for('barangRampasan/edit?id='.$dataperkara->getId()) ?>" data-target="#myModal" onclick=editRampasan("<?php echo $dataperkara->getId() ?>") >Edit</a>
 <div style="overflow-x:scroll">
   <table class="table">
     <thead>
       <tr>
-        <th>No. Perkara</th>
         <th>Jenis Barang</th>
         <th>No. BA Lelang</th>
         <th>Hasil Lelang</th>
@@ -457,42 +457,67 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          <input type="text" name="br_no_perkara[]" class="span2">
-        </td>
-        <td>
-          <input type="text" name="br_jenis_barang[]" class="span2">
-        </td>
-        <td>
-          <input type="text" name="br_no_ba_lelang[]" class="span2">
-        </td>
-        <td>
-          <div class="input-prepend-edit">
-            <span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2">
-          </div>
-        </td>
-        <td>
-          <div class="input-prepend-edit">
-            <span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">
-          </div>
-        </td>
-        <td>
-          <input type="text" name="br_no_bukti_setor[]" class="span2">
-        </td>
-        <td>
-          <div class="input-prepend-edit-date">
-            <input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">
-          </div>
-        </td>
-      </tr>
+      <?php foreach(getBarangRampasan($dataperkara->getId()) as $barangRampasan): ?>
+      <?php if($barangRampasan['HASIL_LELANG'] == NULL){ ?>
+      <?php }else{ ?>
+        <tr>
+          <td>
+            <input type="text" name="br_jenis_barang[]" class="span2" value="<?php echo $barangRampasan['NAMA'] ?>" readonly="true">
+          </td>
+          <td>
+            <input type="text" name="br_no_ba_lelang[]" class="span2" value="<?php echo $barangRampasan['NO_BA'] ?>" readonly="true">
+          </td>
+          <td>
+            <div class="input-prepend-edit">
+              <span class="add-on">Rp.</span><input type="text" name="br_hasil_lelang[]" class="span2" value="<?php echo $barangRampasan['HASIL_LELANG'] ?>" readonly="true">
+            </div>
+          </td>
+          <td>
+            <div class="input-prepend-edit">
+              <span class="add-on">Rp.</span><input type="text" name="br_setor[]" class="span2">
+            </div>
+          </td>
+          <td>
+            <input type="text" name="br_no_bukti_setor[]" class="span2">
+          </td>
+          <td>
+            <div class="input-prepend-edit-date">
+              <input type="text" name="br_tgl_setor[]" class="datepicker span2-edit">
+            </div>
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            
+          </td>
+          
+        </tr>
+      <?php } ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
 </div>
 <input type="submit" value="Simpan" class="btn btn-warning" />
+  <!-- Modal -->
+  <div id="myModal" class="modal large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
+      <!--<input type="submit" value="Simpan" class="btn btn-warning" />-->
+    </div>
+  </div>
 </form>
 <script type="text/javascript">
 $(function () {
+    //$('.modal-body').load("<?php echo url_for('barangRampasan/new') ?>");
+  
     $('#myTab a:first').tab('show');
 
     $( ".datepicker" ).datepicker({
@@ -506,6 +531,10 @@ $(function () {
         });
   })
   
+  function editRampasan(value)
+  {
+    $('.modal-body').load("<?php echo url_for("barangRampasan/edit") ?>", {id:value});
+  }
 
   var tab_counter = 1;
 	var addtab=1;

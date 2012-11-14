@@ -74,3 +74,17 @@ function getDetailSetor($request, $status)
     $resultData=$statement->fetchAll();
     return    $resultData;
 }
+
+function getBarangRampasan($request)
+{
+    $conn = Doctrine_Manager::connection();
+    $getData = "select a.*, a.id as id_barbuk, b.* from pdm_barbuk a
+                left join pdm_barbuk_lelang b on a.id = b.id_barbuk
+                where id_perkara = '".$request."' order by a.id";
+    
+    $statement = $conn->execute($getData);
+    $statement->execute();
+    
+    $resultData = $statement->fetchAll();
+    return $resultData;
+}
