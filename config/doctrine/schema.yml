@@ -1,3 +1,191 @@
+DTN_PUP_PDS:
+  connection: doctrine
+  tableName: DTN_PUP_PDS
+  columns:
+    id:
+      type: integer(10)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_skk:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_skk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pup_rupiah:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pup_lainnya:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(3)
+      fixed: false
+      unsigned: false
+      primary: false
+    keterangan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+    DTN_PUP_PEMBAYARAN_PDS:
+      local: id
+      foreign: id_pup
+      type: many
+DTN_PUP_PEMBAYARAN_PDS:
+  connection: doctrine
+  tableName: DTN_PUP_PEMBAYARAN_PDS
+  columns:
+    id:
+      type: integer(10)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_pup:
+      notnull: false
+      type: integer(10)
+      fixed: false
+      unsigned: false
+      primary: false
+    bayar_rupiah:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    sisa_rupiah:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    bayar_lainnya:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    sisa_lainnya:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_bukti_setor:
+      notnull: false
+      type: decimal(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_bukti_setor:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    DTN_PUP_PDS:
+      local: id_pup
+      foreign: id
+      type: one
 KP_INST_SATKER:
   connection: doctrine
   tableName: KP_INST_SATKER
@@ -352,6 +540,10 @@ PDM_BARBUK:
       local: id_perkara
       foreign: id
       type: one
+    PDM_BARBUK_LELANG:
+      local: id
+      foreign: id_barbuk
+      type: many
 PDM_BARBUK_LELANG:
   connection: doctrine
   tableName: PDM_BARBUK_LELANG
@@ -361,7 +553,7 @@ PDM_BARBUK_LELANG:
       fixed: false
       unsigned: false
       primary: true
-    id_str_dnt:
+    id_barbuk:
       notnull: false
       type: integer(8)
       fixed: false
@@ -482,8 +674,8 @@ PDM_BARBUK_LELANG:
       unsigned: false
       primary: false
   relations:
-    PDM_SETOR_DNT:
-      local: id_str_dnt
+    PDM_BARBUK:
+      local: id_barbuk
       foreign: id
       type: one
 PDM_DETAIL_STR:
@@ -576,6 +768,12 @@ PDM_DETAIL_STR:
     lastupdate_time:
       notnull: false
       type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    sisa:
+      notnull: false
+      type: decimal(16)
       fixed: false
       unsigned: false
       primary: false
@@ -1623,6 +1821,12 @@ PDM_PERKARA:
       fixed: false
       unsigned: false
       primary: false
+    jns_pelimpahan:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
   relations:
     PDM_BARBUK:
       local: id
@@ -1636,6 +1840,21 @@ PDM_PERKARA:
       local: id
       foreign: id_perkara
       type: many
+PDM_SATUAN_REF:
+  connection: doctrine
+  tableName: PDM_SATUAN_REF
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+    satuan:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
 PDM_SETOR_DNT:
   connection: doctrine
   tableName: PDM_SETOR_DNT
@@ -1763,10 +1982,6 @@ PDM_SETOR_DNT:
       foreign: id
       type: one
     PDM_DETAIL_STR:
-      local: id
-      foreign: id_str_dnt
-      type: many
-    PDM_BARBUK_LELANG:
       local: id
       foreign: id_str_dnt
       type: many
@@ -2775,6 +2990,3974 @@ PDM_UPAYA_PK:
       primary: false
   relations:
     PDM_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+PDS_BARBUK:
+  connection: doctrine
+  tableName: PDS_BARBUK
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    nama:
+      notnull: false
+      type: string(500)
+      fixed: false
+      unsigned: false
+      primary: false
+    jumlah:
+      notnull: false
+      type: decimal(11)
+      fixed: false
+      unsigned: false
+      primary: false
+    pemilik:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_satuan:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_eksekusi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_sita:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut_jaksapu:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut_kasipidsus:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut_kejari:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut_kejati:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekusi_rentut_kejagung:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+    PDS_SATUAN_REF:
+      local: id_satuan
+      foreign: id
+      type: one
+    PDS_BARBUK_LELANG:
+      local: id
+      foreign: id_barbuk
+      type: many
+PDS_BARBUK_LELANG:
+  connection: doctrine
+  tableName: PDS_BARBUK_LELANG
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_barbuk:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_ba:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_lelang:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    taksiran:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    nilai_wajar:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    penyimpanan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    kondisi:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    hambatan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    usulan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    petunjuk:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    hasil_lelang:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_bukti_str:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_str:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_BARBUK:
+      local: id_barbuk
+      foreign: id
+      type: one
+PDS_BERKAS:
+  connection: doctrine
+  tableName: PDS_BERKAS
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    nomor:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_diterima:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p18:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p18:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p19:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p19:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_petunjuk:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    st_insert:
+      notnull: false
+      type: string(1)
+      fixed: true
+      unsigned: false
+      primary: false
+    nama_berkas_petunjuk:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+PDS_BERKAS_FILE:
+  connection: doctrine
+  tableName: PDS_BERKAS_FILE
+  columns:
+    id:
+      notnull: true
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    file_type:
+      notnull: false
+      type: string(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    file_name:
+      notnull: false
+      type: string(150)
+      fixed: false
+      unsigned: false
+      primary: false
+    file_size:
+      notnull: false
+      type: float(22)
+      fixed: false
+      unsigned: false
+      primary: false
+    upload_date:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      default: "SYSDATE\n              "
+      primary: false
+PDS_DETAIL_STR:
+  connection: doctrine
+  tableName: PDS_DETAIL_STR
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_str_dnt:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_ssbp:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_ssbp:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_bukti_str:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_str:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    setor:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    setor_lain:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    sisa:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    sisa_lain:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    keterangan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_SETOR_DNT:
+      local: id_str_dnt
+      foreign: id
+      type: one
+PDS_EKS_MATI:
+  connection: doctrine
+  tableName: PDS_EKS_MATI
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    pelaksanaan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    berkas:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_surat_hambatan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_surat_hambatan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ringkasan_hambatan:
+      notnull: false
+      type: string(300)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_surat_petunjuk:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_surat_petunjuk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ringkasan_petunjuk:
+      notnull: false
+      type: string(300)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+PDS_PASAL:
+  connection: doctrine
+  tableName: PDS_PASAL
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    pasal:
+      notnull: false
+      type: string(500)
+      fixed: false
+      unsigned: false
+      primary: false
+    disangkakan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    didakwakan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    terbukti:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+PDS_PASAL_BANDING:
+  connection: doctrine
+  tableName: PDS_PASAL_BANDING
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_banding:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    pasal:
+      notnull: false
+      type: string(500)
+      fixed: false
+      unsigned: false
+      primary: false
+    terbukti:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_UPAYA_BANDING:
+      local: id_banding
+      foreign: id
+      type: one
+PDS_PASAL_KASASI:
+  connection: doctrine
+  tableName: PDS_PASAL_KASASI
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_kasasi:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    pasal:
+      notnull: false
+      type: string(500)
+      fixed: false
+      unsigned: false
+      primary: false
+    terbukti:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_UPAYA_KASASI:
+      local: id_kasasi
+      foreign: id
+      type: one
+PDS_PENAHANAN:
+  connection: doctrine
+  tableName: PDS_PENAHANAN
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    hakim_idloktahan:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    tglhakim_start:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tglhakim_end:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapn_idloktahan:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapn_start:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapn_end:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapt_idloktahan:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapt_start:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ketuapt_end:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+PDS_PERKARA:
+  connection: doctrine
+  tableName: PDS_PERKARA
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    nomor_perkara:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    posisi_kasus:
+      notnull: false
+      type: clob(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_pk_ting:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    penyidik:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_spdp:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_spdp:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    penerima:
+      notnull: false
+      type: string(80)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_diterima:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p16:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p16:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_konsultasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_konsultasi:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p17:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p17:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_kirim_berkas:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_kirim_berkas:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p21:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p21:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p21a:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p21a:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_kembali_berkas:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_kembali_berkas:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    kd_penyelesaian:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_instansi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p16a:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p16a:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_terima_tsk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_henti_tut:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_henti_tut:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pertimbangan_henti:
+      notnull: false
+      type: clob(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_limpah_pk:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_diterima_pn:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_tap_sidang:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_baca_dakwaan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_dakwaan:
+      notnull: false
+      type: clob(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_awal_bukti:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_akhir_bukti:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_juk_kajari:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_juk_kajari:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_usul_kajari:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_usul_kajari:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_juk_kajati:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_juk_kajati:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_usul_kajati:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_usul_kajati:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_juk_ja:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_juk_ja:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_usul_ja:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_usul_ja:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_baca_tut:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_tuntutan:
+      notnull: false
+      type: clob(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_putusan_pn:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_terima_putusan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    kd_putusan_hukum:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_putusan_hukum:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_barbuk:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_barbuk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_konsultasi:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_p20:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_p20:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_optimal:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_optimal:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_pemeriksaan:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_limpah_pk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_sumber_lap_no:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_sumber_lap_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_sprint_no:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_sprint_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_selesai_pil:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_selesai_no:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_selesai_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_sprint_no:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_sprint_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_sita_no:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_sita_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_selesai_pil:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_selesai_no:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_selesai_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    hkpn_lid_rp:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    hkpn_lid_usd:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    hkpn_tut_rp:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    hkpn_tut_usd:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_izin_no:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_izin_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(15)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(15)
+      fixed: false
+      unsigned: false
+      primary: false
+    inst_satkerkd:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    terdakwa:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    p16a_jpu:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    jaksa_penuntut_umum:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_detil_jaksa:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_dakwaan:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_tuntutan:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_amar_putusan:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_p16a_nip_detil_jaksa:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_p16_detil_jaksa:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_pasal_disangkakan:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    uheksi_tgl_putusan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    uheksi_tgl_grasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    uheksi_tgl_pk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    uheksi_tgl_kasasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    uheksi_tgl_banding:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tut_tgl_proses_sidang:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_tgl_spdp:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    dik_tgl_sprint_dik:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lid_tgl_sprint_lid:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_tuntut_jpu:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_rentut_jpu:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_pendapat_kasi:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_pendapat_kasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    nama_berkas_dakwaan:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    nama_berkas_petunjuk:
+      notnull: false
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+    uu_korupsi:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti_lain:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    mata_uang_lain:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_mati:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_coba:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_badan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_subsidair_denda:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_seumur_hidup:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_bebas:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_lepas:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_tambahan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_denda:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_kurungan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_biaya_perkara:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_uang_pengganti:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_uang_pengganti_lain:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_sub_uang_pengganti:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PK_TING_REF:
+      local: id_pk_ting
+      foreign: id
+      type: one
+    DTN_PUP_PDS:
+      local: id
+      foreign: id_perkara
+      type: many
+    PDS_BARBUK:
+      local: id
+      foreign: id_perkara
+      type: many
+    PDS_BERKAS:
+      local: id
+      foreign: id_perkara
+      type: many
+    PDS_SETOR_DNT:
+      local: id
+      foreign: id_perkara
+      type: many
+    PDS_SITA:
+      local: id
+      foreign: id_perkara
+      type: many
+    PDS_TIM_JPU:
+      local: id
+      foreign: id_perkara
+      type: many
+PDS_PK_TING_REF:
+  connection: doctrine
+  tableName: PDS_PK_TING_REF
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+    pk_ting:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_pdsmjnspidana:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id
+      foreign: id_pk_ting
+      type: many
+PDS_RENTUT:
+  connection: doctrine
+  tableName: PDS_RENTUT
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r1_jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r2_jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r3_jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r4_jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    r5_jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+PDS_SATUAN_REF:
+  connection: doctrine
+  tableName: PDS_SATUAN_REF
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+    satuan:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_BARBUK:
+      local: id
+      foreign: id_satuan
+      type: many
+PDS_SECURITY:
+  connection: doctrine
+  tableName: PDS_SECURITY
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    u_id:
+      notnull: false
+      type: string(32)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_pdsmjnspidana:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+PDS_SETOR_DNT:
+  connection: doctrine
+  tableName: PDS_SETOR_DNT
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    hasil_lelang:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_rampasan:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    up_rupiah:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    up_lainnya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    str_pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    str_denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    str_hasil_lelang:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    str_up_rupiah:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    str_up_lainnya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    status:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    keterangan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    created_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_by:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_ip:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    lastupdate_time:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+    PDS_DETAIL_STR:
+      local: id
+      foreign: id_str_dnt
+      type: many
+PDS_SITA:
+  connection: doctrine
+  tableName: PDS_SITA
+  columns:
+    id:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    sp_sita_no:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    sp_sita_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    izin_no:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    izin_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+PDS_TERSANGKA:
+  connection: doctrine
+  tableName: PDS_TERSANGKA
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    nama:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tempat_lahir:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_lahir:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    jkl:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    kewarganegaraan:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    alamat:
+      notnull: false
+      type: string(200)
+      fixed: false
+      unsigned: false
+      primary: false
+    pekerjaan:
+      notnull: false
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_jpu_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_jpu_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_jpu_lokasi:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim1_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim1_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim1_lokasi:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim2_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim2_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_hakim2_lokasi:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pengalihan_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pengalihan_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pengalihan_lokasi:
+      notnull: false
+      type: string(30)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pembantaran_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pembantaran_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pembantaran_lokasi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    jenis_putusan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_masa_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_jaksa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_terdakwa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_penyidik_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_penyidik_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_penyidik_lokasi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_kejari_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_kejari_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_kejari_lokasi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pn_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pn_selesai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ph_pn_lokasi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    umur:
+      notnull: false
+      type: integer(3)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_agama:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pendidikan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tahan_cekal:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_permintaan_no:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_permintaan_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_penetapan_no:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_penetapan_tgl:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_mulai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pc_sampai:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_tetap:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_eksekusi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_upaya_hukum:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_ptsn_bndg_ksasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_ptsn_pk_grasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_eksekusi_pk_grasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    selamat_dik_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    selamat_dik_dlr:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    selamat_ket:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    selamat_tut_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    selamat_tut_dlr:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    rentut_jaksajpu:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    rentut_kasipidsus:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    rentut_kejari:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    rentut_kejati:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    rentut_kejagung:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_mati:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_coba:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_badan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pidana_subsidair:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_seumur_hidup:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_bebas:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_tambahan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_pengawasan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_denda:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    ba_kurungan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uprp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uplain:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    biaya_perkara:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PASAL:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_PENAHANAN:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_RENTUT:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_SETOR_DNT:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_UPAYA_BANDING:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_UPAYA_GRASI:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_UPAYA_KASASI:
+      local: id
+      foreign: id_tersangka
+      type: many
+    PDS_UPAYA_PK:
+      local: id
+      foreign: id_tersangka
+      type: many
+PDS_TIM_JPU:
+  connection: doctrine
+  tableName: PDS_TIM_JPU
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    id_perkara:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    nip_pegawai:
+      notnull: false
+      type: string(18)
+      fixed: false
+      unsigned: false
+      primary: false
+    peneliti:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    penuntut:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    eksekutor:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    penyelidik:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    penyidik:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    upaya_hukum:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    nama:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    jabatan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    golongan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    flag:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_PERKARA:
+      local: id_perkara
+      foreign: id
+      type: one
+PDS_UPAYA_BANDING:
+  connection: doctrine
+  tableName: PDS_UPAYA_BANDING
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    no_akta:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_akta:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_memori:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_memori:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_memori:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_putusan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_putusan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_putusan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    jenis_putusan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_masa_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_jaksa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_terdakwa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti_lain:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    mata_uang_lain:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uprp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uplain:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    biaya_perkara:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+    PDS_PASAL_BANDING:
+      local: id
+      foreign: id_banding
+      type: many
+PDS_UPAYA_GRASI:
+  connection: doctrine
+  tableName: PDS_UPAYA_GRASI
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    no_grasi:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_grasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_keppres:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_keppres:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_keppres:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_timbang_grasi:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_timbang_grasi:
+      notnull: false
+      type: string(4000)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+PDS_UPAYA_KASASI:
+  connection: doctrine
+  tableName: PDS_UPAYA_KASASI
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    no_akta:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_akta:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_memori:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_memori:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_memori:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_putusan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_putusan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_putusan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    jenis_putusan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_masa_coba:
+      notnull: false
+      type: string(20)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    denda:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_jaksa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_terdakwa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pdn_pengawasan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    jns_bebas:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti_lain:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    mata_uang_lain:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uprp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_uplain:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    biaya_perkara:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
+      local: id_tersangka
+      foreign: id
+      type: one
+    PDS_PASAL_KASASI:
+      local: id
+      foreign: id_kasasi
+      type: many
+PDS_UPAYA_PK:
+  connection: doctrine
+  tableName: PDS_UPAYA_PK
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+    no_pk:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_pk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_nota_pk:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_nota_pk:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    no_putusan:
+      notnull: false
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+    tgl_putusan:
+      notnull: false
+      type: timestamp(7)
+      fixed: false
+      unsigned: false
+      primary: false
+    isi_putusan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    id_tersangka:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+    jenis_putusan:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_badan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    kurungan_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    denda:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_denda_rp:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_sub_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_thn:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_bln:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_pidana_coba_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    putusan_tambahan:
+      notnull: false
+      type: string(1000)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    uang_pengganti_lain:
+      notnull: false
+      type: integer(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    mata_uang_lain:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_tahun:
+      notnull: false
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_bulan:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    sub_pengganti_hari:
+      notnull: false
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+    pj_biaya:
+      notnull: false
+      type: decimal(16)
+      fixed: false
+      unsigned: false
+      primary: false
+    sikap_terdakwa:
+      notnull: false
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+    jns_pk:
+      notnull: false
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: false
+  relations:
+    PDS_TERSANGKA:
       local: id_tersangka
       foreign: id
       type: one

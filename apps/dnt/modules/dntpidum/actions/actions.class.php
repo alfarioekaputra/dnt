@@ -483,16 +483,7 @@ class dntpidumActions extends sfActions
         $pemilik = $request->getParameter('pemilik');
         $petunjuk = $request->getParameter('petunjuk');
         
-        $NoBaLelang = $request->getParameter('no_ba_lelang');
-        $TglLelang = $request->getParameter('tgl_lelang');
-        $Taksiran = $request->getParameter('taksiran');
-        $NilaiWajarLelang = $request->getParameter('nilai_wajar_hasil_lelang');
-        $TempatPenyimpanan = $request->getParameter('tempat_penyimpanan');
-        $Kondisi = $request->getParameter('kondisi');
-        $HasilLelang = $request->getParameter('hasil_lelang');
-        $Hambatan = $request->getParameter('hambatan');
-        $Catatan = $request->getParameter('catatan');
-        
+                
         for($a = 0; $a < count($jenis); $a++){
           $barangRampasan = new PDM_BARBUK();
           $barangRampasan->setIdPerkara($perkara->getId());
@@ -501,22 +492,40 @@ class dntpidumActions extends sfActions
           $barangRampasan->setIdSatuan($satuan[$a]);
           $barangRampasan->setPemilik($pemilik[$a]);
           $barangRampasan->save();
+          
+          $rampasan = $a + 1;
+          
+          //echo $rampasan;exit;
+          
+          $NoBaLelang = $request->getParameter('no_ba_lelang' .$rampasan);
+          $TglLelang = $request->getParameter('tgl_lelang' .$rampasan);
+          $Taksiran = $request->getParameter('taksiran' .$rampasan);
+          $NilaiWajarLelang = $request->getParameter('nilai_wajar_hasil_lelang' .$rampasan);
+          $TempatPenyimpanan = $request->getParameter('tempat_penyimpanan' .$rampasan);
+          $Kondisi = $request->getParameter('kondisi' .$rampasan);
+          $HasilLelang = $request->getParameter('hasil_lelang' .$rampasan);
+          $Hambatan = $request->getParameter('hambatan' .$rampasan);
+          $Catatan = $request->getParameter('catatan' .$rampasan);
+          
+          for($b = 0; $b < count($NoBaLelang); $b++){
+            //echo count($NoBaLelang);exit;
+            
+            $lelang = new PDM_BARBUK_LELANG();
+            $lelang->setIdBarbuk($barangRampasan->getId());
+            $lelang->setNoBa($NoBaLelang[$b]);
+            $lelang->setTglLelang(setTanggal($TglLelang[$b]));
+            $lelang->setTaksiran($Taksiran[$b]);
+            $lelang->setNilaiWajar($NilaiWajarLelang[$b]);
+            $lelang->setPenyimpanan($TempatPenyimpanan[$b]);
+            $lelang->setKondisi($Kondisi[$b]);
+            $lelang->setHasilLelang($HasilLelang[$b]);
+            $lelang->setHambatan($Hambatan[$b]);
+            $lelang->setPetunjuk($Catatan[$b]);
+            $lelang->save();
+          }
         }
         
-        for($b = 0; $b < count($NoBaLelang); $b++){
-          $lelang = new PDM_BARBUK_LELANG();
-          $lelang->setIdBarbuk($barangRampasan->getId());
-          $lelang->setNoBa($NoBaLelang[$b]);
-          $lelang->setTglLelang(setTanggal($TglLelang[$b]));
-          $lelang->setTaksiran($Taksiran[$b]);
-          $lelang->setNilaiWajar($NilaiWajarLelang[$b]);
-          $lelang->setPenyimpanan($TempatPenyimpanan[$b]);
-          $lelang->setKondisi($Kondisi[$b]);
-          $lelang->setHasilLelang($HasilLelang[$b]);
-          $lelang->setHambatan($Hambatan[$b]);
-          $lelang->setPetunjuk($Catatan[$b]);
-          $lelang->save();
-        }
+        
       }
       
       $this->redirect('dntpidum/edit?id='.$perkara->getId());

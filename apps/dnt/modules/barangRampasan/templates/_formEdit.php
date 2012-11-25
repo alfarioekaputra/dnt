@@ -47,7 +47,7 @@
 		</div>
 		<input type="hidden" name="idLelang[]" value="<?php echo $barbuk['ID_LELANG'] ?>">
 		<input type="hidden" name="idBarbuk[]" value="<?php echo $barbuk['IDBARBUK'] ?>">
-		<input type="button" class="btn btn-warning" value="tambah" id="tambah_lelang" onClick=tambahLelang()>
+		<input type="button" class="btn btn-warning" value="tambah" id="tambah_lelang" onClick=tambahLelang("'<?php echo $m; ?>'")>
 		<input type="hidden" name="hdnlelang" id="hdnlelang" value="0">
 		<table class="table table-bordered table-striped" id="tbl_lelang">
 		  <thead>
@@ -66,25 +66,25 @@
 		  </thead>
 		  <tbody>
 			<tr id="data_lelang<?php echo $m ?>">
-				<td><input type="text" name="no_ba_lelang[]" class="span2" value="<?php echo $barbuk['NO_BA'] ?>"></td>
+				<td><input type="text" name="no_ba_lelang<?php echo $m; ?>[]" class="span2" value="<?php echo $barbuk['NO_BA'] ?>"></td>
 				<td>
 				  <div class="input-prepend-edit-date">
-					<input type="text" name="tgl_lelang[]" class="datepicker span2-edit" value="<?php echo getTanggal($barbuk['TGL_LELANG']) ?>">
+					<input type="text" name="tgl_lelang<?php echo $m; ?>[]" class="datepicker span2-edit" value="<?php echo getTanggal($barbuk['TGL_LELANG']) ?>">
 				  </td>
-				<td><input type="text" name="taksiran[]" class="span2" value="<?php echo $barbuk['TAKSIRAN'] ?>"></td>
-				<td><input type="text" name="nilai_wajar_hasil_lelang[]" class="span2" value="<?php echo $barbuk['NILAI_WAJAR'] ?>"></td>
-				<td><input type="text" name="tempat_penyimpanan[]" class="span2" value="<?php echo $barbuk['PENYIMPANAN'] ?>"></td>
+				<td><input type="text" name="taksiran<?php echo $m; ?>[]" class="span2" value="<?php echo $barbuk['TAKSIRAN'] ?>"></td>
+				<td><input type="text" name="nilai_wajar_hasil_lelang<?php echo $m; ?>[]" class="span2" value="<?php echo $barbuk['NILAI_WAJAR'] ?>"></td>
+				<td><input type="text" name="tempat_penyimpanan<?php echo $m; ?>[]" class="span2" value="<?php echo $barbuk['PENYIMPANAN'] ?>"></td>
 				<td>
-				  <select name="kondisi[]" class="span2">
+				  <select name="kondisi<?php echo $m; ?>[]" class="span2">
 					<option value="0">--Pilih--</option>
 					<option value="1" <?php echo $barbuk['KONDISI'] == '1' ? 'selected' : '' ?>>Baik</option>
 					<option value="2" <?php echo $barbuk['KONDISI'] == '2' ? 'selected' : '' ?>>Rusak</option>
 					<option value="3" <?php echo $barbuk['KONDISI'] == '3' ? 'selected' : '' ?>>Rusak Berat</option>
 				  </select>
 				</td>
-				<td><input type="text" name="hasil_lelang[]" class="span2" value="<?php echo $barbuk['HASIL_LELANG'] ?>"></td>
-				<td><textarea name="hambatan[]" class="span3"><?php echo $barbuk['HAMBATAN'] ?></textarea></td>
-				<td><textarea name="catatan[]" class="span3"><?php echo $barbuk['PETUNJUK'] ?></textarea></td>
+				<td><input type="text" name="hasil_lelang<?php echo $m; ?>[]" class="span2" value="<?php echo $barbuk['HASIL_LELANG'] ?>"></td>
+				<td><textarea name="hambatan<?php echo $m; ?>[]" class="span3"><?php echo $barbuk['HAMBATAN'] ?></textarea></td>
+				<td><textarea name="catatan<?php echo $m; ?>[]" class="span3"><?php echo $barbuk['PETUNJUK'] ?></textarea></td>
 				<td>Edit | Delete</td>
 			</tr>
 		  </tbody>
@@ -99,4 +99,49 @@
 </form>
 <script type="text/javascript">
 	$('#tabRampasan a:first').tab('show');
+	
+	count = 1;
+	function tambahLelang(value){
+	  var noterakhir=$("#hdnlelang").val();
+	  var randomnumber=parseInt(noterakhir)+1;
+	  $("#hdnlelang").val(randomnumber);
+	  
+	  $("#tbl_lelang").append(
+		  '<tr id="data_lelang'+randomnumber+'">'+
+			'<td><input type="text" name="no_ba_lelang'+value+'[]" class="span2"></td>'+
+			'<td>'+
+			  '<div class="input-prepend-edit-date">'+
+				'<input type="text" name="tgl_lelang'+value+'[]" class="datepicker span2-edit">'+
+			  '</td>'+
+			'<td><input type="text" name="taksiran'+value+'[]" class="span2"></td>'+
+			'<td><input type="text" name="nilai_wajar_hasil_lelang'+value+'[]" class="span2"></td>'+
+			'<td><input type="text" name="tempat_penyimpanan'+value+'[]" class="span2"></td>'+
+			'<td>' +
+			  '<select name="kondisi'+value+'[]" class="span2">' +
+				'<option value="0">--Pilih--</option>' +
+				'<option value="1">Baik</option>' +
+				'<option value="2">Rusak</option>' +
+				'<option value="3">Rusak Berat</option>' +
+			  '</select>' +
+			'</td>'+
+			'<td><input type="text" name="hasil_lelang'+value+'[]" class="span2"></td>'+
+			'<td><textarea name="hambatan'+value+'[]" class="span3"></textarea></td>'+
+			'<td><textarea name="catatan'+value+'[]" class="span3"></textarea></td>'+
+			'<td>Edit | Delete</td>'+
+		  '</tr>'
+		);
+		count++;
+  
+		$(document).ready(function() {
+		  $( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  showOn: "button",
+			  buttonImage: "<?php echo image_path('calendar.gif') ?>",
+			  buttonImageOnly: true,
+			  yearRange: '1910:+0',
+			  dateFormat: 'dd-mm-yy',
+		  });
+	  });
+	}
 </script>

@@ -88,3 +88,29 @@ function getBarangRampasan($request)
     $resultData = $statement->fetchAll();
     return $resultData;
 }
+
+function getDtnPup($id_tersangka, $id_perkara)
+{
+   $conn = Doctrine_Manager::connection();
+    $getData = "select * from dtn_pup_pds
+                where id_tersangka = '".$id_tersangka."' and id_perkara = '".$id_perkara."' order by id";
+    
+    $statement = $conn->execute($getData);
+    $statement->execute();
+    
+    $resultData = $statement->fetchAll();
+    return $resultData; 
+}
+
+function getDtnPembayaran($request)
+{
+    $conn = Doctrine_Manager::connection();
+    $getData = "select * from dtn_pup_pembayaran_pds
+                where id_pup = '".$request."' order by id";
+    
+    $statement = $conn->execute($getData);
+    $statement->execute();
+    
+    $resultData = $statement->fetchAll();
+    return $resultData; 
+}

@@ -23,15 +23,15 @@
 				  <li class="nav-header">Hasil Dinas</li>
 				  <li>
 					<a href="<?php echo url_for('dntpidum/index') ?>">Denda Non Tilang Pidum</a>
-					<ul>
-					  <li><a href="<?php echo url_for('barangRampasan/index') ?>">Lelang Barang Rampasan</a></li>
-					</ul>
 				  </li>
 				  <li>
 					<a href="#">Denda Non Tilang Pidsus</a>
 					<ul>
 					  <li><a href="#">Lelang Barang Rampasan</a></li>
 					</ul>
+				  </li>
+				  <li>
+					<a href="<?php echo url_for('dntdatun/index') ?>">Denda Non Tilang Datun</a>
 				  </li>
 				</ul>
 			  </div>

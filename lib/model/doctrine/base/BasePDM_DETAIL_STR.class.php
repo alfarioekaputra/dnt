@@ -22,6 +22,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_DETAIL_STR', 'doctrine');
  * @property string $lastupdate_by
  * @property string $lastupdate_ip
  * @property timestamp $lastupdate_time
+ * @property decimal $sisa
  * @property PDM_SETOR_DNT $PDM_SETOR_DNT
  * 
  * @method integer        getId()              Returns the current record's "id" value
@@ -39,6 +40,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_DETAIL_STR', 'doctrine');
  * @method string         getLastupdateBy()    Returns the current record's "lastupdate_by" value
  * @method string         getLastupdateIp()    Returns the current record's "lastupdate_ip" value
  * @method timestamp      getLastupdateTime()  Returns the current record's "lastupdate_time" value
+ * @method decimal        getSisa()            Returns the current record's "sisa" value
  * @method PDM_SETOR_DNT  getPDMSETORDNT()     Returns the current record's "PDM_SETOR_DNT" value
  * @method PDM_DETAIL_STR setId()              Sets the current record's "id" value
  * @method PDM_DETAIL_STR setIdStrDnt()        Sets the current record's "id_str_dnt" value
@@ -55,6 +57,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_DETAIL_STR', 'doctrine');
  * @method PDM_DETAIL_STR setLastupdateBy()    Sets the current record's "lastupdate_by" value
  * @method PDM_DETAIL_STR setLastupdateIp()    Sets the current record's "lastupdate_ip" value
  * @method PDM_DETAIL_STR setLastupdateTime()  Sets the current record's "lastupdate_time" value
+ * @method PDM_DETAIL_STR setSisa()            Sets the current record's "sisa" value
  * @method PDM_DETAIL_STR setPDMSETORDNT()     Sets the current record's "PDM_SETOR_DNT" value
  * 
  * @package    dnt
@@ -72,7 +75,6 @@ abstract class BasePDM_DETAIL_STR extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'sequence' => 'PDM_DETAIL_STR',
              'length' => 8,
              ));
         $this->hasColumn('id_str_dnt', 'integer', 8, array(
@@ -116,14 +118,6 @@ abstract class BasePDM_DETAIL_STR extends sfDoctrineRecord
              'length' => 7,
              ));
         $this->hasColumn('setor', 'decimal', 16, array(
-             'notnull' => false,
-             'type' => 'decimal',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'length' => 16,
-             ));
-        $this->hasColumn('sisa', 'decimal', 16, array(
              'notnull' => false,
              'type' => 'decimal',
              'fixed' => 0,
@@ -194,6 +188,14 @@ abstract class BasePDM_DETAIL_STR extends sfDoctrineRecord
              'unsigned' => false,
              'primary' => false,
              'length' => 7,
+             ));
+        $this->hasColumn('sisa', 'decimal', 16, array(
+             'notnull' => false,
+             'type' => 'decimal',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'length' => 16,
              ));
     }
 

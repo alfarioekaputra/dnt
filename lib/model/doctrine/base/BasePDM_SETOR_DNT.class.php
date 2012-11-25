@@ -29,7 +29,6 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_SETOR_DNT', 'doctrine');
  * @property PDM_PERKARA $PDM_PERKARA
  * @property PDM_TERSANGKA $PDM_TERSANGKA
  * @property Doctrine_Collection $PDM_DETAIL_STR
- * @property Doctrine_Collection $PDM_BARBUK_LELANG
  * 
  * @method integer             getId()                Returns the current record's "id" value
  * @method integer             getIdPerkara()         Returns the current record's "id_perkara" value
@@ -53,7 +52,6 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_SETOR_DNT', 'doctrine');
  * @method PDM_PERKARA         getPDMPERKARA()        Returns the current record's "PDM_PERKARA" value
  * @method PDM_TERSANGKA       getPDMTERSANGKA()      Returns the current record's "PDM_TERSANGKA" value
  * @method Doctrine_Collection getPDMDETAILSTR()      Returns the current record's "PDM_DETAIL_STR" collection
- * @method Doctrine_Collection getPDMBARBUKLELANG()   Returns the current record's "PDM_BARBUK_LELANG" collection
  * @method PDM_SETOR_DNT       setId()                Sets the current record's "id" value
  * @method PDM_SETOR_DNT       setIdPerkara()         Sets the current record's "id_perkara" value
  * @method PDM_SETOR_DNT       setIdTersangka()       Sets the current record's "id_tersangka" value
@@ -76,7 +74,6 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_SETOR_DNT', 'doctrine');
  * @method PDM_SETOR_DNT       setPDMPERKARA()        Sets the current record's "PDM_PERKARA" value
  * @method PDM_SETOR_DNT       setPDMTERSANGKA()      Sets the current record's "PDM_TERSANGKA" value
  * @method PDM_SETOR_DNT       setPDMDETAILSTR()      Sets the current record's "PDM_DETAIL_STR" collection
- * @method PDM_SETOR_DNT       setPDMBARBUKLELANG()   Sets the current record's "PDM_BARBUK_LELANG" collection
  * 
  * @package    dnt
  * @subpackage model
@@ -93,7 +90,6 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'sequence' => 'PDM_SETOR_DNT',
              'length' => 8,
              ));
         $this->hasColumn('id_perkara', 'integer', 8, array(
@@ -254,10 +250,6 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'foreign' => 'id'));
 
         $this->hasMany('PDM_DETAIL_STR', array(
-             'local' => 'id',
-             'foreign' => 'id_str_dnt'));
-
-        $this->hasMany('PDM_BARBUK_LELANG', array(
              'local' => 'id',
              'foreign' => 'id_str_dnt'));
     }

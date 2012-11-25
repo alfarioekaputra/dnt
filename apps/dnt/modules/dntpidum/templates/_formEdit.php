@@ -163,7 +163,7 @@
           </div>
         <label class="span3-label">Denda</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="denda" size="16" type="text" name="pj_denda[]" value="<?php echo $datatersangka['PJ_DENDA_RP'] ?>">
+            <span class="add-on">Rp.</span><input class="span2" id="denda" size="16" type="text" name="pj_denda[]" onkeyup=mirror("<?php echo $m ?>") value="<?php echo $datatersangka['PJ_DENDA_RP'] ?>">
           </div>
         <label class="span3-label">Subsidair</label>
           <div class="input-prepend">
@@ -173,7 +173,7 @@
           </div>
         <label class="span3-label">Biaya Perkara</label>
           <div class="input-prepend">
-            <span class="add-on">Rp.</span><input class="span2" id="pj_biaya_perkara" size="16" type="text" name="pj_biaya_perkara[]" value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
+            <span class="add-on">Rp.</span><input class="span2" id="pj_biaya_perkara" size="16" type="text" name="pj_biaya_perkara[]" onkeyup=mirror("<?php echo $m ?>") value="<?php echo $datatersangka['PJ_BIAYA'] ?>">
           </div>
         <label class="span3-label">Pidana Tambahan</label>
           <textarea rows="3" name="pj_pidana_tambahan[]"><?php echo $datatersangka['PUTUSAN_TAMBAHAN'] ?></textarea>
@@ -306,7 +306,7 @@
     <div style="overflow-x:scroll;">
       <legend>Pembayaran Denda</legend>
       <table class="table" id="tbl_denda<?php echo $m ?>">
-        <input type="hidden" name="hdnpembayaran" id="hdnpembayaran" value="0">
+        
         <thead>
           <tr>
             <th><input type="button" class="btn btn-warning" value="tambah" id="tambah_denda<?php echo $m ?>" onClick=tambahDenda("<?php echo $m ?>")></th>
@@ -322,36 +322,37 @@
         </thead>
         <tbody>
           <?php foreach(getDetailSetor($setorDnt['ID'], 2) as $detailSetor): ?>
-          <tr id="datatr<?php echo $s; ?>">
+          <input type="hidden" name="hdnpembayaran" id="hdnpembayaran<?php echo $m ?>" value="<?php echo $s+1 ?>">
+          <tr id="datatr<?php echo $m; ?>_<?php echo $s ?>">
             <td></td>
             <td>
               <div class="input-prepend-edit">
-               <span class="add-on">Rp.</span><input type="text" name="denda_setor<?php echo $m; ?>[]" class="span2 setor<?php echo $s; ?>" value="<?php echo $detailSetor['SETOR'] ?>" onkeyup=hitung("<?php echo $s; ?>") >
+               <span class="add-on">Rp.</span><input type="text" name="denda_setor<?php echo $m; ?>[]" class="span2" id="setor_<?php echo $m ?>_<?php echo $s; ?>" value="<?php echo $detailSetor['SETOR'] ?>" onkeyup=hitung('<?php echo $m ?>','<?php echo $s ?>') >
               </div>
             </td>
             <td>
             <div class="input-prepend-edit">
-               <span class="add-on">Rp.</span><input type="text" name="denda_sisa<?php echo $m; ?>[]" value="<?php echo $detailSetor['SISA'] ?>" class="span2 sisa<?php echo $s; ?>">
+               <span class="add-on">Rp.</span><input type="text" name="denda_sisa<?php echo $m; ?>[]" value="<?php echo $detailSetor['SISA'] ?>" class="span2" id="sisa_<?php echo $m ?>_<?php echo $s; ?>">
             </div>
             </td>
             <td>
-              <input type="text" name="denda_ssbp<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_SSBP'] ?>" class="span2">
+              <input type="text" name="denda_ssbp<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_SSBP'] ?>" class="span2" id="denda_ssbp_<?php echo $m ?>_<?php echo $s ?>">
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                 <input type="text" id="denda_tgl_ssbp<?php echo $m; ?>" name="denda_tgl_ssbp<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_SSBP']) ?>" class="datepicker span2-edit">
+                 <input type="text" id="denda_tgl_ssbp_<?php echo $m ?>_<?php echo $s ?>" name="denda_tgl_ssbp<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_SSBP']) ?>" class="datepicker span2-edit">
               </div>
             </td>
             <td>
-              <input type="text" name="denda_bukti_setor<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_BUKTI_STR'] ?>" class="span2">
+              <input type="text" name="denda_bukti_setor<?php echo $m; ?>[]" value="<?php echo $detailSetor['NO_BUKTI_STR'] ?>" class="span2" id="denda_bukti_setor_<?php echo $m ?>_<?php echo $s ?>">
             </td>
             <td>
               <div class="input-prepend-edit-date">
-                <input type="text" name="denda_tgl_setor<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_STR']) ?>" class="datepicker span2-edit">
+                <input type="text" name="denda_tgl_setor<?php echo $m; ?>[]" value="<?php echo getTanggal($detailSetor['TGL_STR']) ?>" class="datepicker span2-edit" id="denda_tgl_setor_<?php echo $m ?>_<?php echo $s ?>">
               </div>
             </td>
             <td>
-              <input type="text" name="denda_keterangan<?php echo $m; ?>[]" value="<?php echo $detailSetor['KETERANGAN'] ?>" class="span2">
+              <input type="text" name="denda_keterangan<?php echo $m; ?>[]" value="<?php echo $detailSetor['KETERANGAN'] ?>" class="span2" id="denda_keterangan_<?php echo $m ?>_<?php echo $s ?>">
             </td>
             <td>
               <input type="button" class="btn btn-danger" value="-" id="hapus_denda<?php echo $s; ?>" onClick=deleteDenda("<?php echo $s; ?>")>
@@ -365,6 +366,12 @@
           <input type="hidden" name="idsetordnt[]" value="<?php echo $idSetorDnt ?>" />
           <?php $s++; endforeach; ?>
           <input type="hidden" name="nilai_hsl_dinas" id="nilai_hsl_dinas" value="<?php echo $s; ?>">
+          <?php
+            if($idDetailSetor == ''){
+             
+          ?>
+          <input type="hidden" name="hdnpembayaran" id="hdnpembayaran<?php echo $m ?>" value="0">
+          <?php } ?>
         </tbody>
       </table>
     </div>
@@ -947,47 +954,49 @@ $(function () {
   }
   
   function tambahDenda(value){
-    var noterakhir=$("#hdnpembayaran").val();
-    var randomnumber=parseInt(noterakhir)+1;
-    $("#hdnpembayaran").val(randomnumber);
-    
-    nilai_pasal = $('#nilai_hsl_dinas').val();
-  var nilaiHslDinas = parseInt(nilai_pasal);
+    if($("#hdnpembayaran"+value).val() == null){
+        var noterakhir=0;
+        var randomnumber=parseInt(noterakhir)+1;
+    }else{
+        var noterakhir=$("#hdnpembayaran"+value).val();
+        var randomnumber=parseInt(noterakhir)+1;
+    }
+    $("#hdnpembayaran"+value).val(randomnumber);
     
     $("#tbl_denda"+value).append(
-        '<tr id="datatr'+randomnumber+'">'+
+        '<tr id="datatr'+value+'_'+randomnumber+'">'+
           '<td></td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="new_denda_setor'+value+'[]" class="span2 setor'+nilaiHslDinas+'" onkeyup=hitung("'+nilaiHslDinas+'") >'+
+               '<span class="add-on">Rp.</span><input type="text" name="new_denda_setor'+value+'[]" class="span2" id="setor_'+value+'_'+randomnumber+'" onkeyup=hitung(\''+value+'\',\''+randomnumber+'\') >'+
             '</div>'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit">'+
-               '<span class="add-on">Rp.</span><input type="text" name="new_denda_sisa'+value+'[]" class="span2 sisa'+nilaiHslDinas+'">'+
+               '<span class="add-on">Rp.</span><input type="text" name="new_denda_sisa'+value+'[]" class="span2" id="sisa_'+value+'_'+randomnumber+'">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="new_denda_ssbp'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_ssbp'+value+'[]" class="span2" id="denda_ssbp_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-               '<input type="text" id="denda_tgl_ssbp'+tab_counter+'" name="new_denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
+               '<input type="text" id="denda_tgl_ssbp_'+value+'_'+randomnumber+'" name="new_denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="new_denda_bukti_setor'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_bukti_setor'+value+'[]" class="span2" id="denda_bukti_setor_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
             '<div class="input-prepend-edit-date">'+
-              '<input type="text" name="new_denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
+              '<input type="text" id="denda_tgl_setor_'+value+'_'+randomnumber+'" name="new_denda_tgl_setor'+value+'[]" class="datepicker span2-edit">'+
             '</div>'+
           '</td>'+
           '<td>'+
-            '<input type="text" name="new_denda_keterangan'+value+'[]" class="span2">'+
+            '<input type="text" name="new_denda_keterangan'+value+'[]" class="span2" id="denda_keterangan_'+value+'_'+randomnumber+'">'+
           '</td>'+
           '<td>'+
-            '<input type="button" class="btn btn-danger" value="-" id="hapus_denda'+randomnumber+'" onClick=deleteDenda("'+randomnumber+'")>'+
+            '<input type="button" class="btn btn-danger" value="Hapus" onClick=deleteDenda(\''+value+'\',\''+randomnumber+'\')>'+
           '</td>'+
         '</tr>'
       );
@@ -1107,54 +1116,155 @@ $(function () {
   
   function mirror(value)
   {
-    $("#denda_hsl_dinas"+value).val($('.mirror'+value).val());
+    if($('#biaya_perkara'+value).val()){
+      $("#bp_amar_putusan"+value).val($('#biaya_perkara'+value).val());
+    }else if($('#denda'+value).val() != null && $('#pj_biaya_perkara'+value).val() != ''){
+      $("#denda_hsl_dinas"+value).val($('#denda'+value).val());
+      $("#bp_amar_putusan"+value).val($('#pj_biaya_perkara'+value).val());
+    }
     
-  }
-
-  function mirror2(value)
-  {
-    $("#denda_hsl_dinas"+value).val($('.mirror'+value).val());
   }
   
-  function hitung(value)
+  function hitung(tab,row)
   {
-    var uang  = parseInt($('.uang'+value).val());
-    var setor = parseInt($('.setor'+value).val());
+    var rowIndex = $("#datatr"+tab+"_"+row).closest('tr').prevAll().length +1;
+    var jumlahrow =$("#tbl_denda"+tab+" tr").length ;
     
-    $("#tbl_denda1").each(function() {
-      $this = $(this)
-      if($("input.setor"+value).attr('class') == 'span2 setor1'){
-        var sisa  = uang - setor;
-        $('.sisa1').val(sisa);
-      }else{
-        var k = value - 1;
-        var j = value + 1;
+    if(rowIndex == 1){
+    //alert("rowindex"+rowIndex+"jumlahrow"+jumlahrow);
+       var besarDenda= $("#denda_hsl_dinas"+tab).val();  
+       $("#setor_"+tab+"_"+row).live('keyup',function () {
+           if(parseInt($(this).val()) > parseInt(besarDenda)){
+                alert('Jumlah Cicilan Lebih Besar Dari Besar Denda');
+                $(this).val("0")
+                return false;
+           }
+           var besarSisaDenda= parseInt(besarDenda)-parseInt($(this).val());
+           $("#sisa_"+tab+"_"+row).val(besarSisaDenda);
+           if($(this).val()==null ||$(this).val()==""){
+              $("#sisa_"+tab+"_"+row).val("");
+           }
+       });//end live func
+    }else{
+        //alert("rowindex1 "+rowIndex+"jumlahrow1 "+jumlahrow);
+       var sisaBesarDenda= $("#sisa_"+tab+"_"+(row-1)).val(); 
+       //alert(sisaBesarDenda);
+       $("#setor_"+tab+"_"+row).live('keyup',function () {
+           if(parseInt($(this).val()) > parseInt(sisaBesarDenda)){
+                alert('Jumlah Cicilan Lebih Besar Dari Besar Denda11');
+                $(this).val("0")
+                return false;
+           }
+           var besarSisaDenda= parseInt(sisaBesarDenda)-parseInt($(this).val());
+           $("#sisa_"+tab+"_"+row).val(besarSisaDenda);
+           if($(this).val()==null ||$(this).val()==""){
+              $("#sisa_"+tab+"_"+row).val("");
+           }
+       });//end live func
+    } 
         
-        var a = $("input.sisa"+k).val();
-        var b = $("input.setor"+value).val();
+  }
+  
+  function deleteDenda(tab,row){
+    var rowIndex = $("#datatr"+tab+"_"+row).closest('tr').prevAll().length+1;
+    var jumlahrowAwal = $("#tbl_denda"+tab+" tr").length;
+    //alert(jumlahrowAwal);
+    var cicilan = [];
+    for(var i=1;i<jumlahrowAwal;i++){
         
-        var sisa2 = a - b;
-        $('.sisa'+value).val(sisa2);
-        //alert($("input.sisa"+value).toggleClass('span2 sisa2 span2 asdf'));
-        
-      }
+        if(i!=row){
+            cicilan.push({
+              cicil: $("#setor_"+tab+"_"+i).val(),
+              sisa: $("#sisa_"+tab+"_"+i).val(),
+              denda_ssbp: $("#denda_ssbp_"+tab+"_"+i).val(),
+              denda_tgl_ssbp: $("#denda_tgl_ssbp_"+tab+"_"+i).val(),
+              denda_bukti_setor: $("#denda_bukti_setor_"+tab+"_"+i).val(),
+              denda_tgl_setor: $("#denda_tgl_setor_"+tab+"_"+i).val(),
+              denda_keterangan: $("#denda_keterangan_"+tab+"_"+i).val(),
+            });
+        }
+        jqRow = $("#datatr"+tab+"_"+i);
+        jqRow.remove();
+    }
+    $("#tbl_denda"+tab).trigger("update");
+    hitungDendaAfterDel(tab,row,rowIndex,jumlahrowAwal,cicilan);
+  }
+
+  function hitungDendaAfterDel(tab,row,rowIndex,jumlahrowAwal,cicilan){
+      var row2 = $("#tbl_denda"+tab);
+      var hidden = $("#hdnpembayaran"+tab).val();
       
-    });    
-    
-    /*var uang  = parseInt($('.uang'+value).val());
-    var setor = parseInt($('.setor'+value).val());
-    
-    var abc = value ++;
-    
-    //alert(abc);
-    
-    var setor2 = parseInt($('.setor'+abc).val());
-    
-    var sisa  = uang - setor;
-    $('.sisa'+value).val(sisa);
-    
-    var sisa2 = $('.sisa1').val() - setor2;
-    $('.sisa2').val(sisa2);*/
-    
+      var noterakhir=$("#hdnpembayaran"+tab).val();
+      var randomnumber=parseInt(noterakhir)-1;
+      $("#hdnpembayaran"+tab).val(randomnumber);
+      var newRow2 = row2;
+      var jumlahrow =$("#tbl_denda"+tab+" tr").length -2;
+      var besarDenda= $("#denda_hsl_dinas"+tab).val(); 
+      var totalCicil = 0;
+      $.each(cicilan, function(index,value) { 
+      totalCicil = parseInt(totalCicil) + parseInt(value.cicil);
+      if(index==0){ //jika cicilan pertama
+          value.sisa = parseInt(besarDenda) - parseInt(value.cicil);
+      }else{ 
+          value.sisa = parseInt(besarDenda) - parseInt(totalCicil);
+      }
+      //alert(parseInt(index)+1);
+          newRow2.append(
+              '<tr id="datatr'+tab+'_'+(parseInt(index)+1)+'">'+
+                '<td></td>' +
+                '<td>'+
+                  '<div class="input-prepend-edit">'+
+                    '<span class="add-on">Rp.</span><input type="text" name="denda_setor'+tab+'[]" id="setor_'+tab+'_'+(parseInt(index)+1)+'" value="'+value.cicil+'" onkeyup="hitung(\''+value+'\',\''+(parseInt(index)+1)+'\')" class="span2">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit">'+
+                    '<span class="add-on">Rp.</span><input type="text" name="denda_sisa'+tab+'[]" id="sisa_'+tab+'_'+(parseInt(index)+1)+'" value="'+value.sisa+'" id="sisa_'+tab+'_'+(parseInt(index)+1)+'" class="span2">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_ssbp'+value+'[]" class="span2" id="denda_ssbp_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_ssbp+'">'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit-date">'+
+                     '<input type="text" id="denda_tgl_ssbp_'+value+'_'+(parseInt(index)+1)+'" name="denda_tgl_ssbp'+value+'[]" class="datepicker span2-edit" value="'+value.denda_tgl_ssbp+'">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_bukti_setor'+value+'[]" class="span2" id="denda_bukti_setor_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_bukti_setor+'">'+
+                '</td>'+
+                '<td>'+
+                  '<div class="input-prepend-edit-date">'+
+                    '<input type="text" id="denda_tgl_setor_'+value+'_'+(parseInt(index)+1)+'" name="denda_tgl_setor'+value+'[]" class="datepicker span2-edit" value="'+value.denda_tgl_setor+'">'+
+                  '</div>'+
+                '</td>'+
+                '<td>'+
+                  '<input type="text" name="denda_keterangan'+value+'[]" class="span2" id="denda_keterangan_'+value+'_'+(parseInt(index)+1)+'" value="'+value.denda_keterangan+'">'+
+                '</td>'+
+                '<td>'+
+                '<td><input type="button" value="hapus" onclick=deleteDenda(\''+tab+'\',\''+(parseInt(index)+1)+'\')></td>'+
+              '</tr>'
+      
+          );
+          //alert(jumlahrow);
+          if($("#setor_"+tab+"_"+(parseInt(index)+1)).val() == 'undefined'){
+              //alert(test);
+              jqRow = $("#datatr"+tab+"_"+hidden);
+              jqRow.remove();
+          }
+      });	//end each
+      
+      $(document).ready(function() {
+          $( ".datepicker" ).datepicker({
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "<?php echo image_path('calendar.gif') ?>",
+              buttonImageOnly: true,
+              yearRange: '1910:+0',
+              dateFormat: 'dd-mm-yy',
+          });
+      });
+      
   }
 </script>

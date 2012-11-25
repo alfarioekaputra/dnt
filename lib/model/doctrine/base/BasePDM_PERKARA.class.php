@@ -123,10 +123,10 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_PERKARA', 'doctrine');
  * @property timestamp $tgl_henti_pratut
  * @property string $no_optimal_pratut
  * @property timestamp $tgl_optimal_pratut
+ * @property integer $jns_pelimpahan
  * @property Doctrine_Collection $PDM_BARBUK
  * @property Doctrine_Collection $PDM_TERSANGKA
  * @property Doctrine_Collection $PDM_SETOR_DNT
- * @property integer $jns_pelimpahan
  * 
  * @method integer             getId()                     Returns the current record's "id" value
  * @method string              getNomorPerkara()           Returns the current record's "nomor_perkara" value
@@ -244,6 +244,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_PERKARA', 'doctrine');
  * @method timestamp           getTglHentiPratut()         Returns the current record's "tgl_henti_pratut" value
  * @method string              getNoOptimalPratut()        Returns the current record's "no_optimal_pratut" value
  * @method timestamp           getTglOptimalPratut()       Returns the current record's "tgl_optimal_pratut" value
+ * @method integer             getJnsPelimpahan()          Returns the current record's "jns_pelimpahan" value
  * @method Doctrine_Collection getPDMBARBUK()              Returns the current record's "PDM_BARBUK" collection
  * @method Doctrine_Collection getPDMTERSANGKA()           Returns the current record's "PDM_TERSANGKA" collection
  * @method Doctrine_Collection getPDMSETORDNT()            Returns the current record's "PDM_SETOR_DNT" collection
@@ -363,7 +364,7 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_PERKARA', 'doctrine');
  * @method PDM_PERKARA         setTglHentiPratut()         Sets the current record's "tgl_henti_pratut" value
  * @method PDM_PERKARA         setNoOptimalPratut()        Sets the current record's "no_optimal_pratut" value
  * @method PDM_PERKARA         setTglOptimalPratut()       Sets the current record's "tgl_optimal_pratut" value
- * @method PDM_PERKARA 		   setJnsPelimpahan()		   Sets the current record's "jns_pelimpahan" value
+ * @method PDM_PERKARA         setJnsPelimpahan()          Sets the current record's "jns_pelimpahan" value
  * @method PDM_PERKARA         setPDMBARBUK()              Sets the current record's "PDM_BARBUK" collection
  * @method PDM_PERKARA         setPDMTERSANGKA()           Sets the current record's "PDM_TERSANGKA" collection
  * @method PDM_PERKARA         setPDMSETORDNT()            Sets the current record's "PDM_SETOR_DNT" collection
@@ -383,7 +384,6 @@ abstract class BasePDM_PERKARA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'sequence' => 'PDM_TERSANGKA', 
              'length' => 8,
              ));
         $this->hasColumn('nomor_perkara', 'string', 255, array(

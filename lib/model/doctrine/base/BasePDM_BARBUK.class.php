@@ -23,39 +23,42 @@ Doctrine_Manager::getInstance()->bindComponent('PDM_BARBUK', 'doctrine');
  * @property string $eksekusi_rentut_kejati
  * @property string $eksekusi_rentut_kejagung
  * @property PDM_PERKARA $PDM_PERKARA
+ * @property Doctrine_Collection $PDM_BARBUK_LELANG
  * 
- * @method integer     getId()                        Returns the current record's "id" value
- * @method integer     getIdPerkara()                 Returns the current record's "id_perkara" value
- * @method string      getNama()                      Returns the current record's "nama" value
- * @method decimal     getJumlah()                    Returns the current record's "jumlah" value
- * @method string      getPemilik()                   Returns the current record's "pemilik" value
- * @method string      getEksekusi()                  Returns the current record's "eksekusi" value
- * @method integer     getIdSatuan()                  Returns the current record's "id_satuan" value
- * @method timestamp   getTglEksekusi()               Returns the current record's "tgl_eksekusi" value
- * @method string      getIdoff()                     Returns the current record's "idoff" value
- * @method string      getEksekusiRentut()            Returns the current record's "eksekusi_rentut" value
- * @method string      getEksekusiRentutJaksapu()     Returns the current record's "eksekusi_rentut_jaksapu" value
- * @method string      getEksekusiRentutKasipidum()   Returns the current record's "eksekusi_rentut_kasipidum" value
- * @method string      getEksekusiRentutKejari()      Returns the current record's "eksekusi_rentut_kejari" value
- * @method string      getEksekusiRentutKejati()      Returns the current record's "eksekusi_rentut_kejati" value
- * @method string      getEksekusiRentutKejagung()    Returns the current record's "eksekusi_rentut_kejagung" value
- * @method PDM_PERKARA getPDMPERKARA()                Returns the current record's "PDM_PERKARA" value
- * @method PDM_BARBUK  setId()                        Sets the current record's "id" value
- * @method PDM_BARBUK  setIdPerkara()                 Sets the current record's "id_perkara" value
- * @method PDM_BARBUK  setNama()                      Sets the current record's "nama" value
- * @method PDM_BARBUK  setJumlah()                    Sets the current record's "jumlah" value
- * @method PDM_BARBUK  setPemilik()                   Sets the current record's "pemilik" value
- * @method PDM_BARBUK  setEksekusi()                  Sets the current record's "eksekusi" value
- * @method PDM_BARBUK  setIdSatuan()                  Sets the current record's "id_satuan" value
- * @method PDM_BARBUK  setTglEksekusi()               Sets the current record's "tgl_eksekusi" value
- * @method PDM_BARBUK  setIdoff()                     Sets the current record's "idoff" value
- * @method PDM_BARBUK  setEksekusiRentut()            Sets the current record's "eksekusi_rentut" value
- * @method PDM_BARBUK  setEksekusiRentutJaksapu()     Sets the current record's "eksekusi_rentut_jaksapu" value
- * @method PDM_BARBUK  setEksekusiRentutKasipidum()   Sets the current record's "eksekusi_rentut_kasipidum" value
- * @method PDM_BARBUK  setEksekusiRentutKejari()      Sets the current record's "eksekusi_rentut_kejari" value
- * @method PDM_BARBUK  setEksekusiRentutKejati()      Sets the current record's "eksekusi_rentut_kejati" value
- * @method PDM_BARBUK  setEksekusiRentutKejagung()    Sets the current record's "eksekusi_rentut_kejagung" value
- * @method PDM_BARBUK  setPDMPERKARA()                Sets the current record's "PDM_PERKARA" value
+ * @method integer             getId()                        Returns the current record's "id" value
+ * @method integer             getIdPerkara()                 Returns the current record's "id_perkara" value
+ * @method string              getNama()                      Returns the current record's "nama" value
+ * @method decimal             getJumlah()                    Returns the current record's "jumlah" value
+ * @method string              getPemilik()                   Returns the current record's "pemilik" value
+ * @method string              getEksekusi()                  Returns the current record's "eksekusi" value
+ * @method integer             getIdSatuan()                  Returns the current record's "id_satuan" value
+ * @method timestamp           getTglEksekusi()               Returns the current record's "tgl_eksekusi" value
+ * @method string              getIdoff()                     Returns the current record's "idoff" value
+ * @method string              getEksekusiRentut()            Returns the current record's "eksekusi_rentut" value
+ * @method string              getEksekusiRentutJaksapu()     Returns the current record's "eksekusi_rentut_jaksapu" value
+ * @method string              getEksekusiRentutKasipidum()   Returns the current record's "eksekusi_rentut_kasipidum" value
+ * @method string              getEksekusiRentutKejari()      Returns the current record's "eksekusi_rentut_kejari" value
+ * @method string              getEksekusiRentutKejati()      Returns the current record's "eksekusi_rentut_kejati" value
+ * @method string              getEksekusiRentutKejagung()    Returns the current record's "eksekusi_rentut_kejagung" value
+ * @method PDM_PERKARA         getPDMPERKARA()                Returns the current record's "PDM_PERKARA" value
+ * @method Doctrine_Collection getPDMBARBUKLELANG()           Returns the current record's "PDM_BARBUK_LELANG" collection
+ * @method PDM_BARBUK          setId()                        Sets the current record's "id" value
+ * @method PDM_BARBUK          setIdPerkara()                 Sets the current record's "id_perkara" value
+ * @method PDM_BARBUK          setNama()                      Sets the current record's "nama" value
+ * @method PDM_BARBUK          setJumlah()                    Sets the current record's "jumlah" value
+ * @method PDM_BARBUK          setPemilik()                   Sets the current record's "pemilik" value
+ * @method PDM_BARBUK          setEksekusi()                  Sets the current record's "eksekusi" value
+ * @method PDM_BARBUK          setIdSatuan()                  Sets the current record's "id_satuan" value
+ * @method PDM_BARBUK          setTglEksekusi()               Sets the current record's "tgl_eksekusi" value
+ * @method PDM_BARBUK          setIdoff()                     Sets the current record's "idoff" value
+ * @method PDM_BARBUK          setEksekusiRentut()            Sets the current record's "eksekusi_rentut" value
+ * @method PDM_BARBUK          setEksekusiRentutJaksapu()     Sets the current record's "eksekusi_rentut_jaksapu" value
+ * @method PDM_BARBUK          setEksekusiRentutKasipidum()   Sets the current record's "eksekusi_rentut_kasipidum" value
+ * @method PDM_BARBUK          setEksekusiRentutKejari()      Sets the current record's "eksekusi_rentut_kejari" value
+ * @method PDM_BARBUK          setEksekusiRentutKejati()      Sets the current record's "eksekusi_rentut_kejati" value
+ * @method PDM_BARBUK          setEksekusiRentutKejagung()    Sets the current record's "eksekusi_rentut_kejagung" value
+ * @method PDM_BARBUK          setPDMPERKARA()                Sets the current record's "PDM_PERKARA" value
+ * @method PDM_BARBUK          setPDMBARBUKLELANG()           Sets the current record's "PDM_BARBUK_LELANG" collection
  * 
  * @package    dnt
  * @subpackage model
@@ -72,7 +75,6 @@ abstract class BasePDM_BARBUK extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'sequence' => 'PDM_BARBUK',
              'length' => 8,
              ));
         $this->hasColumn('id_perkara', 'integer', 8, array(
@@ -195,5 +197,9 @@ abstract class BasePDM_BARBUK extends sfDoctrineRecord
         $this->hasOne('PDM_PERKARA', array(
              'local' => 'id_perkara',
              'foreign' => 'id'));
+
+        $this->hasMany('PDM_BARBUK_LELANG', array(
+             'local' => 'id',
+             'foreign' => 'id_barbuk'));
     }
 }

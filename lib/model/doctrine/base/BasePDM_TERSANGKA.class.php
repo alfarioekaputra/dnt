@@ -264,7 +264,6 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'sequence' => 'PDM_TERSANGKA',
              'length' => 8,
              ));
         $this->hasColumn('nama', 'string', 100, array(
