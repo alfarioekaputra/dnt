@@ -75,6 +75,7 @@ abstract class BasePDM_DETAIL_STR extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_DETAIL_STR',
              'length' => 8,
              ));
         $this->hasColumn('id_str_dnt', 'integer', 8, array(

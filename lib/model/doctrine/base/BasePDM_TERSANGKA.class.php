@@ -264,6 +264,7 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_TERSANGKA',
              'length' => 8,
              ));
         $this->hasColumn('nama', 'string', 100, array(
@@ -818,6 +819,22 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'primary' => false,
              'length' => 1,
              ));
+        $this->hasColumn('no_putusan_pn', 'string', 255, array(
+             'notnull' => false,
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'length' => 1,
+             ));
+		 $this->hasColumn('tgl_putusan_pn', 'timestamp', 7, array(
+			 'notnull' => false,
+			 'type' => 'timestamp',
+			 'fixed' => 0,
+			 'unsigned' => false,
+			 'primary' => false,
+			 'length' => 7,
+			 ));
     }
 
     public function setUp()

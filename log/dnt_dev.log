@@ -6269,3 +6269,307 @@ Nov 26 11:08:32 symfony [info] {Doctrine_Connection_Oracle} query : select INST_
 Nov 26 11:08:32 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
 Nov 26 11:08:32 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
 Nov 26 11:08:32 symfony [info] {sfWebResponse} Send content (3989 o)
+Nov 27 11:29:00 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Nov 27 11:29:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:01 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Nov 27 11:29:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Nov 27 11:29:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php on line 329 (Undefined variable: idkejati)
+Nov 27 11:29:01 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 11:29:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 11:29:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 11:29:01 symfony [info] {sfWebDebugLogger} Configuration 1.32 ms (9)
+Nov 27 11:29:01 symfony [info] {sfWebDebugLogger} Factories 411.54 ms (1)
+Nov 27 11:29:01 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 0.08 ms (1)
+Nov 27 11:29:01 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 92.87 ms (1)
+Nov 27 11:29:01 symfony [info] {sfWebResponse} Send content (40482 o)
+Nov 27 11:29:02 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Nov 27 11:29:02 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:02 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:02 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Nov 27 11:29:02 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getDataKejatiPidum with parameters array (  'module' => 'dntpidum',  'action' => 'getDataKejatiPidum',)
+Nov 27 11:29:03 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_PERKARA ID_PERKARA,NOMOR_PERKARA,NO_TGL_PUTUSAN FROM 
+              PDM_PERKARA
+              INNER JOIN (SELECT ID_PERKARA, WM_CONCAT(NO#TGL_PUTUSAN) NO_TGL_PUTUSAN FROM (
+              SELECT ID_PERKARA,
+              CASE     WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_PK WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       END NO#TGL_PUTUSAN
+              FROM PDM_TERSANGKA
+              WHERE PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)
+              )B 
+              GROUP BY ID_PERKARA) A ON A.ID_PERKARA=PDM_PERKARA.ID
+              LEFT JOIN KP_INST_SATKER C ON PDM_PERKARA.INST_SATKERKD=C.INST_SATKERKD
+              WHERE INST_SATKERKD='00' - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '7'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '8'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '24'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '37'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '51'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '52'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '167'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '169'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '232'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '234'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Configuration 0.70 ms (8)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Factories 3.78 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 2052.73 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.06 ms (12)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.01 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (2744 o)
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:04 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetDataKejatiPidum()"
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 121 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 122 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 127 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 134 (Undefined variable: id_kejati)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select INST_SATKERKD,INST_NAMA,INST_AKRONIM from KP_INST_SATKER  where IS_ACTIVE=1 and inst_satkerkd like '%'ORDER BY INST_SATKERKD - ()
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (3701 o)
+Nov 27 11:29:04 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'dntpidum',  'action' => 'index',)
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:04 symfony [info] {dntpidumActions} Call "dntpidumActions->executeIndex()"
+Nov 27 11:29:04 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php"
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/templates/indexSuccess.php on line 329 (Undefined variable: idkejati)
+Nov 27 11:29:04 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 11:29:04 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Configuration 4.20 ms (9)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Factories 3.68 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Action "dntpidum/index" 0.08 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} View "Success" for "dntpidum/index" 3.28 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (40870 o)
+Nov 27 11:29:04 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getdataindexpidum with parameters array (  'module' => 'dntpidum',  'action' => 'getdataindexpidum',)
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:04 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetdataindexpidum()"
+Nov 27 11:29:04 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntpidum/getDataKejatiPidum with parameters array (  'module' => 'dntpidum',  'action' => 'getDataKejatiPidum',)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_PERKARA ID_PERKARA,NOMOR_PERKARA,NO_TGL_PUTUSAN FROM 
+              PDM_PERKARA
+              INNER JOIN (SELECT ID_PERKARA, WM_CONCAT(NO#TGL_PUTUSAN) NO_TGL_PUTUSAN FROM (
+              SELECT ID_PERKARA,
+              CASE     WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
+                       WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_PK WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       END NO#TGL_PUTUSAN
+              FROM PDM_TERSANGKA
+              WHERE PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)
+              )B 
+              GROUP BY ID_PERKARA) A ON A.ID_PERKARA=PDM_PERKARA.ID
+              LEFT JOIN KP_INST_SATKER C ON PDM_PERKARA.INST_SATKERKD=C.INST_SATKERKD
+              WHERE INST_SATKERKD='00' - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '7'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '8'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '24'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '37'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '51'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '52'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '167'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '169'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '232'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select wm_concat(IDENTITAS) IDENTITAS from (
+            SELECT ID_PERKARA,NAMA||' #'|| 
+            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
+            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
+            FROM PDM_TERSANGKA
+            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '234'
+            )
+            GROUP BY ID_PERKARA - ()
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 76 (Undefined offset: 1)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 78 (Undefined index: INST_SATKERKD)
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Configuration 0.66 ms (8)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Factories 3.59 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Action "dntpidum/getdataindexpidum" 78.28 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.06 ms (12)
+Nov 27 11:29:04 symfony [info] {sfWebDebugLogger} View "None" for "dntpidum/getdataindexpidum" 0.02 ms (1)
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (2744 o)
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 11:29:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 11:29:04 symfony [info] {dntpidumActions} Call "dntpidumActions->executeGetDataKejatiPidum()"
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 121 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 122 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 127 (Undefined index: kd_satker)
+Nov 27 11:29:04 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntpidum/actions/actions.class.php on line 134 (Undefined variable: id_kejati)
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select INST_SATKERKD,INST_NAMA,INST_AKRONIM from KP_INST_SATKER  where IS_ACTIVE=1 and inst_satkerkd like '%'ORDER BY INST_SATKERKD - ()
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
+Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (3701 o)

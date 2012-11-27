@@ -90,6 +90,7 @@ abstract class BasePDM_SETOR_DNT extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_SETOR_DNT',
              'length' => 8,
              ));
         $this->hasColumn('id_perkara', 'integer', 8, array(
