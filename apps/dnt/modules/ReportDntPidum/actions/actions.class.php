@@ -19,144 +19,237 @@ class ReportDntPidumActions extends sfActions
   {
     //$this->forward('default', 'module');
     
+    
+  }
+  
+  public function executeDataKejati(sfWebRequest $request)
+  {
+    $this->idkejati = $request->getParameter("idkejati");
+    $this->setLayout(false);
+  }
+  
+  public function executeGetDataKejatiPidum(sfWebRequest $request) {
+    sfConfig::set('sf_web_debug', false);
+    //sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Tag'));
+    $this->getResponse()->setContentType('application/json');
+
+    $pilihanSearchKejati = $request->getParameter('pilihanSearchKejati');
+    $cariKejati = $request->getParameter('cariKejati');
+    $pilihkejatitab = $request->getParameter('pilihkejatitab');
+
+
+    if ($_COOKIE['kd_satker'] != '00') {
+        if (strlen($_COOKIE['kd_satker']) == 5) {
+            $id_kejati = $_COOKIE['kd_satker'];
+
+          #  $id_kejatiexplode = explode('.', $_COOKIE['kd_satker']);
+          #  $id_kejati = $id_kejatiexplode[0] . '.';
+        } else if (strlen($_COOKIE['kd_satker']) == 2) {
+
+            $id_kejati = $_COOKIE['kd_satker'];
+        }
+    }
+
+
+    $query = "select INST_SATKERKD,INST_NAMA,INST_AKRONIM from KP_INST_SATKER  where IS_ACTIVE=1 and inst_satkerkd like '" . $id_kejati . "%'";
+    if (!empty($cariKejati)) {
+
+        if ($pilihanSearchKejati == "1") {
+            $query .=" AND INST_SATKERKD like ('" . $cariKejati . "%')";
+        } else if ($pilihanSearchKejati == "2") {
+            $query .=" AND (upper(INST_NAMA) like upper('%" . $cariKejati . "%') OR upper(INST_AKRONIM) like upper('%" . $cariKejati . "%'))";
+        }
+    }
+    $query .= "ORDER BY INST_SATKERKD";
+    //echo $query; exit;
+    $item_per_page = $request->getParameter('iDisplayLength', 10);
+    // $item_per_page ="1";
+    $page = ($request->getParameter('iDisplayStart', 0) / $item_per_page) + 1;
+    $pager = $this->processDatadetil($page, $item_per_page, $query);
+
+    $json = '{"iTotalRecords":' . count($pager) . ',
+     "iTotalDisplayRecords":' . count($pager) . ',
+     "aaData":[';
+    $first = 0;
+    foreach ($pager->getResults() as $v) {
+        if ($first++)
+            $json .= ',';
+        $gabung = $v['INST_SATKERKD'] . "#" . $v['INST_NAMA'] . "#" . $v['INST_AKRONIM'] . "#";
+        $json .= '[
+            "' . $v['INST_SATKERKD'] . '",
+            "' . $v['INST_NAMA'] . '",
+            "<input type=\"button\" class=\"btn\" data-dismiss=\"modal\" value=\"Pilih\" name=\"pilih\" onClick=\"goPilihKejati(\'' . $gabung . ' \',\'' . $pilihkejatitab . '\')\">"]';
+
+        //$json =']';
+    }
+    $json .= ']}';
+    //echo $query;
+    return $this->renderText($json);
+  }
+  
+  public function processDatadetil($page = 1, $item_per_page = 10, $query) {
     $connection = Doctrine_Manager::connection();
-    $query = "SELECT NOMOR_PERKARA,NAMA,JNS_PELIMPAHAN,JENIS_PUTUSAN,
-            BIAYA_PERKARA_DIPUTUS,DENDA_DIPUTUS,BIAYA_PERKARA_DIBAYAR,DENDA_DIBAYAR,UANG_RAMPASAN,HASIL_LELANG,
-            (NVL(BIAYA_PERKARA_DIPUTUS,0)+NVL(DENDA_DIPUTUS,0)) TOTAL_DIPUTUS,(NVL(BIAYA_PERKARA_DIBAYAR,0)+NVL(DENDA_DIBAYAR,0)) TOTAL_DIBAYAR
-            FROM(
-            SELECT NOMOR_PERKARA,NAMA,JNS_PELIMPAHAN,JENIS_PUTUSAN,
-            CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PJ_BIAYA
-                                   WHEN PUTUSAN_TETAP=2 THEN (SELECT PJ_BIAYA FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                   WHEN PUTUSAN_TETAP=3 THEN (SELECT PJ_BIAYA FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                   END BIAYA_PERKARA_DIPUTUS,
-            CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PJ_DENDA_RP
-                                   WHEN PUTUSAN_TETAP=2 THEN (SELECT PJ_DENDA_RP FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                   WHEN PUTUSAN_TETAP=3 THEN (SELECT PJ_DENDA_RP FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                   END DENDA_DIPUTUS,
-             CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PDM_TERSANGKA.NO_PUTUSAN_PN||'#'||PDM_TERSANGKA.TGL_PUTUSAN_PN          
-                                 WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                 WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                                 END NO#TGL_PUTUSAN,
-            (SELECT SUM(SETOR) FROM PDM_DETAIL_STR INNER JOIN PDM_SETOR_DNT ON PDM_DETAIL_STR.ID_STR_DNT=PDM_SETOR_DNT.ID
-            WHERE PDM_SETOR_DNT.ID_PERKARA=PDM_PERKARA.ID GROUP BY ID_STR_DNT) DENDA_DIBAYAR,
-            PJ_BIAYA BIAYA_PERKARA_DIBAYAR,
-            (SELECT JUMLAH FROM PDM_BARBUK
-            WHERE (ID_SATUAN=8 OR ID_SATUAN=9) AND PDM_BARBUK.ID_PERKARA=PDM_PERKARA.ID) AS UANG_RAMPASAN,
-            (SELECT HASIL_LELANG FROM PDM_BARBUK_LELANG
-            INNER JOIN PDM_BARBUK ON PDM_BARBUK.ID=PDM_BARBUK_LELANG.ID_BARBUK
-            WHERE PDM_BARBUK.ID_PERKARA=PDM_PERKARA.ID) AS HASIL_LELANG
-            FROM PDM_TERSANGKA
-            INNER JOIN PDM_PERKARA ON PDM_TERSANGKA.ID_PERKARA=PDM_PERKARA.ID AND PDM_PERKARA.ID=9
-            LEFT JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_PERKARA=PDM_PERKARA.ID)A";
+
+
+
+    $statement = $connection->execute($query);
+    $statement->execute();
+    $this->resultsetKejati = $statement->fetchAll();
+    //  $this->datakejati=$request->getParameter("id");
+
+    $pager = (array) $this->resultsetKejati;
+
+    $this->pager = new myArrayPager(null, $item_per_page);
+    $this->pager->setResultArray($pager);
+    $this->pager->setPage($page);
+    $this->pager->init();
+    return $this->pager;
+  }
+  
+  public function executeReport(sfWebRequest $request)
+  {
+    $this->setLayout(false);
+    
+    $sub = $request->getParameter('semua_sub');
+    $kd_satker = $request->getParameter('txt_kejaksaan_id');
+    $tgl_awal = $request->getParameter('tgl_awal');
+    $tgl_akhir = $request->getParameter('tgl_akhir');
+    
+    if ($request->isMethod('post')) {
+      $connection = Doctrine_Manager::connection();
+      $query = "SELECT * FROM(
+                SELECT (SELECT INST_SATKERKD FROM PDM_PERKARA WHERE ID=PERKARA_ID) INST_SATKERKD,(SELECT INST_NAMA FROM PDM_PERKARA LEFT JOIN KP_INST_SATKER ON PDM_PERKARA.INST_SATKERKD=KP_INST_SATKER.INST_SATKERKD WHERE ID=PERKARA_ID) INST_NAMA,
+                A.ID,PERKARA_ID,NAMA,JENIS_PUTUSAN,A.JNS_PELIMPAHAN,HUKUMAN_POKOK_BADAN,BIAYA_PERKARA_DIPUTUS,DENDA_DIPUTUS,NO#TGL_PUTUSAN,BIAYA_PERKARA_DIBAYAR, TANGGAL_SETOR,PJ_DENDA_RP_DIBAYAR,PJ_UPRP_DIBAYAR,PJ_UPLAIN_DIBAYAR,HASIL_LELANG,UANG_RAMPASAN,
+                NVL(BIAYA_PERKARA_DIBAYAR,0)+NVL(PJ_DENDA_RP_DIBAYAR,0)+NVL(PJ_UPRP_DIBAYAR,0)+NVL(PJ_UPLAIN_DIBAYAR,0)+NVL(HASIL_LELANG,0)+NVL(UANG_RAMPASAN,0) TOTAL_BAYAR,
+                CASE WHEN (DENDA_DIPUTUS IS NULL) THEN 'BELUM ADA PUTUSAN' 
+                WHEN NVL(DENDA_DIPUTUS,0)>NVL(PJ_DENDA_RP_DIBAYAR,0) THEN 'BELUM LUNAS' 
+                WHEN NVL(DENDA_DIPUTUS,0)=NVL(PJ_DENDA_RP_DIBAYAR,0) THEN 'LUNAS' END KETERANGAN
+                 FROM(
+                SELECT PDM_TERSANGKA.ID,PDM_TERSANGKA.ID_PERKARA PERKARA_ID,NAMA,JENIS_PUTUSAN,
+                CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PJ_BADAN_TAHUN||' Tahun'||PJ_BADAN_BULAN||' Bulan '||PJ_BADAN_HARI||' Hari'
+                                       WHEN PUTUSAN_TETAP=2 THEN (SELECT PJ_BADAN_TAHUN||' Tahun '||PJ_BADAN_BULAN||' Bulan '||PJ_BADAN_HARI||' Hari' FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       WHEN PUTUSAN_TETAP=3 THEN (SELECT PJ_BADAN_TAHUN||' Tahun '||PJ_BADAN_BULAN||' Bulan '||PJ_BADAN_HARI||' Hari' FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       END HUKUMAN_POKOK_BADAN,
+                CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PDM_TERSANGKA.PJ_BIAYA
+                                       WHEN PUTUSAN_TETAP=2 THEN (SELECT PJ_BIAYA FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       WHEN PUTUSAN_TETAP=3 THEN (SELECT PJ_BIAYA FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       END BIAYA_PERKARA_DIPUTUS,
+                CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PJ_DENDA_RP
+                                       WHEN PUTUSAN_TETAP=2 THEN (SELECT PJ_DENDA_RP FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       WHEN PUTUSAN_TETAP=3 THEN (SELECT PJ_DENDA_RP FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                       END DENDA_DIPUTUS,
+                 CASE WHEN PUTUSAN_UPAYA_HUKUM=1 THEN PDM_TERSANGKA.NO_PUTUSAN_PN||'#'||PDM_TERSANGKA.TGL_PUTUSAN_PN          
+                                     WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                     WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                                     END NO#TGL_PUTUSAN,
+                (SELECT JNS_PELIMPAHAN FROM PDM_PERKARA WHERE PDM_PERKARA.ID=PDM_TERSANGKA.ID_PERKARA) JNS_PELIMPAHAN,
+                (SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID AND STATUS=1) BIAYA_PERKARA_DIBAYAR,
+                (SELECT TGL_STR FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID AND STATUS=1) TANGGAL_SETOR,
+                (SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID AND STATUS=2) PJ_DENDA_RP_DIBAYAR,
+                (SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID AND STATUS=3) PJ_UPRP_DIBAYAR,
+                (SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID AND STATUS=4) PJ_UPLAIN_DIBAYAR,
+                (SELECT SUM(HASIL_LELANG) FROM PDM_BARBUK_LELANG INNER JOIN PDM_BARBUK ON PDM_BARBUK.ID=PDM_BARBUK_LELANG.ID_BARBUK 
+                WHERE PDM_BARBUK.ID_PERKARA=PDM_SETOR_DNT.ID_PERKARA GROUP BY PDM_SETOR_DNT.ID_PERKARA) HASIL_LELANG,
+                (SELECT JUMLAH FROM PDM_BARBUK  
+                WHERE (ID_SATUAN=8 OR ID_SATUAN=9) AND PDM_BARBUK.ID_PERKARA=PDM_SETOR_DNT.ID_PERKARA) UANG_RAMPASAN
+                FROM PDM_TERSANGKA
+                INNER JOIN PDM_SETOR_DNT ON PDM_SETOR_DNT.ID_TERSANGKA=PDM_TERSANGKA.ID
+                )A LEFT JOIN PDM_PERKARA ON A.PERKARA_ID =PDM_PERKARA.ID_PERKARA) B
+                where 1=1";
+                
+                if (!empty($sub)) { //jika semua sub dipilih
+                  if ($kd_satker == '00') {
+                      $query .="";
+                  } else {
+                      $query .=" AND (inst_satkerkd like '$kd_satker%')";
+                  }
+              }//end semuasub
+              else {
+                  if (!empty($kd_satker)) {
+                      $query .=" AND (INST_SATKERKD='$kd_satker')";
+                  }
+              }
+              if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+                  $query .="AND (TANGGAL_SETOR >= TO_DATE('$tgl_awal','dd-mm-yyyy') AND TANGGAL_SETOR <= TO_DATE('$tgl_akhir','dd-mm-yyyy'))";
+              }
+        
+        $statement = $connection->execute($query);
+        $statement->execute();
+        $this->pdm = $statement->fetchAll();
+    }//end post
       
-      $statement = $connection->execute($query);
-      $statement->execute();
-      $this->pdm = $statement->fetchAll();
       
-      $phpExcel = new PHPExcel();
-      
-      $phpExcel->getProperties()->setTitle("export");
-      
+      $phpExcel = PHPExcel_IOFactory::load(dirname(__FILE__).'/../../../lib/template/laporan_hasil_dinas_pidum.xls');
       $phpExcel->setActiveSheetIndex(0);
       
-      $phpExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'No')
-            ->setCellValue('B1', 'Nomor Perkara')
-            ->setCellValue('C1', 'Nomor dan Tanggal putusan inkrah')
-            ->setCellValue('D1', 'Terpidana')
-            ->setCellValue('E1', 'Denda')
-			->setCellValue('E2', 'APB')
-			->setCellValue('F2', 'APS')
-			->setCellValue('G1', 'Biaya Perkara')
-            ->setCellValue('G2', 'PN/PT/MA')
-			->setCellValue('H1', 'Uang rampasan / Temuan')
-			->setCellValue('I1', 'Hasil lelang barang rampasan')
-			->setCellValue('J1', 'Jumlah hasil dinas')
-			->setCellValue('K1', 'Keterangan');
+      $sheet = $phpExcel->getActiveSheet();
       
-      $phpExcel->getActiveSheet()->setTitle('Simple');
-
-      $phpExcel->getActiveSheet()->mergeCells('A1:A2');
-      $phpExcel->getActiveSheet()->mergeCells('B1:B2');
-      $phpExcel->getActiveSheet()->mergeCells('C1:C2');
-      $phpExcel->getActiveSheet()->mergeCells('D1:D2');
-      $phpExcel->getActiveSheet()->mergeCells('H1:H2');
-      $phpExcel->getActiveSheet()->mergeCells('I1:I2');
-      $phpExcel->getActiveSheet()->mergeCells('J1:J2');
-      $phpExcel->getActiveSheet()->mergeCells('K1:K2');
-      $phpExcel->getActiveSheet()->mergeCells('E1:F1');
-      $phpExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-      $phpExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
-      $phpExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
       
-      $phpExcel->getActiveSheet()->getStyle('E1:F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-      $phpExcel->getActiveSheet()->getStyle('A1:A2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('B1:B2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('C1:C2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('D1:D2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('E1:F1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('E2:F2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('G1:G2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('H1:H2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('I1:I2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('J1:J2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      $phpExcel->getActiveSheet()->getStyle('K1:K2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-      // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-      //$phpExcel->setActiveSheetIndex(0);
       
-      //wrap text header
-      $phpExcel->getActiveSheet()->getStyle('C1:C2')->getAlignment()->setWrapText(true);
-      $phpExcel->getActiveSheet()->getStyle('H1:H2')->getAlignment()->setWrapText(true);
+      $cellAwal = 7;
+      $cellAkhir = $cellAwal;
+      $no = 1;
       
-      //set row height
-      $phpExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(50);
-      
-      $row = 3;
-      $i = 1;
       foreach($this->pdm as $pdm)
       {
-        $phpExcel->getActiveSheet()->setCellValue('A' . $row, $i);
-		$phpExcel->getActiveSheet()->setCellValue('B' . $row, $pdm['NOMOR_PERKARA']);
-		$phpExcel->getActiveSheet()->setCellValue('C' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('D' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('E' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('F' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('G' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('H' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('I' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('J' . $row, $pdm['NAMA']);
-		$phpExcel->getActiveSheet()->setCellValue('K' . $row, $pdm['NAMA']);
+        if($pdm['JNS_PELIMPAHAN'] == 1){
+          $apb = $pdm['DENDA_DIPUTUS'];
+          $aps = '';
+        }elseif($pdm['JNS_PELIMPAHAN'] == 2){
+          $apb = '';
+          $aps = $pdm['DENDA_DIPUTUS'];
+        }
         
         
-        $phpExcel->getActiveSheet()->getStyle('A' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('B' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('C' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('D' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('E'.$row.':F'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        //$phpExcel->getActiveSheet()->getStyle('E2:F2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('G' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('H' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('I' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('J' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
-        $phpExcel->getActiveSheet()->getStyle('K' . $row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+        $sheet->setCellValue('A'.$cellAkhir, $no);
+        $sheet->getStyle('A'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $sheet->setCellValue('B'.$cellAkhir, $pdm['NO#TGL_PUTUSAN']);
+        $sheet->getStyle('B'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('C'.$cellAkhir, $pdm['NAMA']);
+        $sheet->getStyle('C'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('D'.$cellAkhir, $apb);
+        $sheet->getStyle('D'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('E'.$cellAkhir, $aps);
+        $sheet->getStyle('E'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('F'.$cellAkhir, $pdm['BIAYA_PERKARA_DIPUTUS']);
+        $sheet->getStyle('F'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('G'.$cellAkhir, $pdm['UANG_RAMPASAN']);
+        $sheet->getStyle('G'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('H'.$cellAkhir, $pdm['HASIL_LELANG']);
+        $sheet->getStyle('H'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('I'.$cellAkhir, $pdm['TOTAL_DIBAYAR']);
+        $sheet->getStyle('I'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('J'.$cellAkhir, $pdm['KETERANGAN']);
+        $sheet->getStyle('J'.$cellAkhir)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         
-        $row++;
-        $i++;
+        $cellAkhir++;
+        $no++;
       }
       
-      // Redirect output to a client’s web browser (Excel5)
-      header('Content-Type: application/vnd.ms-excel');
-      header('Content-Disposition: attachment;filename="01simple.xls"');
-      header('Cache-Control: max-age=0');
+      $sheet->setCellValue('A3', 'Wilayah / Unit: '.$pdm['INST_NAMA']);
+      $sheet->mergeCells('A3:J3');
+      $sheet->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+      //exit;
+      $styleArray1 = array('borders'=> array('allborders'=> 
+					array('style'=> PHPExcel_Style_Border::BORDER_THIN)));
+      $sheet->getStyle('A'.$cellAwal.':J'.($cellAkhir))->applyFromArray($styleArray1);
       
-      $objWriter = PHPExcel_IOFactory::createWriter($phpExcel, 'Excel5');
+       unset($styleArray1);
+  
+      
+      
+      //prepare download
+      $filename = 'Laporan Hasil Dinas Pidum'.mt_rand(1,100000).'.xls'; 
+      header('Content-Type: application/vnd.ms-excel');
+      header('Content-Disposition: attachment;filename="'.$filename.'"');
+      header('Cache-Control: max-age=0');
+  
+      //downloadable file is in Excel 2003 format (.xls)
+      $objWriter = PHPExcel_IOFactory::createWriter($phpExcel, 'Excel5');  
+      
+      //send it to user, of course you can save it to disk also
       $objWriter->save('php://output');
-      exit;
+      
+      exit();
   }
 }

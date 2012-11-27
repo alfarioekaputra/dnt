@@ -285,6 +285,7 @@ class dntpidumActions extends sfActions
           $perkara->setJnsPelimpahan($request->getParameter('apb_aps'));
           $perkara->setPosisiKasus($request->getParameter('posisi_kasus'));
           $perkara->setInstSatkerkd('00');
+          $perkara->setIdInstansi('00');
           for ($j=0; $j < count($NoPutusan); $j++) {
             if($JnsPengadilanPutusan[$j] == 1){
                 $perkara->setNoLimpahPk($NoPutusan[$j]);

@@ -1,4 +1,5 @@
 <?php use_helper('Fungsi'); ?>
+<?php use_helper('Dnt'); ?>
 <form method="post" action="<?php echo url_for('barangRampasan/update') ?>">
 <input type="hidden" name="sf_method" value="put" />
 <input type="hidden" name="nilaiConter" id="nilaiConterRampasan">

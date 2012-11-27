@@ -1,4 +1,5 @@
 <?php use_helper('Fungsi'); ?>
+<?php use_helper('Dnt'); ?>
 <form action="<?php echo url_for('dntdatun/update') ?>" method="post" enctype="multipart/form-data">
 	<ul class="nav nav-tabs" id="tabTersangka">
 		<?php for ($i=1; $i <= count($tersangka) ; $i++) { ?>

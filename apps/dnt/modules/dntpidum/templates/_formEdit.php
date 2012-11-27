@@ -1,6 +1,7 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 <?php use_helper('Fungsi'); ?>
+<?php use_helper('Dnt'); ?>
 <?php 
     foreach ($pdm_perkara as $perkara) {
       # code...

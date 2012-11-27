@@ -1,95 +1,331 @@
-<?php
-// Create new PHPExcel object
-/*$objPHPExcel = new PHPExcel();
-
-// Set document properties
-$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("Office 2007 XLSX Test Document")
-							 ->setSubject("Office 2007 XLSX Test Document")
-							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-							 ->setKeywords("office 2007 openxml php")
-							 ->setCategory("Test result file");
-
-
-// Add some data
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'No')
-            ->setCellValue('B1', 'Nomor Perkara')
-            ->setCellValue('C1', 'Nomor dan Tanggal putusan inkrah')
-            ->setCellValue('D1', 'Terpidana')
-            ->setCellValue('E1', 'Denda')
-			->setCellValue('G1', 'Biaya Perkara')
-			->setCellValue('H1', 'Uang rampasan / Temuan')
-			->setCellValue('I1', 'Hasil lelang barang rampasan')
-			->setCellValue('J1', 'Jumlah hasil dinas')
-			->setCellValue('K1', 'Keterangan')
-			->setCellValue('E2', 'APB')
-			->setCellValue('F2', 'APS');
-
-// Add data
-//echo count($test);
-/*for ($i = 3; $i <= 50; $i++) {
-	foreach($test as $test){
-		$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "FName".$test['NAMA']);
-		$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, "LName $i");
-		$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "PhoneNo $i");
-		$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, "FaxNo $i");
-		$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, true);
+<?php use_helper('Pagination') ?>
+<script type="text/javascript">
+	
+	/* API method to get paging information */
+	$.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
+	{
+		return {
+			"iStart":         oSettings._iDisplayStart,
+			"iEnd":           oSettings.fnDisplayEnd(),
+			"iLength":        oSettings._iDisplayLength,
+			"iTotal":         oSettings.fnRecordsTotal(),
+			"iFilteredTotal": oSettings.fnRecordsDisplay(),
+			"iPage":          Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
+			"iTotalPages":    Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
+		};
 	}
-		
-}*/
+	/* Bootstrap style pagination control */
+	$.extend( $.fn.dataTableExt.oPagination, {
+		"bootstrap": {
+			"fnInit": function( oSettings, nPaging, fnDraw ) {
+				var oLang = oSettings.oLanguage.oPaginate;
+				var fnClickHandler = function ( e ) {
+					e.preventDefault();
+					if ( oSettings.oApi._fnPageChange(oSettings, e.data.action) ) {
+						fnDraw( oSettings );
+					}
+				};
 
-/*foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
-	echo 'Worksheet - ' , $worksheet->getTitle() , EOL;
+				$(nPaging).addClass('pagination').append(
+					'<ul>'+
+						'<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
+						'<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
+					'</ul>'
+				);
+				var els = $('a', nPaging);
+				$(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
+				$(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
+			},
 
-	foreach ($worksheet->getRowIterator() as $row) {
-		echo '    Row number - ' , $row->getRowIndex();
+			"fnUpdate": function ( oSettings, fnDraw ) {
+				var iListLength = 5;
+				var oPaging = oSettings.oInstance.fnPagingInfo();
+				var an = oSettings.aanFeatures.p;
+				var i, j, sClass, iStart, iEnd, iHalf=Math.floor(iListLength/2);
 
-		$cellIterator = $row->getCellIterator();
-		$cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
-		foreach ($cellIterator as $cell) {
-			if (!is_null($cell)) {
-				echo '        Cell - ' , $cell->getCoordinate() , ' - ' , $cell->getCalculatedValue();
+				if ( oPaging.iTotalPages < iListLength) {
+					iStart = 1;
+					iEnd = oPaging.iTotalPages;
+				}
+				else if ( oPaging.iPage <= iHalf ) {
+					iStart = 1;
+					iEnd = iListLength;
+				} else if ( oPaging.iPage >= (oPaging.iTotalPages-iHalf) ) {
+					iStart = oPaging.iTotalPages - iListLength + 1;
+					iEnd = oPaging.iTotalPages;
+				} else {
+					iStart = oPaging.iPage - iHalf + 1;
+					iEnd = iStart + iListLength - 1;
+				}
+
+				for ( i=0, iLen=an.length ; i<iLen ; i++ ) {
+					// Remove the middle elements
+					$('li:gt(0)', an[i]).filter(':not(:last)').remove();
+
+					// Add the new list items and their event handlers
+					for ( j=iStart ; j<=iEnd ; j++ ) {
+						sClass = (j==oPaging.iPage+1) ? 'class="active"' : '';
+						$('<li '+sClass+'><a href="#">'+j+'</a></li>')
+							.insertBefore( $('li:last', an[i])[0] )
+							.bind('click', function (e) {
+								e.preventDefault();
+								oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
+								fnDraw( oSettings );
+							} );
+					}
+
+					// Add / remove disabled classes from the static elements
+					if ( oPaging.iPage === 0 ) {
+						$('li:first', an[i]).addClass('disabled');
+					} else {
+						$('li:first', an[i]).removeClass('disabled');
+					}
+
+					if ( oPaging.iPage === oPaging.iTotalPages-1 || oPaging.iTotalPages === 0 ) {
+						$('li:last', an[i]).addClass('disabled');
+					} else {
+						$('li:last', an[i]).removeClass('disabled');
+					}
+				}
 			}
 		}
+	} );
+	
+	/* Table initialisation */
+	$(document).ready(function() {
+		oTable = $('#table_index_pidum').dataTable( {
+			"bProcessing": true,
+			"bServerSide": true,
+			"bFilter":false,
+			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+			"sPaginationType": "bootstrap",
+			"oLanguage": {
+				"sSearch": '',
+				"sLengthMenu": '',
+				"sZeroRecords": "Data tidak ditemukan",
+				"sInfo": "Tampilkan _START_ sampai _END_ baris dari jumlah total _TOTAL_ baris",
+				"sInfoEmpty": "Tampilkan 0 sampai 0 dari 0 jumlah baris",
+				"sInfoFiltered": "(Memfilter dari _MAX_ jumlah baris)",
+				"oPaginate": {
+					"sFirst": "Awal",
+					"sLast": "Akhir",
+					"sNext": "Berikutnya",
+					"sPrevious": "Sebelumnya"
+				}
+			},
+			"sAjaxSource": "<?php echo url_for('dntdatun/getDataIndexDatun') ?>",
+			
+			"fnServerData": function ( sSource, aoData, fnCallback ) {
+				/* Add some extra data to the sender */
+				aoData.push( { "name": "searchnya", "value": $("#cari_data_index_pidum").val() } );
+				aoData.push( { "name": "filter", "value": $("#filter_cari_index_pidum").val() } );
+				aoData.push( { "name": "kejati", "value": $("#idKejaksaan_IndexPidum").val() } );
+				aoData.push( { "name": "semuasub", "value": $("#semuasub_indexpidum").val() } );
+				$.getJSON( sSource, aoData, function (json) {
+					/* Do whatever additional processing you want on the callback, then tell DataTables */
+					fnCallback(json)
+					
+				} );
+				
+			}
+		} );
+		$('#tombol_cari_index_pidum').click(function() {
+			// Reload data based on choice
+			oTable.fnReloadAjax();
+		});
+	} );
+	$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+	{
+		
+		if ( typeof sNewSource != 'undefined' && sNewSource != null )
+		{
+			oSettings.sAjaxSource = sNewSource;
+		}
+		this.oApi._fnProcessingDisplay( oSettings, true );
+		var that = this;
+		var iStart = oSettings._iDisplayStart;
+		 
+		oSettings.fnServerData( oSettings.sAjaxSource, [], function(json) {
+			/* Clear the old information from the table */
+			that.oApi._fnClearTable( oSettings );
+			 
+			/* Got the data - add it to the table */
+		   for ( var i=0 ; i<json.aaData.length ; i++ )
+			{
+				that.oApi._fnAddData( oSettings, json.aaData[i] );
+			}
+			 
+			oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+			that.fnDraw( that );
+			 
+			if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+			{
+				oSettings._iDisplayStart = iStart;
+				that.fnDraw( false );
+			}
+			 
+			that.oApi._fnProcessingDisplay( oSettings, false );
+			 
+			/* Callback user function - for event handlers etc */
+			if ( typeof fnCallback == 'function' && fnCallback != null )
+			{
+				fnCallback( oSettings );
+			}
+		} );
 	}
+</script>
+<form method="post" action="<?php echo url_for('ReportDntPidum/report') ?>" class="form-horizontal">
+	<label>Kejaksaan <input type="text" class="input-xlarge-edit" name="txt_kejaksaan" id="txt_kejaksaan"><a data-toggle="modal" href="#myModal" data-target="#myModal" class="btn btn-warning">...</a><input name="semua_sub" type="checkbox" value="1">Semua Sub</label>
+	<input type="hidden" name="txt_kejaksaan_id" id="txt_kejaksaan_id" />
+	<label>Tanggal Pembayaran <input type="text" name="tgl_awal" class="span2-edit datepicker"> S/D <input type="text" name="tgl_akhir" class="span2-edit datepicker"></label>
+	<input type="submit" class="btn btn-warning" value="Generate Report"> 
+</form>
+
+<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">INSTANSI</h3>
+  </div>
+  <div class="modal-body">
+    <script type="text/javascript">
+ $(function(){
+       
+	  oTable = $('#tabelpilihkejati_pidum').dataTable({
+	    'bProcessing': true,
+	    'bServerSide': true,
+         //"bJQueryUI": true,
+		 "bSort": false,
+	    "sPaginationType": "bootstrap",
+            "sDom": '<"H"lr>t<"F"ip>',
+            "oLanguage": {
+						"sSearch": '',
+						"sLengthMenu": "",
+						"sZeroRecords": "Data tidak ditemukan",
+						"sInfo": "Tampilkan _START_ sampai _END_ baris dari jumlah total _TOTAL_ baris",
+						"sInfoEmpty": "Tampilkan 0 sampai 0 dari 0 jumlah baris",
+						"sInfoFiltered": "(Memfilter dari _MAX_ jumlah baris)",
+						"oPaginate": {
+                					"sFirst": "Awal",
+							"sLast": "Akhir",
+							"sNext": "Berikutnya",
+							"sPrevious": "Sebelumnya"
+            					}
+		
+
+					},
+	    'sAjaxSource': "<?php echo url_for('ReportDntPidum/getDataKejatiPidum') ?>",
+       //    "fnServerData": function ( sSource, aoData, fnCallback ) {
+     // $.getJSON( sSource, [ {"name": "searchnya", "value":$("#searchnya").val()} ], function (json) {
+     //     fnCallback(json)
+   // } );
+//}
+"fnServerData": function ( sSource, aoData, fnCallback ) {
+			/* Add some extra data to the sender */
+			aoData.push( { "name": "pilihanSearchKejati", "value": $("#pilihanSearchKejati").val() } );
+			aoData.push( { "name": "cariKejati", "value": $("#cariKejati").val() } );
+			aoData.push( { "name": "pilihkejatitab", "value": $("#pilihkejatitab").val() } );
+			//aoData.push( { "name": "semuasub", "value": $("#semuasub_indexpidum").val() } );
+			$.getJSON( sSource, aoData, function (json) {
+				/* Do whatever additional processing you want on the callback, then tell DataTables */
+				fnCallback(json)
+				
+			} );
+			
+		}
+
+       
+	 });
+		$('#tombolcarikejati_pidum').click(function() {
+   // Reload data based on choice
+   				oTable.fnReloadAjax();
+			});
+			
+     });
+  $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+{
+    if ( typeof sNewSource != 'undefined' && sNewSource != null )
+    {
+        oSettings.sAjaxSource = sNewSource;
+    }
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+     
+    oSettings.fnServerData( oSettings.sAjaxSource, [], function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+         
+        /* Got the data - add it to the table */
+       for ( var i=0 ; i<json.aaData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, json.aaData[i] );
+        }
+         
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw( that );
+         
+        if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.fnDraw( false );
+        }
+         
+        that.oApi._fnProcessingDisplay( oSettings, false );
+         
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback != null )
+        {
+            fnCallback( oSettings );
+        }
+    } );
 }
 
-// Rename worksheet
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+</script>
+<script type="text/javascript">
+	function goPilihKejati(value){
+		var satker = value.split("#");
+		$("#txt_kejaksaan_id").val(satker[0]);
+		$("#txt_kejaksaan").val(satker[1]);
+	}
+</script>
+<div class="form_row"> <label for="kriteria">Filter</label>
+    <select id="pilihanSearchKejati" class="ncus" name="pilihanSearchKejati">
+    	<option value="" selected>Pilih</option>
+        <option value="1" selected>Kode</option>
+        <option value="2">Nama</option>
+    </select>
+    <input align="left" type="text" name="cariKejati" id="cariKejati" >
+    <input type="submit" name="cari" class="btn" id="tombolcarikejati_pidum" value="Cari">
+    <input type="hidden" name="pilihkejatitab" id="pilihkejatitab" value="<?php echo $idkejati; ?>" />
+</div>
 
-$objPHPExcel->getActiveSheet()->mergeCells('A1:A2');
-$objPHPExcel->getActiveSheet()->mergeCells('B1:B2');
-$objPHPExcel->getActiveSheet()->mergeCells('C1:C2');
-$objPHPExcel->getActiveSheet()->mergeCells('D1:D2');
-$objPHPExcel->getActiveSheet()->mergeCells('G1:G2');
-$objPHPExcel->getActiveSheet()->mergeCells('H1:H2');
-$objPHPExcel->getActiveSheet()->mergeCells('I1:I2');
-$objPHPExcel->getActiveSheet()->mergeCells('J1:J2');
-$objPHPExcel->getActiveSheet()->mergeCells('K1:K2');
-$objPHPExcel->getActiveSheet()->mergeCells('E1:F1');
-$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
-$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
-
-$objPHPExcel->getActiveSheet()->getStyle('E1:F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
-//$objPHPExcel->setActiveSheetIndex(0);
-
-
-// Redirect output to a client’s web browser (Excel5)
-header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename="01simple.xls"');
-header('Cache-Control: max-age=0');
-
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save('php://output');
-exit;*/
+<div id="list-kejati">
+<table class="table table-bordered" id="tabelpilihkejati_pidum" cellspacing="1" width="100%">
+  <thead style="background: #b46a01 ;">
+    <tr >
+        <th width="20%" style="text-align: center; color: #FFFFFF;"><font size="2px"> KODE </font></th>
+      <th width="70%" style="text-align: center; color: #FFFFFF;"><font size="2px">SATKER </font></th>
+      <th width="10%" style="text-align: center; color: #FFFFFF;"><font size="2px">PILIH </font></th>
+    </tr>
+  </thead>
+ <tbody>
+  
+  </tbody>
+</table>
+</div>
+  </div>
+  
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		  $( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  showOn: "button",
+			  buttonImage: "<?php echo image_path('calendar.gif') ?>",
+			  buttonImageOnly: true,
+			  yearRange: '1910:+0',
+			  dateFormat: 'dd-mm-yy',
+		  });
+	  });
+</script>
