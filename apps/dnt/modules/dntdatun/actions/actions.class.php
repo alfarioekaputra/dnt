@@ -261,32 +261,42 @@ class dntdatunActions extends sfActions
           $sisa_rp = $request->getParameter('sisa_rp'.$a);
           $sisa_usd = $request->getParameter('sisa_usd'.$a);
           $tgl_bayar = $request->getParameter('tgl_bayar'.$a);
-          print_r($id_dtn_pup = $request->getParameter('id_dtn_pup'. $a));
+          $id_dtn_pup = $request->getParameter('id_dtn_pup'. $a);
+          
+          $new_jml_byr_rp = $request->getParameter('new_jml_bayar_rp'.$a);
+          $new_jml_byr_usd = $request->getParameter('new_jml_bayar_usd'.$a);
+          $new_sisa_rp = $request->getParameter('new_sisa_rp'.$a);
+          $new_sisa_usd = $request->getParameter('new_sisa_usd'.$a);
+          $new_tgl_bayar = $request->getParameter('new_tgl_bayar'.$a);
           
           $id_pembayaran = $request->getParameter('id_pembayaran');
           
-          for($b = 0; $b < count($jml_byr_rp); $b++){
-            if($id_pembayaran[$b] == ''){
+          for($b = 0; $b < count($new_jml_byr_rp); $b++){
+            if($new_jml_byr_rp[$b] != ''){
               $pupDetail = new DTN_PUP_PEMBAYARAN_PDS();
               $pupDetail->setIdPup($id_dtn_pup[$b]);
-              $pupDetail->setBayarRupiah($jml_byr_rp[$b]);
-              $pupDetail->setBayarLainnya($jml_byr_usd[$b]);
-              $pupDetail->setSisaRupiah($sisa_rp[$b]);
-              $pupDetail->setSisaLainnya($sisa_usd[$b]);
-              $pupDetail->setTglBuktiSetor(setTanggal($tgl_bayar[$b]));
+              $pupDetail->setBayarRupiah($new_jml_byr_rp[$b]);
+              $pupDetail->setBayarLainnya($new_jml_byr_usd[$b]);
+              $pupDetail->setSisaRupiah($new_sisa_rp[$b]);
+              $pupDetail->setSisaLainnya($new_sisa_usd[$b]);
+              $pupDetail->setTglBuktiSetor(setTanggal($new_tgl_bayar[$b]));
               $pupDetail->save();
-            }else{
-              $updatePup = Doctrine_Query::create()
-              ->update('DTN_PUP_PEMBAYARAN_PDS')
-              ->set('BAYAR_RUPIAH', '?', $jml_byr_rp[$b])
-              ->set('BAYAR_LAINNYA', '?', $jml_byr_usd[$b])
-              ->set('SISA_RUPIAH', '?', $sisa_rp[$b])
-              ->set('SISA_LAINNYA', '?', $sisa_usd[$b])
-              ->set('TGL_BUKTI_SETOR', '?', setTanggal($tgl_bayar[$i]))
-              ->where('ID = '.$id_pembayaran[$b])
-              ->execute();
             }
-          }
+           }
+           
+           for($c = 0; $c < count($jml_byr_rp); $c++){
+			   if($jml_byr_rp[$c] != ''){
+				  $updatePup = Doctrine_Query::create()
+				  ->update('DTN_PUP_PEMBAYARAN_PDS')
+				  ->set('BAYAR_RUPIAH', '?', $jml_byr_rp[$c])
+				  ->set('BAYAR_LAINNYA', '?', $jml_byr_usd[$c])
+				  ->set('SISA_RUPIAH', '?', $sisa_rp[$c])
+				  ->set('SISA_LAINNYA', '?', $sisa_usd[$c])
+				  ->set('TGL_BUKTI_SETOR', '?', setTanggal($tgl_bayar[$i]))
+				  ->where('ID = '.$id_pembayaran[$c])
+				  ->execute();
+				}
+           }
         }
       }
       //$this->redirect('dntdatun/edit?id='.$request->getParameter('id_perkara').'&kode_satker=00');

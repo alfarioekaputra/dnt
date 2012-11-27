@@ -44,10 +44,10 @@
 					//echo $pup['NO_SKK'];
 					endforeach;
 					
-					$pup = $pup['ID'] ? $pup['ID'] : '';
+					//$pup = $pup['ID'] ? $pup['ID'] : '';
 				?>
-				<input type="hidden" name="id_pup[]" value="<?php echo $pup ?>">
-				<input type="hidden" name="id_dtn_pup<?php echo $m ?>[]" value="<?php echo $pup ?>">
+				<input type="hidden" name="id_pup[]" value="<?php echo $pup['ID'] ?>">
+				<input type="hidden" name="id_dtn_pup<?php echo $m ?>[]" value="<?php echo $pup['ID'] ?>">
 				<div class="form-inline">
 					<label class="span2">No/Tgl SKK</label>
 					<input type="text" name="no_skk[]" value="<?php echo $pup['NO_SKK'] ?>">
@@ -77,6 +77,7 @@
 								<th>Sisa Pembayaran (Rp.)</th>
 								<th>Sisa Pembayaran <br /> (Mata Uang Lain)</th>
 								<th>Tanggal</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -109,6 +110,9 @@
 									<div class="input-prepend-edit-date">
 										<input type="text" class="datepicker span2-edit datepicker" name="tgl_bayar<?php echo $m ?>[]" value="<?php echo $dtnPembayaran['TGL_BUKTI_SETOR'] ?>">
 									</div>
+								</td>
+								<td>
+									<input type="button" class="btn btn-danger" value="Hapus">
 								</td>
 							</tr>
 							<?php $s++; endforeach;?>
@@ -157,28 +161,31 @@
 			'<tr id="datatr'+value+'_'+randomnumber+'">'+
 				'<td>'+
 					'<div class="input-prepend-edit">'+
-						'<span class="add-on">Rp.</span><input type="text" name="jml_bayar_rp'+value+'[]" class="span2" id="setor_rp_'+value+'_'+randomnumber+'" onkeyup=hitungrp(\''+value+'\',\''+randomnumber+'\')>'+
+						'<span class="add-on">Rp.</span><input type="text" name="new_jml_bayar_rp'+value+'[]" class="span2" id="setor_rp_'+value+'_'+randomnumber+'" onkeyup=hitungrp(\''+value+'\',\''+randomnumber+'\')>'+
 					'</div>'+
 				'</td>'+
 				'<td>'+
 					'<div class="input-prepend-edit">'+
-						'<span class="add-on">$</span><input type="text" name="jml_bayar_usd'+value+'[]" class="span2" id="setor_usd_'+value+'_'+randomnumber+'" onkeyup=hitungusd(\''+value+'\',\''+randomnumber+'\') >'+
+						'<span class="add-on">$</span><input type="text" name="new_jml_bayar_usd'+value+'[]" class="span2" id="setor_usd_'+value+'_'+randomnumber+'" onkeyup=hitungusd(\''+value+'\',\''+randomnumber+'\') >'+
 					'</div>'+
 				'</td>'+
 				'<td>'+
 					'<div class="input-prepend-edit">'+
-						'<span class="add-on">Rp.</span><input type="text" name="sisa_rp'+value+'[]" class="span2" id="sisa_rp_'+value+'_'+randomnumber+'" >'+
+						'<span class="add-on">Rp.</span><input type="text" name="new_sisa_rp'+value+'[]" class="span2" id="sisa_rp_'+value+'_'+randomnumber+'" >'+
 					'</div>'+
 				'</td>'+
 				'<td>'+
 					'<div class="input-prepend-edit">'+
-						'<span class="add-on">$</span><input type="text" name="sisa_usd'+value+'[]" class="span2" id="sisa_usd_'+value+'_'+randomnumber+'" >'+
+						'<span class="add-on">$</span><input type="text" name="new_sisa_usd'+value+'[]" class="span2" id="sisa_usd_'+value+'_'+randomnumber+'" >'+
 					'</div>'+
 				'</td>'+
 				'<td>'+
 					'<div class="input-prepend-edit-date">' +
-						'<input type="text" class="datepicker span2-edit datepicker" name="tgl_bayar'+value+'[]">'+
+						'<input type="text" class="datepicker span2-edit datepicker" name="new_tgl_bayar'+value+'[]">'+
 					'</div>' +
+				'</td>'+
+				'<td>'+
+					'<input type="button" class="btn btn-danger" value="Hapus">'+
 				'</td>'+
 			'</tr>'
 		);

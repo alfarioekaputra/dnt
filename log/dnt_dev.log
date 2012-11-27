@@ -6573,3 +6573,1694 @@ Nov 27 11:29:04 symfony [info] {Doctrine_Connection_Oracle} query : select INST_
 Nov 27 11:29:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
 Nov 27 11:29:04 symfony [info] {sfWebResponse} Send header "Content-Type: application/json"
 Nov 27 11:29:04 symfony [info] {sfWebResponse} Send content (3701 o)
+Nov 27 13:59:21 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 13:59:21 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 13:59:21 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 13:59:21 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 13:59:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 13:59:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 13:59:21 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:21 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 13:59:21 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 13:59:21 symfony [info] {sfWebDebugLogger} Configuration 105.25 ms (9)
+Nov 27 13:59:21 symfony [info] {sfWebDebugLogger} Factories 94.11 ms (1)
+Nov 27 13:59:21 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 30.73 ms (1)
+Nov 27 13:59:21 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 13:59:21 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 22.02 ms (1)
+Nov 27 13:59:21 symfony [info] {sfWebResponse} Send content (49153 o)
+Nov 27 13:59:27 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 13:59:27 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 13:59:27 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 13:59:27 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 13:59:27 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 13:59:27 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 13:59:27 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 13:59:27 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (14, 1, 1, 0, 0, , 29)
+Nov 27 13:59:27 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 13:59:27 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 13:59:27 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:27 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:27 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 13:59:27 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 13:59:27 symfony [info] {sfWebDebugLogger} Configuration 0.85 ms (9)
+Nov 27 13:59:27 symfony [info] {sfWebDebugLogger} Factories 4.82 ms (1)
+Nov 27 13:59:27 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 46.79 ms (1)
+Nov 27 13:59:27 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (5)
+Nov 27 13:59:27 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 2.74 ms (1)
+Nov 27 13:59:27 symfony [info] {sfWebResponse} Send content (36114 o)
+Nov 27 13:59:46 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 13:59:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 13:59:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 13:59:46 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 13:59:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 13:59:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 13:59:46 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 13:59:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 13:59:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 13:59:46 symfony [info] {sfWebDebugLogger} Configuration 1.09 ms (9)
+Nov 27 13:59:46 symfony [info] {sfWebDebugLogger} Factories 4.04 ms (1)
+Nov 27 13:59:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 35.15 ms (1)
+Nov 27 13:59:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 13:59:46 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 13.84 ms (1)
+Nov 27 13:59:46 symfony [info] {sfWebResponse} Send content (49148 o)
+Nov 27 13:59:59 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 13:59:59 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 13:59:59 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 13:59:59 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (14, 1, 1, 0, 0, , 30)
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:00:00 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Configuration 0.77 ms (8)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Factories 4.90 ms (1)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 75.09 ms (1)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (5)
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:00:00 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:00:00 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:00:00 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:00:00 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:00:00 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:00:00 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:00:00 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:00:00 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Configuration 0.85 ms (9)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Factories 3.65 ms (1)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 32.55 ms (1)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:00:00 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 16.14 ms (1)
+Nov 27 14:00:00 symfony [info] {sfWebResponse} Send content (49250 o)
+Nov 27 14:04:50 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:04:50 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:04:50 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:04:50 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:04:50 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:50 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:50 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:50 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:50 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:04:50 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:04:50 symfony [info] {sfWebDebugLogger} Configuration 0.82 ms (9)
+Nov 27 14:04:50 symfony [info] {sfWebDebugLogger} Factories 3.98 ms (1)
+Nov 27 14:04:50 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.67 ms (1)
+Nov 27 14:04:50 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:04:50 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.31 ms (1)
+Nov 27 14:04:50 symfony [info] {sfWebResponse} Send content (49302 o)
+Nov 27 14:04:53 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:04:53 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:04:53 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:04:53 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:04:53 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:53 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:53 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:53 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:53 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:04:53 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:04:53 symfony [info] {sfWebDebugLogger} Configuration 0.81 ms (9)
+Nov 27 14:04:53 symfony [info] {sfWebDebugLogger} Factories 3.69 ms (1)
+Nov 27 14:04:53 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.63 ms (1)
+Nov 27 14:04:53 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:04:53 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 9.37 ms (1)
+Nov 27 14:04:53 symfony [info] {sfWebResponse} Send content (49324 o)
+Nov 27 14:04:58 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:04:58 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:04:58 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:04:58 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:04:58 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:04:58 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:04:58 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:04:58 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:04:58 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:04:58 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:04:58 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:04:58 symfony [info] {sfWebDebugLogger} Configuration 0.69 ms (8)
+Nov 27 14:04:58 symfony [info] {sfWebDebugLogger} Factories 3.53 ms (1)
+Nov 27 14:04:58 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 40.17 ms (1)
+Nov 27 14:04:58 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (3)
+Nov 27 14:04:58 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:04:58 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:04:59 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:04:59 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:04:59 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:04:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:04:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:04:59 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:04:59 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:04:59 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:04:59 symfony [info] {sfWebDebugLogger} Configuration 0.78 ms (9)
+Nov 27 14:04:59 symfony [info] {sfWebDebugLogger} Factories 3.33 ms (1)
+Nov 27 14:04:59 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.32 ms (1)
+Nov 27 14:04:59 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:04:59 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.11 ms (1)
+Nov 27 14:04:59 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:05:28 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:05:28 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:05:28 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:05:28 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:05:28 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Configuration 1.34 ms (8)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Factories 4.08 ms (1)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 50.22 ms (1)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (3)
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:05:28 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:05:28 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:05:28 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:05:28 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:05:28 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:05:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:05:28 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:05:28 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Configuration 0.82 ms (9)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Factories 3.31 ms (1)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.97 ms (1)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:05:28 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 12.56 ms (1)
+Nov 27 14:05:28 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:05:46 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:05:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:05:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:05:46 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:05:46 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Configuration 0.72 ms (8)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Factories 4.02 ms (1)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 54.18 ms (1)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (3)
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:05:46 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:05:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:05:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:05:46 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:05:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:05:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:05:46 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:05:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Configuration 0.85 ms (9)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Factories 3.50 ms (1)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 31.19 ms (1)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:05:46 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 12.12 ms (1)
+Nov 27 14:05:46 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:06:19 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:06:19 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:06:19 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:06:19 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:06:19 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:06:19 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:06:19 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:06:19 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:06:19 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:06:19 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:06:19 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:06:19 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:06:19 symfony [info] {sfWebDebugLogger} Configuration 1.09 ms (9)
+Nov 27 14:06:19 symfony [info] {sfWebDebugLogger} Factories 3.85 ms (1)
+Nov 27 14:06:19 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 49.53 ms (1)
+Nov 27 14:06:19 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (3)
+Nov 27 14:06:19 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 10.65 ms (1)
+Nov 27 14:06:19 symfony [info] {sfWebResponse} Send content (34188 o)
+Nov 27 14:08:26 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:09:16 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:09:16 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:09:16 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:09:16 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (14, 1, 1, 0, 0, , 31)
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:09:16 symfony [info] {Doctrine_Connection_Oracle} exec : UPDATE DTN_PUP_PEMBAYARAN_PDS SET BAYAR_RUPIAH = ?, BAYAR_LAINNYA = ?, SISA_RUPIAH = ?, SISA_LAINNYA = ?, TGL_BUKTI_SETOR = ? WHERE (ID  ) - ()
+Nov 27 14:09:16 symfony [err] {Doctrine_Connection_Oracle_Exception} ORA-00920: invalid relational operator : UPDATE DTN_PUP_PEMBAYARAN_PDS SET BAYAR_RUPIAH = :oci_b_var_1, BAYAR_LAINNYA = :oci_b_var_2, SISA_RUPIAH = :oci_b_var_3, SISA_LAINNYA = :oci_b_var_4, TGL_BUKTI_SETOR = :oci_b_var_5 WHERE (ID  ). Failing Query: "UPDATE DTN_PUP_PEMBAYARAN_PDS SET BAYAR_RUPIAH = ?, BAYAR_LAINNYA = ?, SISA_RUPIAH = ?, SISA_LAINNYA = ?, TGL_BUKTI_SETOR = ? WHERE (ID  )"
+Nov 27 14:09:16 symfony [info] {sfWebResponse} Send status "HTTP/1.1 500 Internal Server Error"
+Nov 27 14:09:16 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:09:16 symfony [info] {sfWebDebugLogger} Configuration 0.66 ms (8)
+Nov 27 14:09:16 symfony [info] {sfWebDebugLogger} Factories 3.59 ms (1)
+Nov 27 14:09:16 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 160.15 ms (1)
+Nov 27 14:09:16 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (5)
+Nov 27 14:12:36 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:12:36 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:12:36 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:12:36 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:12:36 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:12:36 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:12:36 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:12:36 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (14, 1, 1, 0, 0, , 32)
+Nov 27 14:12:36 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:12:36 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:12:36 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:12:36 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:12:36 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:12:36 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:12:36 symfony [info] {sfWebDebugLogger} Configuration 0.86 ms (9)
+Nov 27 14:12:36 symfony [info] {sfWebDebugLogger} Factories 7.09 ms (1)
+Nov 27 14:12:36 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 49.70 ms (1)
+Nov 27 14:12:36 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (5)
+Nov 27 14:12:36 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 5.51 ms (1)
+Nov 27 14:12:36 symfony [info] {sfWebResponse} Send content (36184 o)
+Nov 27 14:12:43 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:12:43 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:12:43 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:12:43 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:12:43 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:12:43 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:12:43 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:12:43 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:12:43 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:12:43 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:12:43 symfony [info] {sfWebDebugLogger} Configuration 0.81 ms (9)
+Nov 27 14:12:43 symfony [info] {sfWebDebugLogger} Factories 3.59 ms (1)
+Nov 27 14:12:43 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 27.93 ms (1)
+Nov 27 14:12:43 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:12:43 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.49 ms (1)
+Nov 27 14:12:43 symfony [info] {sfWebResponse} Send content (49168 o)
+Nov 27 14:13:12 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:13:12 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:13:12 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:13:12 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:13:12 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:13:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:13:12 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:13:12 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:13:12 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:13:12 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:13:12 symfony [info] {sfWebDebugLogger} Configuration 1.03 ms (9)
+Nov 27 14:13:12 symfony [info] {sfWebDebugLogger} Factories 3.78 ms (1)
+Nov 27 14:13:12 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 32.24 ms (1)
+Nov 27 14:13:12 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:13:12 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 19.50 ms (1)
+Nov 27 14:13:12 symfony [info] {sfWebResponse} Send content (49223 o)
+Nov 27 14:13:18 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:13:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:13:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:13:18 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 14 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (14, 1, 1, 0, 0, , 33)
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 15 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:13:18 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Configuration 0.75 ms (8)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Factories 4.81 ms (1)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 77.09 ms (1)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (5)
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:13:18 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:13:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:13:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:13:18 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:13:18 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:13:18 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:13:18 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:13:18 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Configuration 1.11 ms (9)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Factories 3.91 ms (1)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 28.12 ms (1)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:13:18 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 13.38 ms (1)
+Nov 27 14:13:18 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:15:09 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:15:09 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:15:09 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:15:09 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:15:09 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:09 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:15:09 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:09 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:09 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:15:09 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:15:09 symfony [info] {sfWebDebugLogger} Configuration 0.83 ms (9)
+Nov 27 14:15:09 symfony [info] {sfWebDebugLogger} Factories 3.29 ms (1)
+Nov 27 14:15:09 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 28.15 ms (1)
+Nov 27 14:15:09 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:15:09 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 16.20 ms (1)
+Nov 27 14:15:09 symfony [info] {sfWebResponse} Send content (71228 o)
+Nov 27 14:15:45 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:15:45 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:15:45 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:15:45 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:15:45 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:45 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:15:45 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:45 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:15:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:15:46 symfony [info] {sfWebDebugLogger} Configuration 0.99 ms (9)
+Nov 27 14:15:46 symfony [info] {sfWebDebugLogger} Factories 3.26 ms (1)
+Nov 27 14:15:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 31.38 ms (1)
+Nov 27 14:15:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:15:46 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 22.35 ms (1)
+Nov 27 14:15:46 symfony [info] {sfWebResponse} Send content (49306 o)
+Nov 27 14:15:57 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:15:57 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:15:57 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:15:57 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:15:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:15:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:15:57 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:15:57 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:15:57 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:15:57 symfony [info] {sfWebDebugLogger} Configuration 0.87 ms (9)
+Nov 27 14:15:57 symfony [info] {sfWebDebugLogger} Factories 3.71 ms (1)
+Nov 27 14:15:57 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.48 ms (1)
+Nov 27 14:15:57 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:15:57 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 12.45 ms (1)
+Nov 27 14:15:57 symfony [info] {sfWebResponse} Send content (49329 o)
+Nov 27 14:16:52 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:16:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:16:52 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:16:52 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:16:52 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '15' order by id - ()
+Nov 27 14:16:52 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:16:52 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:16:52 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:16:52 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:16:52 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:16:52 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (9)
+Nov 27 14:16:52 symfony [info] {sfWebDebugLogger} Factories 3.57 ms (1)
+Nov 27 14:16:52 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.08 ms (1)
+Nov 27 14:16:52 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (8)
+Nov 27 14:16:52 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 17.85 ms (1)
+Nov 27 14:16:52 symfony [info] {sfWebResponse} Send content (50818 o)
+Nov 27 14:17:05 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:17:05 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:17:05 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:17:05 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:17:05 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '15' order by id - ()
+Nov 27 14:17:05 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:17:05 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:17:05 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:17:05 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:17:05 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:17:05 symfony [info] {sfWebDebugLogger} Configuration 0.82 ms (9)
+Nov 27 14:17:05 symfony [info] {sfWebDebugLogger} Factories 3.55 ms (1)
+Nov 27 14:17:05 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 28.09 ms (1)
+Nov 27 14:17:05 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (8)
+Nov 27 14:17:05 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 14.14 ms (1)
+Nov 27 14:17:05 symfony [info] {sfWebResponse} Send content (55089 o)
+Nov 27 14:18:21 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:18:21 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:18:21 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:18:21 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:18:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:21 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:21 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:18:21 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:18:21 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:18:21 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:18:21 symfony [info] {sfWebDebugLogger} Configuration 0.99 ms (9)
+Nov 27 14:18:21 symfony [info] {sfWebDebugLogger} Factories 3.39 ms (1)
+Nov 27 14:18:21 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 31.48 ms (1)
+Nov 27 14:18:21 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (8)
+Nov 27 14:18:21 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 18.93 ms (1)
+Nov 27 14:18:21 symfony [info] {sfWebResponse} Send content (50814 o)
+Nov 27 14:18:38 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:18:38 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:18:38 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:18:38 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:18:38 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:18:38 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:18:38 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:18:51 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:18:51 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:18:51 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:18:51 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:18:51 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '14' order by id - ()
+Nov 27 14:18:51 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:18:51 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:18:51 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:18:51 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:18:51 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:18:51 symfony [info] {sfWebDebugLogger} Configuration 0.90 ms (9)
+Nov 27 14:18:51 symfony [info] {sfWebDebugLogger} Factories 3.61 ms (1)
+Nov 27 14:18:51 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 30.58 ms (1)
+Nov 27 14:18:51 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.06 ms (8)
+Nov 27 14:18:51 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 25.00 ms (1)
+Nov 27 14:18:51 symfony [info] {sfWebResponse} Send content (50818 o)
+Nov 27 14:19:02 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:19:02 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:19:02 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:19:02 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:19:02 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:19:02 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:19:02 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:19:02 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:19:02 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:19:02 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:19:02 symfony [info] {sfWebDebugLogger} Configuration 0.83 ms (9)
+Nov 27 14:19:02 symfony [info] {sfWebDebugLogger} Factories 4.98 ms (1)
+Nov 27 14:19:02 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 58.08 ms (1)
+Nov 27 14:19:02 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:19:02 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 11.38 ms (1)
+Nov 27 14:19:02 symfony [info] {sfWebResponse} Send content (49303 o)
+Nov 27 14:20:01 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:20:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:20:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:20:01 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:20:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Undefined variable: pup)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 53 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 54 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 61 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 64 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 84 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 125 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 53 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 54 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 61 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 64 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 84 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:20:01 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 125 (Uninitialized string offset: 0)
+Nov 27 14:20:01 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:20:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:20:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:20:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:20:01 symfony [info] {sfWebDebugLogger} Configuration 0.86 ms (9)
+Nov 27 14:20:01 symfony [info] {sfWebDebugLogger} Factories 3.66 ms (1)
+Nov 27 14:20:01 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 30.00 ms (1)
+Nov 27 14:20:01 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:20:01 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 15.70 ms (1)
+Nov 27 14:20:02 symfony [info] {sfWebResponse} Send content (50923 o)
+Nov 27 14:22:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:22:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:22:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:22:20 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:22:20 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Undefined variable: pup)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 65 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 68 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 88 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 129 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 65 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 68 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 88 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:22:20 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 129 (Uninitialized string offset: 0)
+Nov 27 14:22:20 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:22:20 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:22:20 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:22:20 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:22:20 symfony [info] {sfWebDebugLogger} Configuration 1.02 ms (9)
+Nov 27 14:22:20 symfony [info] {sfWebDebugLogger} Factories 3.60 ms (1)
+Nov 27 14:22:20 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 31.23 ms (1)
+Nov 27 14:22:20 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:22:20 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 25.42 ms (1)
+Nov 27 14:22:20 symfony [info] {sfWebResponse} Send content (51399 o)
+Nov 27 14:22:59 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:22:59 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:22:59 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:22:59 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:22:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Undefined variable: pup)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 66 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 69 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 66 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 69 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:22:59 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:22:59 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:22:59 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:22:59 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:22:59 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:22:59 symfony [info] {sfWebDebugLogger} Configuration 1.05 ms (9)
+Nov 27 14:22:59 symfony [info] {sfWebDebugLogger} Factories 4.56 ms (1)
+Nov 27 14:22:59 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 59.70 ms (1)
+Nov 27 14:22:59 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.04 ms (6)
+Nov 27 14:22:59 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 26.82 ms (1)
+Nov 27 14:22:59 symfony [info] {sfWebResponse} Send content (51398 o)
+Nov 27 14:23:27 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:23:27 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:23:27 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:23:27 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:23:27 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Undefined variable: pup)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:23:27 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:23:27 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:23:27 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:23:27 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:23:27 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:23:27 symfony [info] {sfWebDebugLogger} Configuration 1.06 ms (9)
+Nov 27 14:23:27 symfony [info] {sfWebDebugLogger} Factories 4.59 ms (1)
+Nov 27 14:23:27 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 58.39 ms (1)
+Nov 27 14:23:27 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:23:27 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 25.42 ms (1)
+Nov 27 14:23:27 symfony [info] {sfWebResponse} Send content (50922 o)
+Nov 27 14:23:46 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:23:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:23:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:23:46 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PDS (no_skk, tgl_skk, pup_rupiah, pup_lainnya, keterangan, id_perkara, id_tersangka, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) - (asd, 2012/11/21, 100, 100, fff, 2902, 1452, 16)
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PDS (no_skk, tgl_skk, pup_rupiah, pup_lainnya, keterangan, id_perkara, id_tersangka, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) - (asda, 2012/11/08, 200, 200, asd, 2902, 1453, 17)
+Nov 27 14:23:46 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Configuration 0.72 ms (8)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Factories 3.64 ms (1)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 93.25 ms (1)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.04 ms (5)
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:23:46 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:23:46 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:23:46 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:23:46 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:23:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:23:46 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:23:46 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:23:46 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Configuration 0.75 ms (9)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Factories 3.29 ms (1)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 27.68 ms (1)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:23:46 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.22 ms (1)
+Nov 27 14:23:46 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:24:57 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:24:57 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:24:57 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:24:57 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:24:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:24:57 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:24:57 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:24:57 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:24:57 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:24:57 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:24:57 symfony [info] {sfWebDebugLogger} Configuration 0.81 ms (9)
+Nov 27 14:24:57 symfony [info] {sfWebDebugLogger} Factories 4.57 ms (1)
+Nov 27 14:24:57 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 54.18 ms (1)
+Nov 27 14:24:57 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:24:57 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.88 ms (1)
+Nov 27 14:24:57 symfony [info] {sfWebResponse} Send content (49302 o)
+Nov 27 14:25:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:25:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:25:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:25:20 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 16 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (asdasd, 2012/01/18, 100, 100, 1)
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 17 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:25:20 symfony [info] {sfFrontWebController} Redirect to "http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send header "Location: http://localhost/dnt/web/dnt_dev.php/dntdatun/edit/id/2902/kode_satker/00"
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Configuration 0.72 ms (8)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Factories 3.77 ms (1)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 61.95 ms (1)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (3)
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send content (144 o)
+Nov 27 14:25:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:25:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:25:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:25:20 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:25:20 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:25:20 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:25:20 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:25:20 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Configuration 0.77 ms (9)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Factories 3.49 ms (1)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.02 ms (1)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:25:20 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.00 ms (1)
+Nov 27 14:25:20 symfony [info] {sfWebResponse} Send content (49270 o)
+Nov 27 14:25:42 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:25:42 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:25:42 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:25:42 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:25:42 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:25:42 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 16 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (wewew, 1970/01/01, 1, 1, 1)
+Nov 27 14:25:42 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 17 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (1, 1970/01/01, 1, 1, 1)
+Nov 27 14:25:42 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:25:42 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:25:42 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:25:42 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:25:42 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:25:42 symfony [info] {sfWebDebugLogger} Configuration 1.08 ms (9)
+Nov 27 14:25:42 symfony [info] {sfWebDebugLogger} Factories 4.47 ms (1)
+Nov 27 14:25:42 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 39.71 ms (1)
+Nov 27 14:25:42 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.01 ms (3)
+Nov 27 14:25:42 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 3.90 ms (1)
+Nov 27 14:25:42 symfony [info] {sfWebResponse} Send content (33831 o)
+Nov 27 14:26:06 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:26:06 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:26:06 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:26:06 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:26:06 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:26:06 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:26:06 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:26:06 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:26:06 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:26:06 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:26:06 symfony [info] {sfWebDebugLogger} Configuration 0.83 ms (9)
+Nov 27 14:26:06 symfony [info] {sfWebDebugLogger} Factories 4.57 ms (1)
+Nov 27 14:26:06 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 55.26 ms (1)
+Nov 27 14:26:06 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:26:06 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.72 ms (1)
+Nov 27 14:26:06 symfony [info] {sfWebResponse} Send content (49325 o)
+Nov 27 14:27:42 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:27:42 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:27:42 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:27:42 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:27:42 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Undefined variable: pup)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 47 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 48 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 49 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 50 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 51 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 52 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [notice] {sfWebDebugLogger}  Notice at /var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php on line 89 (Uninitialized string offset: 0)
+Nov 27 14:27:42 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '' order by id - ()
+Nov 27 14:27:42 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:27:42 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:27:42 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:27:42 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:27:42 symfony [info] {sfWebDebugLogger} Configuration 1.04 ms (9)
+Nov 27 14:27:42 symfony [info] {sfWebDebugLogger} Factories 4.61 ms (1)
+Nov 27 14:27:42 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 75.91 ms (1)
+Nov 27 14:27:42 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:27:42 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 19.49 ms (1)
+Nov 27 14:27:42 symfony [info] {sfWebResponse} Send content (50945 o)
+Nov 27 14:28:03 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:28:03 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:28:03 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:28:03 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:28:03 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:28:03 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:28:03 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PDS (no_skk, tgl_skk, pup_rupiah, pup_lainnya, keterangan, id_perkara, id_tersangka, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) - (asdsd, 2012/11/27, 100, 100, , 2902, 1452, 18)
+Nov 27 14:28:03 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:28:03 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PDS (no_skk, tgl_skk, pup_rupiah, pup_lainnya, keterangan, id_perkara, id_tersangka, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) - (, , , , , 2902, 1453, 19)
+Nov 27 14:28:03 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:28:03 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:03 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:03 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:28:03 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:28:03 symfony [info] {sfWebDebugLogger} Configuration 1.03 ms (9)
+Nov 27 14:28:03 symfony [info] {sfWebDebugLogger} Factories 3.81 ms (1)
+Nov 27 14:28:03 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 50.81 ms (1)
+Nov 27 14:28:03 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.04 ms (5)
+Nov 27 14:28:03 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 7.96 ms (1)
+Nov 27 14:28:03 symfony [info] {sfWebResponse} Send content (35390 o)
+Nov 27 14:28:12 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:28:12 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:28:12 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:28:12 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:28:12 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:28:12 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:28:12 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:12 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:12 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:28:12 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:28:12 symfony [info] {sfWebDebugLogger} Configuration 0.82 ms (9)
+Nov 27 14:28:12 symfony [info] {sfWebDebugLogger} Factories 3.65 ms (1)
+Nov 27 14:28:12 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 27.24 ms (1)
+Nov 27 14:28:12 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:28:12 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 9.31 ms (1)
+Nov 27 14:28:12 symfony [info] {sfWebResponse} Send content (49167 o)
+Nov 27 14:28:28 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:28:28 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:28:28 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:28:28 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:28:28 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:28:28 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:28:28 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:28 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:28:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:28:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:28:28 symfony [info] {sfWebDebugLogger} Configuration 0.97 ms (9)
+Nov 27 14:28:28 symfony [info] {sfWebDebugLogger} Factories 3.57 ms (1)
+Nov 27 14:28:28 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 32.43 ms (1)
+Nov 27 14:28:28 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:28:28 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 19.65 ms (1)
+Nov 27 14:28:28 symfony [info] {sfWebResponse} Send content (49168 o)
+Nov 27 14:29:17 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:29:17 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:29:17 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:29:17 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:29:17 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:29:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:29:17 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:29:17 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:29:17 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:29:17 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:29:17 symfony [info] {sfWebDebugLogger} Configuration 1.00 ms (9)
+Nov 27 14:29:17 symfony [info] {sfWebDebugLogger} Factories 3.53 ms (1)
+Nov 27 14:29:17 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 33.56 ms (1)
+Nov 27 14:29:17 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:29:17 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 19.83 ms (1)
+Nov 27 14:29:17 symfony [info] {sfWebResponse} Send content (49202 o)
+Nov 27 14:29:31 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:29:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:29:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:29:31 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:29:31 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:29:31 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:29:31 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:29:34 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:29:34 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:29:34 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:29:34 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:29:34 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:29:34 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:29:34 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:29:34 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:29:34 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:29:34 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:29:34 symfony [info] {sfWebDebugLogger} Configuration 0.88 ms (9)
+Nov 27 14:29:34 symfony [info] {sfWebDebugLogger} Factories 3.37 ms (1)
+Nov 27 14:29:34 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 30.87 ms (1)
+Nov 27 14:29:34 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:29:34 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 11.60 ms (1)
+Nov 27 14:29:34 symfony [info] {sfWebResponse} Send content (49205 o)
+Nov 27 14:30:01 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:30:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:30:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:30:01 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:30:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:30:01 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:30:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:30:01 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (9)
+Nov 27 14:30:01 symfony [info] {sfWebDebugLogger} Factories 3.38 ms (1)
+Nov 27 14:30:01 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 28.05 ms (1)
+Nov 27 14:30:01 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:30:01 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.09 ms (1)
+Nov 27 14:30:01 symfony [info] {sfWebResponse} Send content (49200 o)
+Nov 27 14:30:17 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:30:17 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:30:17 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:30:17 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:30:17 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:17 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '1' order by id - ()
+Nov 27 14:30:17 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:17 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:17 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:30:17 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:30:17 symfony [info] {sfWebDebugLogger} Configuration 1.20 ms (9)
+Nov 27 14:30:17 symfony [info] {sfWebDebugLogger} Factories 3.79 ms (1)
+Nov 27 14:30:17 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 30.52 ms (1)
+Nov 27 14:30:17 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.05 ms (6)
+Nov 27 14:30:17 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 19.39 ms (1)
+Nov 27 14:30:17 symfony [info] {sfWebResponse} Send content (49206 o)
+Nov 27 14:30:33 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:30:33 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:30:33 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:30:33 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:30:33 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '18' order by id - ()
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:30:33 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '19' order by id - ()
+Nov 27 14:30:33 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:33 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:30:33 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:30:33 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:30:33 symfony [info] {sfWebDebugLogger} Configuration 0.87 ms (9)
+Nov 27 14:30:33 symfony [info] {sfWebDebugLogger} Factories 3.56 ms (1)
+Nov 27 14:30:33 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 29.30 ms (1)
+Nov 27 14:30:33 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:30:33 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 28.40 ms (1)
+Nov 27 14:30:33 symfony [info] {sfWebResponse} Send content (49209 o)
+Nov 27 14:31:01 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:31:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:31:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:31:01 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:31:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '18' order by id - ()
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:01 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '19' order by id - ()
+Nov 27 14:31:01 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:01 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:31:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:31:01 symfony [info] {sfWebDebugLogger} Configuration 1.03 ms (9)
+Nov 27 14:31:01 symfony [info] {sfWebDebugLogger} Factories 4.55 ms (1)
+Nov 27 14:31:01 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 58.25 ms (1)
+Nov 27 14:31:01 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:31:01 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 18.14 ms (1)
+Nov 27 14:31:01 symfony [info] {sfWebResponse} Send content (49198 o)
+Nov 27 14:31:18 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:31:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:31:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:31:18 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:31:18 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:31:18 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 18 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (asdsd, 2012/11/27, 100, 100, sdsd)
+Nov 27 14:31:18 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:31:18 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (18, 10, 10, 90, 90, 2012/11/27, 34)
+Nov 27 14:31:18 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 19 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (, , , , )
+Nov 27 14:31:18 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:31:18 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:18 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:18 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:31:18 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:31:18 symfony [info] {sfWebDebugLogger} Configuration 0.86 ms (9)
+Nov 27 14:31:18 symfony [info] {sfWebDebugLogger} Factories 3.52 ms (1)
+Nov 27 14:31:18 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 56.54 ms (1)
+Nov 27 14:31:18 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (5)
+Nov 27 14:31:18 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 3.97 ms (1)
+Nov 27 14:31:18 symfony [info] {sfWebResponse} Send content (36147 o)
+Nov 27 14:31:26 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:31:26 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:31:26 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:31:26 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:31:26 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '18' order by id - ()
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:26 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '19' order by id - ()
+Nov 27 14:31:26 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:26 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:26 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:31:26 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:31:26 symfony [info] {sfWebDebugLogger} Configuration 0.86 ms (9)
+Nov 27 14:31:26 symfony [info] {sfWebDebugLogger} Factories 4.77 ms (1)
+Nov 27 14:31:26 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 59.57 ms (1)
+Nov 27 14:31:26 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:31:26 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.94 ms (1)
+Nov 27 14:31:26 symfony [info] {sfWebResponse} Send content (50559 o)
+Nov 27 14:31:50 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/update with parameters array (  'module' => 'dntdatun',  'action' => 'update',)
+Nov 27 14:31:50 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:31:50 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:31:50 symfony [info] {dntdatunActions} Call "dntdatunActions->executeUpdate()"
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 18 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1452) - (asdsd, 2012/11/27, 100, 100, sdsd)
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PEMBAYARAN_PDS SET BAYAR_RUPIAH = ?, BAYAR_LAINNYA = ?, SISA_RUPIAH = ?, SISA_LAINNYA = ?, TGL_BUKTI_SETOR = ? WHERE (ID = 3) - (10, 10, 90, 90, 2012/11/27)
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Statement} execute : UPDATE DTN_PUP_PDS SET NO_SKK = ?, TGL_SKK = ?, PUP_RUPIAH = ?, PUP_LAINNYA = ?, KETERANGAN = ? WHERE (ID = 19 AND ID_PERKARA = 2902 AND ID_TERSANGKA = 1453) - (asd, 2012/11/07, 200, 200, dfdfd)
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Oracle} query : SELECT DTN_PUP_PEMBAYARAN_PDS_seq.nextval FROM DUAL - ()
+Nov 27 14:31:50 symfony [info] {Doctrine_Connection_Statement} execute : INSERT INTO DTN_PUP_PEMBAYARAN_PDS (id_pup, bayar_rupiah, bayar_lainnya, sisa_rupiah, sisa_lainnya, tgl_bukti_setor, id) VALUES (?, ?, ?, ?, ?, ?, ?) - (19, 20, 20, 180, 180, 2012/11/28, 35)
+Nov 27 14:31:50 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/updateSuccess.php"
+Nov 27 14:31:50 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:50 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:50 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:31:50 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:31:50 symfony [info] {sfWebDebugLogger} Configuration 0.80 ms (9)
+Nov 27 14:31:50 symfony [info] {sfWebDebugLogger} Factories 3.71 ms (1)
+Nov 27 14:31:50 symfony [info] {sfWebDebugLogger} Action "dntdatun/update" 63.72 ms (1)
+Nov 27 14:31:50 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.03 ms (6)
+Nov 27 14:31:50 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/update" 3.76 ms (1)
+Nov 27 14:31:50 symfony [info] {sfWebResponse} Send content (37797 o)
+Nov 27 14:31:58 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /dntdatun/edit/id/2902/kode_satker/00 with parameters array (  'module' => 'dntdatun',  'action' => 'edit',  'id' => '2902',  'kode_satker' => '00',)
+Nov 27 14:31:58 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Nov 27 14:31:58 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Nov 27 14:31:58 symfony [info] {dntdatunActions} Call "dntdatunActions->executeEdit()"
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} exec : ALTER SESSION SET NLS_DATE_FORMAT = "YYYY-MM-DD HH24:MI:SS" - ()
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} query : SELECT A.ID_TERSANGKA,A.ID_PERKARA,A.PJ_BIAYA,A.DENDA,A.UP_RUPIAH,UP_LAINNYA,B.NAMA,B.ID as ID_TERSANGKA,
+              (SELECT TGL_STR FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1) AS TGL_STR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=1 GROUP BY ID_STR_DNT) AS PJ_BIAYA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=2 GROUP BY ID_STR_DNT) AS DENDA_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=3 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_DIBAYAR,
+              (SELECT SUM(SETOR) FROM PDS_DETAIL_STR WHERE ID_STR_DNT=A.ID AND STATUS=4 GROUP BY ID_STR_DNT) AS UANG_PENGGANTI_LAIN_DIBAYAR
+               FROM PDS_SETOR_DNT A 
+              INNER JOIN PDS_TERSANGKA B ON A.ID_TERSANGKA=B.ID
+              INNER JOIN PDS_PERKARA C ON A.ID_PERKARA=C.ID
+              where (B.PUTUSAN_UPAYA_HUKUM=1 OR B.PUTUSAN_TETAP IN(2,3,4,5))  and A.id_perkara = '2902' order by B.ID asc - ()
+Nov 27 14:31:58 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/modules/dntdatun/templates/editSuccess.php"
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1452' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '18' order by id - ()
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pds
+                where id_tersangka = '1453' and id_perkara = '2902' order by id - ()
+Nov 27 14:31:58 symfony [info] {Doctrine_Connection_Oracle} query : select * from dtn_pup_pembayaran_pds
+                where id_pup = '19' order by id - ()
+Nov 27 14:31:58 symfony [info] {sfPHPView} Decorate content with "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:58 symfony [info] {sfPHPView} Render "/var/www/dnt/apps/dnt/templates/layout.php"
+Nov 27 14:31:58 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Nov 27 14:31:58 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Nov 27 14:31:58 symfony [info] {sfWebDebugLogger} Configuration 0.85 ms (9)
+Nov 27 14:31:58 symfony [info] {sfWebDebugLogger} Factories 4.72 ms (1)
+Nov 27 14:31:58 symfony [info] {sfWebDebugLogger} Action "dntdatun/edit" 55.36 ms (1)
+Nov 27 14:31:58 symfony [info] {sfWebDebugLogger} Database (Doctrine) 0.02 ms (6)
+Nov 27 14:31:58 symfony [info] {sfWebDebugLogger} View "Success" for "dntdatun/edit" 10.97 ms (1)
+Nov 27 14:31:58 symfony [info] {sfWebResponse} Send content (51975 o)
