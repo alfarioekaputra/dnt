@@ -93,7 +93,7 @@
 	
 	/* Table initialisation */
 	$(document).ready(function() {
-		oTablePdm = $('#table_index_pidum').dataTable( {
+		oTable = $('#table_index_pidum').dataTable( {
 			"bProcessing": true,
 			"bServerSide": true,
 			"bFilter":false,
@@ -113,7 +113,7 @@
 					"sPrevious": "Sebelumnya"
 				}
 			},
-			"sAjaxSource": "<?php echo url_for('dntpidum/getdataindexpidum') ?>",
+			"sAjaxSource": "<?php echo url_for('dntdatun/getDataIndexDatun') ?>",
 			
 			"fnServerData": function ( sSource, aoData, fnCallback ) {
 				/* Add some extra data to the sender */
@@ -127,33 +127,11 @@
 					
 				} );
 				
-			},
-			"fnRowCallback": function( nRow, aData, iDisplayIndex,iDisplayIndexFull) {
-
-				$(nRow).children().each(function(index, td) {
-
-					if(index == 4)  {
-
-						if ($(td).html() === "MERAH") {
-							$(td).css("background-color", "#FF0000");
-							$(td).css("color", "#FF0000");
-						} 
-						else if ($(td).html() === "KUNING") {
-							$(td).css("background-color", "#FFFF00");
-							$(td).css("color", "#FFFF00");
-						}                    
-						else if ($(td).html() === "HIJAU") {
-							$(td).css("background-color", "#00FF00");
-							$(td).css("color", "#00FF00");
-						}                    
-					}
-				});                       
-				return nRow;
-			  },
+			}
 		} );
 		$('#tombol_cari_index_pidum').click(function() {
 			// Reload data based on choice
-			oTablePdm.fnReloadAjax();
+			oTable.fnReloadAjax();
 		});
 	} );
 	$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
@@ -195,79 +173,159 @@
 			}
 		} );
 	}
-	
-	function pdmgantiIndexvaluecheckbox(){
-		if ($('#semuasub_indexpidum').attr('checked')) {
-			$('#semuasub_indexpidum').val('1');
-		}
-		else{
-			$('#semuasub_indexpidum').val('0');
-		}
-	}
 </script>
-<!--<form method="post" action="">-->
-	<div class="form-inline">
-		<label class="span1">
-			Kejaksaan
-		</label>
-		&nbsp;
-			<input type="text" class="input-xlarge-edit" name="txt_kejaksaan" id="txt_kejaksaan"><a data-toggle="modal" href="#myModal" data-target="#myModal" class="btn btn-warning" id="popup">...</a><input type="checkbox" name="semuasub_indexpidum" id="semuasub_indexpidum" value="0" onclick="pdmgantiIndexvaluecheckbox()">Semua Sub
-			<input type="hidden"  name="idKejaksaan_IndexPidum" id="idKejaksaan_IndexPidum" value="<?php echo $kode_satker ?>">
-	</div>
-	<div class="form-inline">
-		<label class="span1">
-			Filter
-		</label>
-		&nbsp;
-			<select id="filter_cari_index_pidum" class="span2" name="filter_cari_index_pidum">
-			  <option value="1">No. Perkara</option>
-			  <option value="2">Nama Terdakwa</option>
-			  <option value="3">No. Amar putusan</option>
-			  <option value="4">Tanggal</option>
-			  <option value="5">Tahun</option>
-			  <option value="6">Status</option>
-			</select>
-			<input type="text" id="cari_data_index_pidum" name="cari_data_index_pidum" size="60" />
-			<input type="button" name="tombol_cari_index_pidum" class="btn" id="tombol_cari_index_pidum" value="Cari">
-		</label>
-	</div>
+<form method="post" action="<?php echo url_for('Report/ReportDntPdm') ?>" class="form-horizontal">
+	<label>Kejaksaan <input type="text" class="input-xlarge-edit" name="txt_kejaksaan" id="txt_kejaksaan"><a data-toggle="modal" href="#myModal" data-target="#myModal" class="btn btn-warning">...</a><input name="semua_sub" type="checkbox" value="1">Semua Sub</label>
 	<input type="hidden" name="txt_kejaksaan_id" id="txt_kejaksaan_id" />
-<!--</form>-->
-<a class="btn btn-warning" href="<?php echo url_for('dntpidum/new') ?>">Tambah</a>
-<div>&nbsp;</div>
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped dataTable" id="table_index_pidum" aria-describedby="example_info">
-    <thead style="background: #FAA938 ;">
-      <tr>
-          <th>No. Perkara</th>
-          <th>Nama Terdakwa</th>
-		  <th>No. Amar Putusan</th>
-		  <th>Tanggal</th>
-		  <th>Status</th>
-		  <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-	</tbody>
-    </table>  
+	<label>Tanggal Pembayaran <input type="text" name="tgl_awal" class="span2-edit datepicker"> S/D <input type="text" name="tgl_akhir" class="span2-edit datepicker"></label>
+	<input type="submit" class="btn btn-warning" value="Generate Report"> 
+</form>
 
-<div id="myModal" class="modal large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Barang Bukti</h3>
+    <h3 id="myModalLabel">INSTANSI</h3>
   </div>
   <div class="modal-body">
-    <p>One fine body…</p>
+    <script type="text/javascript">
+ $(function(){
+       
+	  oTable = $('#tabelpilihkejati_pidum').dataTable({
+	    'bProcessing': true,
+	    'bServerSide': true,
+         //"bJQueryUI": true,
+		 "bSort": false,
+	    "sPaginationType": "bootstrap",
+            "sDom": '<"H"lr>t<"F"ip>',
+            "oLanguage": {
+						"sSearch": '',
+						"sLengthMenu": "",
+						"sZeroRecords": "Data tidak ditemukan",
+						"sInfo": "Tampilkan _START_ sampai _END_ baris dari jumlah total _TOTAL_ baris",
+						"sInfoEmpty": "Tampilkan 0 sampai 0 dari 0 jumlah baris",
+						"sInfoFiltered": "(Memfilter dari _MAX_ jumlah baris)",
+						"oPaginate": {
+                					"sFirst": "Awal",
+							"sLast": "Akhir",
+							"sNext": "Berikutnya",
+							"sPrevious": "Sebelumnya"
+            					}
+		
+
+					},
+	    'sAjaxSource': "<?php echo url_for('Report/getDataKejatiPidum') ?>",
+       //    "fnServerData": function ( sSource, aoData, fnCallback ) {
+     // $.getJSON( sSource, [ {"name": "searchnya", "value":$("#searchnya").val()} ], function (json) {
+     //     fnCallback(json)
+   // } );
+//}
+"fnServerData": function ( sSource, aoData, fnCallback ) {
+			/* Add some extra data to the sender */
+			aoData.push( { "name": "pilihanSearchKejati", "value": $("#pilihanSearchKejati").val() } );
+			aoData.push( { "name": "cariKejati", "value": $("#cariKejati").val() } );
+			aoData.push( { "name": "pilihkejatitab", "value": $("#pilihkejatitab").val() } );
+			//aoData.push( { "name": "semuasub", "value": $("#semuasub_indexpidum").val() } );
+			$.getJSON( sSource, aoData, function (json) {
+				/* Do whatever additional processing you want on the callback, then tell DataTables */
+				fnCallback(json)
+				
+			} );
+			
+		}
+
+       
+	 });
+		$('#tombolcarikejati_pidum').click(function() {
+   // Reload data based on choice
+   				oTable.fnReloadAjax();
+			});
+			
+     });
+  $.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+{
+    if ( typeof sNewSource != 'undefined' && sNewSource != null )
+    {
+        oSettings.sAjaxSource = sNewSource;
+    }
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+     
+    oSettings.fnServerData( oSettings.sAjaxSource, [], function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+         
+        /* Got the data - add it to the table */
+       for ( var i=0 ; i<json.aaData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, json.aaData[i] );
+        }
+         
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw( that );
+         
+        if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.fnDraw( false );
+        }
+         
+        that.oApi._fnProcessingDisplay( oSettings, false );
+         
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback != null )
+        {
+            fnCallback( oSettings );
+        }
+    } );
+}
+
+</script>
+<script type="text/javascript">
+	function goPilihKejati(value){
+		var satker = value.split("#");
+		$("#txt_kejaksaan_id").val(satker[0]);
+		$("#txt_kejaksaan").val(satker[1]);
+	}
+</script>
+<div class="form_row"> <label for="kriteria">Filter</label>
+    <select id="pilihanSearchKejati" class="ncus" name="pilihanSearchKejati">
+    	<option value="" selected>Pilih</option>
+        <option value="1" selected>Kode</option>
+        <option value="2">Nama</option>
+    </select>
+    <input align="left" type="text" name="cariKejati" id="cariKejati" >
+    <input type="submit" name="cari" class="btn" id="tombolcarikejati_pidum" value="Cari">
+    <input type="hidden" name="pilihkejatitab" id="pilihkejatitab" value="<?php echo $idkejati; ?>" />
+</div>
+
+<div id="list-kejati">
+<table class="table table-bordered" id="tabelpilihkejati_pidum" cellspacing="1" width="100%">
+  <thead style="background: #b46a01 ;">
+    <tr >
+        <th width="20%" style="text-align: center; color: #FFFFFF;"><font size="2px"> KODE </font></th>
+      <th width="70%" style="text-align: center; color: #FFFFFF;"><font size="2px">SATKER </font></th>
+      <th width="10%" style="text-align: center; color: #FFFFFF;"><font size="2px">PILIH </font></th>
+    </tr>
+  </thead>
+ <tbody>
+  
+  </tbody>
+</table>
+</div>
   </div>
-  <div class="modal-footer">
-    <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
-    <!--<button class="btn btn-primary">Simpan</button>-->
-  </div>
+  
 </div>
 <script type="text/javascript">
-	$("#popup").click(function() {
-        $('.modal-body').load("<?php echo url_for('dntpidum/kejati') ?>");
-		
-    });
-	
+	$(document).ready(function() {
+		  $( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  showOn: "button",
+			  buttonImage: "<?php echo image_path('calendar.gif') ?>",
+			  buttonImageOnly: true,
+			  yearRange: '1910:+0',
+			  dateFormat: 'dd-mm-yy',
+		  });
+	  });
 </script>
-

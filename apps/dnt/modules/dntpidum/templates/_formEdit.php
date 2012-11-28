@@ -92,8 +92,8 @@
           endforeach;
         
           if($datatersangka['PUTUSAN_UPAYA_HUKUM'] == '1'){
-            $NoAmarPutusan = $dataperkara->getNoLimpahPk();
-            $TglPutusan = $dataperkara->getTglPutusanPn();
+            $NoAmarPutusan = $datatersangka['NO_PUTUSAN_PN'];
+            $TglPutusan = $datatersangka['TGL_PUTUSAN_PN'];
           }elseif($datatersangka['PUTUSAN_TETAP'] == '2'){
             $NoAmarPutusan = $banding['NO_PUTUSAN'];
             $TglPutusan = $banding['TGL_PUTUSAN'];
@@ -449,7 +449,20 @@
 </div>
 <hr />
 <legend><b>Barang Rampasan</b></legend>
-<a class="btn btn-warning" data-toggle="modal" href="<?php echo url_for('barangRampasan/edit?id='.$dataperkara->getId()) ?>" data-target="#myModal" onclick=editRampasan("<?php echo $dataperkara->getId() ?>") >Edit</a>
+<?php 
+	foreach(getBarangRampasan($dataperkara->getId()) as $brgRampas):
+	
+	endforeach;
+	
+ ?>
+ <?php 
+	if($brgRampas['IDBB'] == 0){
+		$rampas = 0;
+	}else{
+		$rampas = $brgRampas['IDBB'];
+	}
+ ?>
+<a class="btn btn-warning" data-toggle="modal" href="<?php echo url_for('barangRampasan/edit?id='.$dataperkara->getId()) ?>" data-target="#myModal" onclick=editRampasan("<?php echo $dataperkara->getId() ?>","<?php echo $rampas ?>") >Edit</a>
 <div style="overflow-x:scroll">
   <table class="table">
     <thead>
@@ -511,7 +524,7 @@
   <div id="myModal" class="modal large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Modal header</h3>
+      <h3 id="myModalLabel">Barang Bukti</h3>
     </div>
     <div class="modal-body">
       <p>One fine body…</p>
@@ -539,9 +552,15 @@ $(function () {
         });
   })
   
-  function editRampasan(value)
+  function editRampasan(value, id)
   {
-    $('.modal-body').load("<?php echo url_for("barangRampasan/edit") ?>", {id:value});
+	  alert(id);
+	if(id == 0){
+		$('.modal-body').load("<?php echo url_for('barangRampasan/new') ?>");
+	}else{
+		$('.modal-body').load("<?php echo url_for("barangRampasan/edit") ?>", {id:value});
+	}
+    
   }
 
   var tab_counter = 1;

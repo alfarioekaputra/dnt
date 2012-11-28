@@ -13,7 +13,7 @@
 <div class="tab-content rampasan">
   
 </div>
-
+<input type="submit" value="Simpan" class="btn btn-warning" />
 <!--<ul class="nav nav-tabs" id="tabPenyelesaian">
   <li id="tab_li_proses"><a data-toggle="tab" href="#proses">Proses Lelang</a></li>
   <li id="tab_li_hambatan"><a data-toggle="tab" href="#hambatan">Hambatan Lelang</a></li>

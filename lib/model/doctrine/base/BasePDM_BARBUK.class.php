@@ -75,6 +75,7 @@ abstract class BasePDM_BARBUK extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_BARBUK',
              'length' => 8,
              ));
         $this->hasColumn('id_perkara', 'integer', 8, array(

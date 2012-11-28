@@ -825,7 +825,7 @@ abstract class BasePDM_TERSANGKA extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'length' => 1,
+             'length' => 255,
              ));
 		 $this->hasColumn('tgl_putusan_pn', 'timestamp', 7, array(
 			 'notnull' => false,

@@ -26,12 +26,15 @@
 				  </li>
 				  <li>
 					<a href="#">Denda Non Tilang Pidsus</a>
-					<ul>
-					  <li><a href="#">Lelang Barang Rampasan</a></li>
-					</ul>
 				  </li>
 				  <li>
 					<a href="<?php echo url_for('dntdatun/index') ?>">Denda Non Tilang Datun</a>
+				  </li>
+				  <li>
+					<a href="#">Laporan</a>
+					<ul>
+					  <li><a href="<?php echo url_for('Report/index') ?>">Hasil Dinas Pidum</a></li>
+					</ul>
 				  </li>
 				</ul>
 			  </div>

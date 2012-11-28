@@ -90,6 +90,7 @@ abstract class BasePDM_BARBUK_LELANG extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
+             'sequence' => 'PDM_BARBUK_LELANG',
              'length' => 8,
              ));
         $this->hasColumn('id_barbuk', 'integer', 8, array(
