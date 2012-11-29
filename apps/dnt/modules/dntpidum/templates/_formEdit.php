@@ -979,7 +979,7 @@ $(function () {
         var randomnumber=parseInt(noterakhir)+1;
     }else{
         var noterakhir=$("#hdnpembayaran"+value).val();
-        var randomnumber=parseInt(noterakhir)+1;
+        var randomnumber=parseInt(noterakhir);
     }
     $("#hdnpembayaran"+value).val(randomnumber);
     
