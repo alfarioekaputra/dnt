@@ -22,36 +22,28 @@ class dntpidumActions extends sfActions
   
   public function executeGetdataindexpidum(sfWebRequest $request){
     $this->getResponse()->setContentType('application/json');
-    
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Fungsi');
     $searchnya = $request->getParameter('searchnya');
     $filter = $request->getParameter('filter');
     $kejati = $request->getParameter('kejati');
     $semuasub = $request->getParameter('semuasub');
     
     $conn = Doctrine_Manager::connection();
-    $query = "SELECT C.INST_SATKERKD,ID_PERKARA ID_PERKARA, ID_INSTANSI,NOMOR_PERKARA,NO_TGL_PUTUSAN,
-                CASE WHEN NVL(JUMLAH_DENDA,0)<NVL(DENDA,0) THEN 'KUNING'
-                 WHEN NVL(JUMLAH_DENDA,0)=NVL(DENDA,0) AND JUMLAH_DENDA IS NOT NULL THEN 'HIJAU'
-                 WHEN NVL(JUMLAH_DENDA,0)=0 THEN 'MERAH'
-              END STATUS FROM (
-            SELECT A.ID_PERKARA ID_PERKARA,NOMOR_PERKARA,NO_TGL_PUTUSAN,B.ID,INST_SATKERKD,
-            (SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=B.ID AND STATUS=2 GROUP BY ID_STR_DNT) JUMLAH_DENDA,B.DENDA,ID_INSTANSI
-              FROM PDM_PERKARA
-              INNER JOIN (SELECT ID_PERKARA, NAMA, WM_CONCAT(NO#TGL_PUTUSAN) NO_TGL_PUTUSAN FROM (
-              SELECT ID_PERKARA,NAMA,
-              CASE     WHEN PUTUSAN_UPAYA_HUKUM=1 THEN (SELECT TO_CHAR(TGL_PUTUSAN_PN) FROM PDM_PERKARA WHERE ID=PDM_TERSANGKA.ID_PERKARA)
-                       WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                       WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_PK WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
-                       END NO#TGL_PUTUSAN
-              FROM PDM_TERSANGKA
-              WHERE PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)
-              )B 
-              GROUP BY ID_PERKARA,NAMA) A ON A.ID_PERKARA=PDM_PERKARA.ID
-              LEFT JOIN PDM_SETOR_DNT B ON B.ID_PERKARA=PDM_PERKARA.ID)C
-              LEFT JOIN KP_INST_SATKER D ON C.INST_SATKERKD=D.INST_SATKERKD
-              WHERE 1=1";
+    $query = "SELECT A.NOMOR_PERKARA
+                ,B.*
+                FROM 
+                PDM_PERKARA A LEFT JOIN (
+                SELECT ID_PERKARA,DENDA,JUMLAH_DENDA,CASE WHEN NVL(JUMLAH_DENDA,0)<NVL(DENDA,0) THEN 'KUNING'
+                                WHEN NVL(JUMLAH_DENDA,0)=NVL(DENDA,0) AND JUMLAH_DENDA IS NOT NULL THEN 'HIJAU'
+                                WHEN NVL(JUMLAH_DENDA,0)=0 THEN 'MERAH'
+                             END STATUS FROM (
+                           SELECT ID_PERKARA,SUM(DENDA) DENDA,SUM(SETOR) JUMLAH_DENDA 
+                           FROM (
+                           SELECT ID_PERKARA,ID_TERSANGKA,DENDA,ID,(SELECT SUM(SETOR) FROM PDM_DETAIL_STR WHERE ID_STR_DNT=PDM_SETOR_DNT.ID GROUP BY ID_STR_DNT) SETOR 
+                           FROM PDM_SETOR_DNT) GROUP BY ID_PERKARA) A ) B ON A.ID = B.ID_PERKARA
+                           LEFT JOIN PDM_TERSANGKA C ON A.ID = B.ID_PERKARA
+                           WHERE (C.PUTUSAN_UPAYA_HUKUM = 1 OR C.PUTUSAN_TETAP IN (2,3,4,5))";
+                           
     
     
     if (!empty($kejati)) {
@@ -59,13 +51,13 @@ class dntpidumActions extends sfActions
           if ($kejati == "00") {
               $query .="";
           } else {
-              $query .=" AND (C.inst_satkerkd like '" . $kejati . "%' OR id_instansi like '" . $kejati . "%')";
+              $query .=" AND (A.inst_satkerkd like '" . $kejati . "%' OR A.id_instansi like '" . $kejati . "%')";
           }
       } else {
-          $query .=" AND (C.inst_satkerkd = '" . $kejati . "' or id_instansi = '" . $kejati . "')";
+          $query .=" AND (A.inst_satkerkd = '" . $kejati . "' or A.id_instansi = '" . $kejati . "')";
       }
     } else {
-        $query .=" AND (C.inst_satkerkd like '" . $_COOKIE['kd_satker'] . "' OR id_instansi like '" . $_COOKIE['kd_satker'] . "')";
+        $query .=" AND (A.inst_satkerkd like '" . $_COOKIE['kd_satker'] . "' OR A.id_instansi like '" . $_COOKIE['kd_satker'] . "')";
     }
   
     if ($filter == "2") {
@@ -73,6 +65,8 @@ class dntpidumActions extends sfActions
             $query .=" AND NAMA like upper('%" . $searchnya . "%')";
         }
     }
+    
+    $query .= "GROUP BY B.ID_PERKARA,A.NOMOR_PERKARA,B.DENDA,B.JUMLAH_DENDA,B.STATUS";
     /*if ($filter == "1") {
         if (!empty($searchnya)) {
             $query .=" AND upper(a.NOMOR_PERKARA) LIKE upper('%" . $searchnya . "%')";
@@ -116,17 +110,19 @@ class dntpidumActions extends sfActions
     $first = 0;
     
     foreach($pager->getResults() as $v){
-      $no_tgl_putusan = explode("#",$v['NO_TGL_PUTUSAN']);
+      
       //echo $no_tgl_putusan[0];
 
-      $query_tersangka = "select * from(
-            select wm_concat(IDENTITAS) IDENTITAS from (
-            SELECT ID_PERKARA,NAMA||' #'|| 
-            TO_CHAR (TGL_LAHIR, 'dd-mm-yyyy' )|| ' #'|| 
-            DECODE (JKL, 2, 'Perempuan', 1, 'Laki-laki', '-')||' #'||ALAMAT IDENTITAS
-            FROM PDM_TERSANGKA
-            WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and id_perkara = '".$v['ID_PERKARA']."'
-            )GROUP BY ID_PERKARA) where 1=1";
+      $query_tersangka = "
+            SELECT ID_PERKARA,NAMA,
+              CASE     WHEN PUTUSAN_UPAYA_HUKUM=1 THEN NO_PUTUSAN_PN||'#'||TGL_PUTUSAN_PN
+                       WHEN PUTUSAN_TETAP=2 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_BANDING WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=3 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_KASASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=4 THEN (SELECT NO_PUTUSAN||'#'||TGL_PUTUSAN FROM PDM_UPAYA_PK WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       WHEN PUTUSAN_TETAP=5 THEN (SELECT NO_GRASI||'#'||TGL_GRASI FROM PDM_UPAYA_GRASI WHERE ID_TERSANGKA=PDM_TERSANGKA.ID)
+                       END NO#TGL_PUTUSAN
+              FROM PDM_TERSANGKA
+              WHERE (PUTUSAN_UPAYA_HUKUM=1 OR PUTUSAN_TETAP IN(2,3,4,5)) and ID_PERKARA = '".$v['ID_PERKARA']."'";
       
       
         
@@ -134,17 +130,15 @@ class dntpidumActions extends sfActions
         $statement_tersangka->execute();
         $tersangka = $statement_tersangka->fetchAll();
         
-        if($v['STATUS'] == 'MERAH'){
-          
-        }
+       $no_tgl_putusan = explode("#",$tersangka[0]['NO#TGL_PUTUSAN']);
         
       if($first++)
         $json .= ',';
         $json .= '[
           "'.$v['NOMOR_PERKARA'].'",
-          "'.$tersangka[0]['IDENTITAS'].'",
+          "'.$tersangka[0]['NAMA'].'",
           "'.$no_tgl_putusan[0].'",
-          "'.$no_tgl_putusan[1].'",
+          "'.getTanggal($no_tgl_putusan[1]).'",
           "'.$v['STATUS'].'",';
         $json .= '"<center><a class=\"btn btn-info\" href=\"' . sfContext::getInstance()->getController()->genUrl('dntpidum/edit?id=' . $v['ID_PERKARA'] . '&kode_satker=' . $v['INST_SATKERKD'], true) . '\">Edit</a></center>"]';
         
