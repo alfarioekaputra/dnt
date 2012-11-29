@@ -81,9 +81,10 @@
 							</tr>
 						</thead>
 						<tbody>
+                                                    <?php $s = 1;  ?>
 							<?php foreach(getDtnPembayaran($pup['ID']) as $dtnPembayaran): ?>
-							<?php $s = 1;  ?>
-							<input type="hidden" name="hdnpembayaran" id="hdnpembayaran<?php echo $m ?>" value="<?php echo $s ?>">
+							
+							
 							<input type="hidden" name="id_pembayaran" value="<?php echo $dtnPembayaran['ID'] ?>">
 							<tr id="datatr<?php echo $m ?>_<?php echo $s ?>">
 								<td>
@@ -116,6 +117,7 @@
 								</td>
 							</tr>
 							<?php $s++; endforeach;?>
+                                                        <input type="hidden" name="hdnpembayaran" id="hdnpembayaran<?php echo $m ?>" value="<?php echo $s-1 ?>">
 						</tbody>
 					</table>
 				</div>
@@ -153,6 +155,7 @@
 		}else{
 			var noterakhir=$("#hdnpembayaran"+value).val();
 			var randomnumber=parseInt(noterakhir)+1;
+                        alert(randomnumber);
 		}
 		
 		$("#hdnpembayaran"+value).val(randomnumber);
