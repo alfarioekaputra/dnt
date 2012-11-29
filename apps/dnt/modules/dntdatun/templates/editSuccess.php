@@ -155,7 +155,6 @@
 		}else{
 			var noterakhir=$("#hdnpembayaran"+value).val();
 			var randomnumber=parseInt(noterakhir)+1;
-                        alert(randomnumber);
 		}
 		
 		$("#hdnpembayaran"+value).val(randomnumber);

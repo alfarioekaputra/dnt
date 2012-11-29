@@ -299,6 +299,6 @@ class dntdatunActions extends sfActions
            }
         }
       }
-      //$this->redirect('dntdatun/edit?id='.$request->getParameter('id_perkara').'&kode_satker=00');
+      $this->redirect('dntdatun/edit?id='.$request->getParameter('id_perkara').'&kode_satker=00');
    }
 }

@@ -191,7 +191,6 @@
 			<button class="btn">Cari</button>
 	</label>
 </form>
-<a class="btn btn-warning" href="<?php echo url_for('barangRampasan/new') ?>">Tambah</a>
 <div>&nbsp;</div>
 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped dataTable" id="table_index_pidum" aria-describedby="example_info">
     <thead style="background: #FAA938 ;">
